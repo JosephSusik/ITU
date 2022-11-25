@@ -1,3 +1,2 @@
-# ITU project
-
-### npm start
+# ITU PROJECT
+### Bazar květin
