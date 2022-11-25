@@ -1,9 +1,10 @@
 from django.shortcuts import render
-from django.http import HttpResponse, Http404
+from django.http import HttpResponse, Http404, HttpResponseBadRequest
 from .models import *
 from itertools import chain
 from django.core import serializers
 import json
+from django.db.models import Q
 
 # Create your views here.
 
@@ -11,13 +12,48 @@ import json
 def viewListings(request):
 
     if request.method == 'GET':
-        listings = Listing.objects.all()
-        response = serializers.serialize('json', listings)
+        listings = Listing.objects
+
+        if request.GET.__contains__('search'):
+            listings = listings.filter(Q(title__icontains=request.GET.get('search')) | Q(
+                description__icontains=request.GET.get('search')))
+        if request.GET.__contains__('loc'):
+            listings = listings.filter(
+                locationName__icontains=request.GET.get('loc'))
+        if request.GET.__contains__('zip'):
+            listings = listings.filter(
+                locationZip=request.GET.get('zip'))
+        if request.GET.__contains__('diff'):
+            listings = listings.filter(
+                difficulty=request.GET.get('diff'))
+        if request.GET.__contains__('ttype'):
+            listings = listings.filter(
+                trade_type=request.GET.get('ttype'))
+        if request.GET.__contains__('height'):
+            listings = listings.filter(
+                size=request.GET.get('height'))
+        if request.GET.__contains__('maxprice'):
+            listings = listings.filter(
+                price__lte = request.GET.get('maxprice'))
+        if request.GET.__contains__('minprice'):
+            listings = listings.filter(
+                price__gte = request.GET.get('minprice'))
+        if request.GET.__contains__('ptype'):
+            listings = listings.filter(
+                plantType=request.GET.get('ptype'))
+        if request.GET.__contains__('cat'):
+            listings = listings.filter(
+                category_id=request.GET.get('cat'))
+        if request.GET.__contains__('auth'):
+            listings = listings.filter(
+                author_id=request.GET.get('auth'))
+
+        response = serializers.serialize('json', listings.all())
         return HttpResponse(response, content_type='text/json')
-    elif request.method == 'POST':
+    if request.method == 'POST':
         for des_object in serializers.deserialize('json', request.body):
             des_object.object.save()
-            return HttpResponse(json.dumps({'Success' : des_object.object.id}), content_type = 'text/json')
+            return HttpResponse(json.dumps({'Success': 'Object created', 'id': des_object.object.id}), content_type='text/json')
         # payload = json.loads(request.body)
         # listing = Listing()
         # listing.title = payload['title']
@@ -33,38 +69,33 @@ def viewListings(request):
         # listing.save()
         # return HttpResponse(json.dumps({'Success' : listing.id}), content_type = 'text/json')
 
+
 def listing(request, id):
-    listing = Listing.objects.filter(id = id).all()
-    
-    if not listing:
+    listings = Listing.objects.filter(id=id).all()
+    if not listings:
         return Http404()
 
     if request.method == 'GET':
         comments = Comment.objects.select_related('listing').all()
-        combined = list(chain(listing, comments))
+        combined = list(chain(listings, comments))
         response = serializers.serialize('json', combined)
         return HttpResponse(response, content_type='text/json')
     if request.method == 'PUT':
-        # for des_object in serializers.deserialize('json', request.body):
-        #     des_object.save()
-        #     return HttpResponse(json.dumps({'id' : des_object.id}), content_type = 'text/json')
-        listing = Listing.objects.filter(id = id).first()
-        payload = json.loads(request.body)
-        listing.title = payload['title']
-        listing.description = payload['description']
-        listing.category_id = payload['category']
-        listing.author_id = payload['author']
-        listing.difficulty = payload['difficulty']
-        if 'price' in payload:
-            listing.price = payload['price']
-        listing.plantType = payload['plantType']
-        listing.size = payload['size']
-        listing.tradeType = payload['tradeType']
-        listing.save()
-        return HttpResponse(json.dumps({'success' : listing.id}), content_type = 'text/json')
+        for des_object in serializers.deserialize('json', request.body):
+            des_object.object.id = id
+            des_object.object.save()
+            return HttpResponse(json.dumps({'Success': 'Listing updated', 'id': des_object.object.id}), content_type='text/json')
     if request.method == 'DELETE':
-        listing.delete()
-        return HttpResponse(json.dumps({'success' : 'Object deleted'}), content_type = 'text/json')
+        listings.first().delete()
+        return HttpResponse(json.dumps({'success': 'Object deleted', 'id': id}), content_type='text/json')
+    if request.method == 'POST':
+        for des_object in serializers.deserialize('json', request.body):
+            if des_object.model != 'zelenyBazar.comment':
+                return HttpResponseBadRequest()
+            des_object.object.listing_id = id
+            des_object.object.save()
+            return HttpResponse(json.dumps({'Success': 'Comment added.', 'id': des_object.object.id}), content_type='text/json')
+
 
 def seedData(request):
 
@@ -89,6 +120,8 @@ def seedData(request):
     listing.plantType = PlantTypeChoices.ALIVE_PLANT
     listing.author = marek
     listing.category = cat
+    listing.locationName = 'Brno'
+    listing.locationZip = '61600'
     listing.save()
 
     comment = Comment()
@@ -103,10 +136,61 @@ def seedData(request):
     comment2.listing = listing
     comment2.save()
 
-    
-
-    return HttpResponse(json.dumps({ 'Success' : 'Seed successful'}),content_type = 'text/json' )
-    
+    return HttpResponse(json.dumps({'Success': 'Seed successful'}), content_type='text/json')
 
 
+def viewUsers(request):
+    if request.method == 'GET':
+        response = serializers.serialize('json', User.objects.all())
+        return HttpResponse(response, content_type='text/json')
+    if request.method == 'POST':
+        for des_user in serializers.deserialize('json', request.body):
+            des_user.object.save()
+            return HttpResponse(json.dumps({'Success': 'User created', 'id': des_user.object.id}), content_type='text/json')
+
+def viewUser(request,id):
+    user = User.objects.get(id=id)
+    if not user:
+        return Http404()
+
+    if request.method == 'GET':
+        response = serializers.serialize('json', user)
+        return HttpResponse(response, content_type='text/json')
+    if request.method == 'PUT':
+        for des_object in serializers.deserialize('json', request.body):
+            des_object.object.id = id
+            des_object.object.save()
+            return HttpResponse(json.dumps({'Success': 'User updated', 'id': des_object.object.id}), content_type='text/json')
+    if request.method == 'DELETE':
+        user.delete()
+        return HttpResponse(json.dumps({'success': 'User deleted', 'id': id}), content_type='text/json')
+    if request.method == 'POST':
+        for des_object in serializers.deserialize('json', request.body):
+            if des_object.model != 'zelenyBazar.rating':
+                return HttpResponseBadRequest()
+            des_object.object.ratee_id = id
+            des_object.object.save()
+            return HttpResponse(json.dumps({'Success': 'Rating added.', 'id': des_object.object.id}), content_type='text/json')
+
+def commentDelete(request, id):
+    comment = Comment.objects.get(id=id)
+    if not comment:
+        return Http404()
+
+    if request.method == 'DELETE':
+        comment.delete()
+        return HttpResponse(json.dumps({'Success': 'Comment deleted.', 'id': id}), content_type='text/json')
+
+    return HttpResponseBadRequest()
+
+def ratingDelete(request, id):
+    rating = Rating.objects.get(id=id)
+    if not rating:
+        return Http404()
+
+    if request.method == 'DELETE':
+        rating.delete()
+        return HttpResponse(json.dumps({'Success': 'Rating deleted.', 'id': id}), content_type='text/json')
+
+    return HttpResponseBadRequest()
 
