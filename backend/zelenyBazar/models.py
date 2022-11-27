@@ -101,6 +101,9 @@ class Comment(models.Model):
     parentComment = models.ForeignKey('self', on_delete=models.CASCADE, null=True, blank=True)
     listing = models.ForeignKey(Listing, on_delete=models.CASCADE, null=True)
 
+    class Meta:
+        managed = True
+
 
 
 
@@ -119,6 +122,9 @@ class Image(models.Model):
     path = models.CharField(max_length=100)
 
     listing =  models.ForeignKey(Listing, on_delete=models.CASCADE, null=False)
+
+    class Meta:
+        managed = True
 
 class ListingFacade:
     def __init__(self, listing: Listing, comments: List[Comment] ):
