@@ -85,7 +85,7 @@ def viewListings(request):
 def listing(request, id):
     listings = Listing.objects.filter(id=id).all()
     if not listings:
-        return Http404()
+        return Http404(json.dumps({'Error': 'Listing with specified ID not found'}), content_type='text/json')
 
     if request.method == 'GET':
         comments = Comment.objects.select_related('listing').all()
@@ -170,7 +170,7 @@ def viewUsers(request):
 def viewUser(request,id):
     user = User.objects.get(id=id)
     if not user:
-        return Http404()
+        return Http404(json.dumps({'Error': 'User with specified ID not found'}), content_type='text/json')
 
     if request.method == 'GET':
         response = serializers.serialize('json', user)
@@ -194,7 +194,7 @@ def viewUser(request,id):
 def commentDelete(request, id):
     comment = Comment.objects.get(id=id)
     if not comment:
-        return Http404()
+        return Http404(json.dumps({'Error': 'Comment with specified ID not found'}), content_type='text/json')
 
     if request.method == 'DELETE':
         comment.delete()
@@ -205,7 +205,7 @@ def commentDelete(request, id):
 def ratingDelete(request, id):
     rating = Rating.objects.get(id=id)
     if not rating:
-        return Http404( )
+        return Http404(json.dumps({'Error': 'Rating with specified ID not found'}), content_type='text/json')
 
     if request.method == 'DELETE':
         rating.delete()
