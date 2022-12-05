@@ -1,8 +1,9 @@
 import axios from "axios";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 
 function HomePage() {
 
+    const [item, setItem] = useState();
 
     useEffect(() => {
 
@@ -10,6 +11,7 @@ function HomePage() {
         .get('http://localhost:8000/listings/', )
         .then(function(response) {
             console.log("Response: " + response);
+            setItem(response.data);
         })
         .catch(function(error) {
             console.log("ERROR: " + error);
@@ -22,6 +24,7 @@ function HomePage() {
     return(
         <div>
             <p>Homepage</p>
+            {JSON.stringify(item)}
         </div>
     );
 }
