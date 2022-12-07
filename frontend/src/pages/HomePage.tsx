@@ -1,30 +1,42 @@
-import axios from "axios";
 import React, { useEffect, useState } from "react";
 
 function HomePage() {
 
-    const [item, setItem] = useState();
+    var [items, setItem]:any = useState([]);
+    var [loading, setLoading]:any = useState(1);
 
+    const handleFetchData = async () => {
+        const response = await fetch('http://localhost:8000/listings/');
+        const data = await response.json();
+        console.log(data);
+        setItem(data);
+    }
+    
     useEffect(() => {
-
-        axios
-        .get('http://localhost:8000/listings/', )
-        .then(function(response) {
-            console.log("Response: " + response);
-            setItem(response.data);
-        })
-        .catch(function(error) {
-            console.log("ERROR: " + error);
-        })
-
-
-    })
-
+        handleFetchData();
+        setLoading(0);
+    },[])
 
     return(
         <div>
             <p>Homepage</p>
-            {JSON.stringify(item)}
+            {loading?
+                <>
+                <p>loading</p>
+                </>
+            :
+            <>
+            <pre>{JSON.stringify(items, null, 2)}</pre>
+            {
+                items.map((item:any, i:any) =>
+                    <div key={item}>
+                        <h1>{item.fields.title}</h1>
+                        <h3>{item.fields.description}</h3>
+                    </div>
+                )
+            }
+            </>
+            }
         </div>
     );
 }
