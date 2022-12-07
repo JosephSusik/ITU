@@ -18,7 +18,7 @@ function HomePage() {
     },[])
 
     return(
-        <div>
+        <div className="format">
             <p>Homepage</p>
             {loading?
                 <>

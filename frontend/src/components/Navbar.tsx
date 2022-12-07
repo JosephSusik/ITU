@@ -8,12 +8,16 @@ function Navbar() {
             <div className="navbar">
             <div className="navbar_left">
                 <li>
-                    <Link to="/" className="link">Homepage</Link>
+                    <Link to="/" className="link">PAGENAME</Link>
                 </li>
+            </div>
+            <div className="navbar_mid">
+                <input type="text" className="navbar_search"></input>
+                <button className="navbar_button">Hledat</button>
             </div>
             <div className="navbar_right">
                 <li>
-                    <Link to="/profile" className="link">profile</Link>
+                    <Link to="/profile" className="link">PROFILE</Link>
                 </li>
             </div>
         </div>
