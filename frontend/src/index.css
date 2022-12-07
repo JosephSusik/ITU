@@ -62,6 +62,7 @@
 }
 
 .format {
+  border: 1px dotted red;
   margin-left: 7vw;
   margin-right: 7vw;
 }
