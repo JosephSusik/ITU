@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 
 function HomePage() {
 
@@ -28,16 +29,17 @@ function HomePage() {
             <>
             <pre>{JSON.stringify(items, null, 2)}</pre>
             {
-                items.map((item:any, i:any) =>
-                    <div key={item}>
+                items.map((item:any) =>
+                    <div key={item.pk}>
                         <h1>{item.fields.title}</h1>
                         <h3>{item.fields.description}</h3>
+                        <Link to={"/product/" + item.pk} >{item.fields.title}</Link>
                     </div>
                 )
             }
             </>
             }
-            <img src="./img/1/1.jpg" alt="" className="img"/>
+            <img src="./img/1/1.jpg" alt="" className="img"/>            
         </div>
     );
 }
