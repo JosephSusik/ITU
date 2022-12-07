@@ -37,6 +37,7 @@ function HomePage() {
             }
             </>
             }
+            <img src="./img/1/1.jpg" alt="" className="img"/>
         </div>
     );
 }
