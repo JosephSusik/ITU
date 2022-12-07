@@ -51,9 +51,21 @@ def viewListings(request):
         response = serializers.serialize('json', listings.all())
         return HttpResponse(response, content_type='text/json')
     if request.method == 'POST':
+        listing_object = None
         for des_object in serializers.deserialize('json', request.body):
-            des_object.object.save()
-            return HttpResponse(json.dumps({'Success': 'Object created', 'id': des_object.object.id}), content_type='text/json')
+            if des_object.object._meta.model_name =='listing':
+                if listing_object:
+                    return HttpResponseBadRequest(json.dumps({'Error' : 'Cannot upload two listings at once'}), content_type='text/json')
+                des_object.object.save()
+                listing_object = des_object.object
+            elif des_object.object._meta.model_name == 'image':
+                if not listing_object and not des_object.objec.listing_id:
+                    return HttpResponseBadRequest(json.dumps({'Error' : 'Cannot upload image without listing'}), content_type='text/json')
+                des_object.object.listing_id = listing_object.id
+                des_object.object.save()
+            else:
+                return HttpResponseBadRequest(json.dumps({'Error' : 'Cannot upload anythin else than listing or image'}), content_type='text/json')
+            return HttpResponse(json.dumps({'Success': 'Object created', 'id': listing_object.id}), content_type='text/json')
         # payload = json.loads(request.body)
         # listing = Listing()
         # listing.title = payload['title']
@@ -73,11 +85,13 @@ def viewListings(request):
 def listing(request, id):
     listings = Listing.objects.filter(id=id).all()
     if not listings:
-        return Http404()
+        return Http404(json.dumps({'Error': 'Listing with specified ID not found'}), content_type='text/json')
 
     if request.method == 'GET':
         comments = Comment.objects.select_related('listing').all()
-        combined = list(chain(listings, comments))
+        images = Image.objects.select_related('listing').all()
+        combined = list(chain(listings, images))
+        combined = list(chain(combined, comments))
         response = serializers.serialize('json', combined)
         return HttpResponse(response, content_type='text/json')
     if request.method == 'PUT':
@@ -90,8 +104,8 @@ def listing(request, id):
         return HttpResponse(json.dumps({'success': 'Object deleted', 'id': id}), content_type='text/json')
     if request.method == 'POST':
         for des_object in serializers.deserialize('json', request.body):
-            if des_object.model != 'zelenyBazar.comment':
-                return HttpResponseBadRequest()
+            if des_object.object._meta.model_name != 'comment':
+                return HttpResponseBadRequest(json.dumps({'Error' : 'Only comments can be uploaded via POST'}), content_type='text/json')
             des_object.object.listing_id = id
             des_object.object.save()
             return HttpResponse(json.dumps({'Success': 'Comment added.', 'id': des_object.object.id}), content_type='text/json')
@@ -136,6 +150,11 @@ def seedData(request):
     comment2.listing = listing
     comment2.save()
 
+    image = Image()
+    image.path = 'PATH'
+    image.listing = listing
+    image.save()
+
     return HttpResponse(json.dumps({'Success': 'Seed successful'}), content_type='text/json')
 
 
@@ -151,7 +170,7 @@ def viewUsers(request):
 def viewUser(request,id):
     user = User.objects.get(id=id)
     if not user:
-        return Http404()
+        return Http404(json.dumps({'Error': 'User with specified ID not found'}), content_type='text/json')
 
     if request.method == 'GET':
         response = serializers.serialize('json', user)
@@ -167,7 +186,7 @@ def viewUser(request,id):
     if request.method == 'POST':
         for des_object in serializers.deserialize('json', request.body):
             if des_object.model != 'zelenyBazar.rating':
-                return HttpResponseBadRequest()
+                return HttpResponseBadRequest(json.dumps({'Error' : 'Only ratings can be uploaded via POST'}), content_type='text/json')
             des_object.object.ratee_id = id
             des_object.object.save()
             return HttpResponse(json.dumps({'Success': 'Rating added.', 'id': des_object.object.id}), content_type='text/json')
@@ -175,22 +194,22 @@ def viewUser(request,id):
 def commentDelete(request, id):
     comment = Comment.objects.get(id=id)
     if not comment:
-        return Http404()
+        return Http404(json.dumps({'Error': 'Comment with specified ID not found'}), content_type='text/json')
 
     if request.method == 'DELETE':
         comment.delete()
         return HttpResponse(json.dumps({'Success': 'Comment deleted.', 'id': id}), content_type='text/json')
 
-    return HttpResponseBadRequest()
+    return HttpResponseBadRequest(json.dumps({'Error' : 'No other methods supported'}), content_type='text/json')
 
 def ratingDelete(request, id):
     rating = Rating.objects.get(id=id)
     if not rating:
-        return Http404()
+        return Http404(json.dumps({'Error': 'Rating with specified ID not found'}), content_type='text/json')
 
     if request.method == 'DELETE':
         rating.delete()
         return HttpResponse(json.dumps({'Success': 'Rating deleted.', 'id': id}), content_type='text/json')
 
-    return HttpResponseBadRequest()
+    return HttpResponseBadRequest(json.dumps({'Error' : 'No other methods supported'}), content_type='text/json')
 
