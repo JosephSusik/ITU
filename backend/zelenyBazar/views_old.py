@@ -7,6 +7,8 @@ from django.db.models import Q
 
 # Create your views here.
 
+#TODO: What to return in these cases? is message good enough?
+
 
 def viewListings(request):
 
@@ -51,38 +53,58 @@ def viewListings(request):
         return HttpResponse(response, content_type='text/json')
     if request.method == 'POST':
         listing_object = None
-        for des_object in serializers.deserialize('json', request.body):
-            if des_object.object._meta.model_name =='listing':
-                if listing_object:
-                    return HttpResponseBadRequest(json.dumps({'Error' : 'Cannot upload two listings at once'}), content_type='text/json')
-                des_object.object.save()
-                listing_object = des_object.object
-            elif des_object.object._meta.model_name == 'image':
-                if not listing_object and not des_object.objec.listing_id:
-                    return HttpResponseBadRequest(json.dumps({'Error' : 'Cannot upload image without listing'}), content_type='text/json')
-                des_object.object.listing_id = listing_object.id
-                des_object.object.save()
-            else:
-                return HttpResponseBadRequest(json.dumps({'Error' : 'Cannot upload anythin else than listing or image'}), content_type='text/json')
-            return HttpResponse(json.dumps({'Success': 'Object created', 'id': listing_object.id}), content_type='text/json')
-        # payload = json.loads(request.body)
-        # listing = Listing()
-        # listing.title = payload['title']
-        # listing.description = payload['description']
-        # listing.category_id = payload['category']
-        # listing.author_id = payload['author']
-        # listing.difficulty = payload['difficulty']
-        # if 'price' in payload:
-        #     listing.price = payload['price']
-        # listing.plantType = payload['plantType']
-        # listing.size = payload['size']
-        # listing.tradeType = payload['tradeType']
-        # listing.save()
-        # return HttpResponse(json.dumps({'Success' : listing.id}), content_type = 'text/json')
+        # for des_object in serializers.deserialize('json', request.body):
+        #     if des_object.object._meta.model_name =='listing':
+        #         if listing_object:
+        #             return HttpResponseBadRequest(json.dumps({'Error' : 'Cannot upload two listings at once'}), content_type='text/json')
+        #         des_object.object.save()
+        #         listing_object = des_object.object
+        #     elif des_object.object._meta.model_name == 'image':
+        #         if not listing_object and not des_object.objec.listing_id:
+        #             return HttpResponseBadRequest(json.dumps({'Error' : 'Cannot upload image without listing'}), content_type='text/json')
+        #         des_object.object.listing_id = listing_object.id
+        #         des_object.object.save()
+        #     else:
+        #         return HttpResponseBadRequest(json.dumps({'Error' : 'Cannot upload anythin else than listing or image'}), content_type='text/json')
+        #     return HttpResponse(json.dumps({'Success': 'Object created', 'id': listing_object.id}), content_type='text/json')
+
+        payload = json.loads(request.body)
+        if not ( payload.keys() >= {'title', 'description' , 'category' , 'author', 'difficulty', 'plantType', 'size', 'tradeType'}):
+            return HttpResponse(json.dumps({'Error' : 'Listing has missing fields'}), content_type = 'text/json')
+        listing = Listing()
+        listing.title = payload['title']
+        listing.description = payload['description']
+        listing.category_id = payload['category']
+        listing.author_id = payload['author']
+        listing.difficulty = payload['difficulty']
+        if 'price' in payload:
+            listing.price = payload['price']
+        listing.plantType = payload['plantType']
+        listing.size = payload['size']
+        listing.tradeType = payload['tradeType']
+        listing.save()
+        for imagePath in payload['images']:
+            image = Image()
+            image.path = imagePath
+            image.listing = listing
+            image.save()
+        return HttpResponse(json.dumps({'Success' : listing.id}), content_type = 'text/json')
+    if request.method == 'PUT':
+        payload = request.body()
+
+        if 'favoriteId' in payload:
+            listing = Listing.object.filter(id=payload['favoriteId']).all().first()
+            listing.isFavorite = not listing.isFavorite
+            listing.save()
+            return HttpResponse(json.dumps({'Success' : listing.id, 'Listing set to' : 'Favorite' if listing.isFavorite else 'Not favorite' }), content_type = 'text/json')
+
+
+        
 
 
 def listing(request, id):
     listings = Listing.objects.filter(id=id).all()
+    listing = listings.first()
     if not listings:
         return Http404(json.dumps({'Error': 'Listing with specified ID not found'}), content_type='text/json')
 
@@ -94,20 +116,47 @@ def listing(request, id):
         response = serializers.serialize('json', combined)
         return HttpResponse(response, content_type='text/json')
     if request.method == 'PUT':
-        for des_object in serializers.deserialize('json', request.body):
-            des_object.object.id = id
-            des_object.object.save()
-            return HttpResponse(json.dumps({'Success': 'Listing updated', 'id': des_object.object.id}), content_type='text/json')
+        
+
+        payload = request.body()
+
+        
+        listing.title = payload['title']
+        listing.description = payload['description']
+        listing.category_id = payload['category']
+        listing.author_id = payload['author']
+        listing.difficulty = payload['difficulty']
+        if 'price' in payload:
+            listing.price = payload['price']
+        listing.plantType = payload['plantType']
+        listing.size = payload['size']
+        listing.tradeType = payload['tradeType']
+        listing.save()
+        #TODO: IMAGES change?
+        # for des_object in serializers.deserialize('json', request.body):
+        #     des_object.object.id = id
+        #     des_object.object.save()
+        #     return HttpResponse(json.dumps({'Success': 'Listing updated', 'id': des_object.object.id}), content_type='text/json')
     if request.method == 'DELETE':
         listings.first().delete()
         return HttpResponse(json.dumps({'success': 'Object deleted', 'id': id}), content_type='text/json')
     if request.method == 'POST':
-        for des_object in serializers.deserialize('json', request.body):
-            if des_object.object._meta.model_name != 'comment':
-                return HttpResponseBadRequest(json.dumps({'Error' : 'Only comments can be uploaded via POST'}), content_type='text/json')
-            des_object.object.listing_id = id
-            des_object.object.save()
-            return HttpResponse(json.dumps({'Success': 'Comment added.', 'id': des_object.object.id}), content_type='text/json')
+        # for des_object in serializers.deserialize('json', request.body):
+        #     if des_object.object._meta.model_name != 'comment':
+        #         return HttpResponseBadRequest(json.dumps({'Error' : 'Only comments can be uploaded via POST'}), content_type='text/json')
+        #     des_object.object.listing_id = id
+        #     des_object.object.save()
+        #     return HttpResponse(json.dumps({'Success': 'Comment added.', 'id': des_object.object.id}), content_type='text/json')
+        payload = request.body()
+
+        comment = Comment()
+        comment.text = payload['text']
+        comment.listing = listing
+        if 'parentCommentId' in payload:
+            comment.parentComment_id = payload['parentCommentId']
+            comment.save()
+
+        return HttpResponse(json.dumps({'Success': 'Comment added.', 'id': comment.id}), content_type='text/json')
 
 
 def seedData(request):
@@ -117,6 +166,11 @@ def seedData(request):
         cat = Category()
         cat.name = categoryName
         cat.save()
+
+    currentUser = User()
+    currentUser.name = 'CurrentUser'
+    currentUser.surname = 'User'
+    currentUser.save()
 
     marek = User()
     marek.name = 'Marek'
@@ -161,10 +215,10 @@ def viewUsers(request):
     if request.method == 'GET':
         response = serializers.serialize('json', User.objects.all())
         return HttpResponse(response, content_type='text/json')
-    if request.method == 'POST':
-        for des_user in serializers.deserialize('json', request.body):
-            des_user.object.save()
-            return HttpResponse(json.dumps({'Success': 'User created', 'id': des_user.object.id}), content_type='text/json')
+    # if request.method == 'POST':
+    #     for des_user in serializers.deserialize('json', request.body):
+    #         des_user.object.save()
+    #         return HttpResponse(json.dumps({'Success': 'User created', 'id': des_user.object.id}), content_type='text/json')
 
 def viewUser(request,id):
     user = User.objects.get(id=id)
@@ -174,21 +228,32 @@ def viewUser(request,id):
     if request.method == 'GET':
         response = serializers.serialize('json', user)
         return HttpResponse(response, content_type='text/json')
-    if request.method == 'PUT':
-        for des_object in serializers.deserialize('json', request.body):
-            des_object.object.id = id
-            des_object.object.save()
-            return HttpResponse(json.dumps({'Success': 'User updated', 'id': des_object.object.id}), content_type='text/json')
+    # if request.method == 'PUT':
+    #     for des_object in serializers.deserialize('json', request.body):
+    #         des_object.object.id = id
+    #         des_object.object.save()
+    #         return HttpResponse(json.dumps({'Success': 'User updated', 'id': des_object.object.id}), content_type='text/json')
     if request.method == 'DELETE':
         user.delete()
         return HttpResponse(json.dumps({'success': 'User deleted', 'id': id}), content_type='text/json')
     if request.method == 'POST':
-        for des_object in serializers.deserialize('json', request.body):
-            if des_object.model != 'zelenyBazar.rating':
-                return HttpResponseBadRequest(json.dumps({'Error' : 'Only ratings can be uploaded via POST'}), content_type='text/json')
-            des_object.object.ratee_id = id
-            des_object.object.save()
-            return HttpResponse(json.dumps({'Success': 'Rating added.', 'id': des_object.object.id}), content_type='text/json')
+        rating = Rating()
+
+        payload = request.body()
+
+        rating.text = payload['text']
+        rating.rating = payload['rating']
+        rating.ratee = user
+        rating.author_id = 1
+        rating.save
+        return HttpResponse(json.dumps({'Success': 'Rating added.', 'id': rating.id}), content_type='text/json')
+
+        # for des_object in serializers.deserialize('json', request.body):
+        #     if des_object.model != 'zelenyBazar.rating':
+        #         return HttpResponseBadRequest(json.dumps({'Error' : 'Only ratings can be uploaded via POST'}), content_type='text/json')
+        #     des_object.object.ratee_id = id
+        #     des_object.object.save()
+        #     return HttpResponse(json.dumps({'Success': 'Rating added.', 'id': des_object.object.id}), content_type='text/json')
 
 def commentDelete(request, id):
     comment = Comment.objects.get(id=id)

@@ -85,6 +85,7 @@ class Listing(models.Model):
     plantType = models.CharField(choices=PlantTypeChoices.choices, default=PlantTypeChoices.UNKNOWN, max_length=20)
     createdOn = models.DateTimeField(auto_now_add=True, null=True, blank=True)
     editedOn = models.DateTimeField(auto_now=True, null=True, blank=True)
+    isFavorite = models.BooleanField(default=False)
 
     category = models.ForeignKey(Category,on_delete=models.DO_NOTHING, null=False)
     author = models.ForeignKey(User,on_delete=models.DO_NOTHING, null=False)
