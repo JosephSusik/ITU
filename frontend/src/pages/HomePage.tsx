@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
 
 function HomePage() {
 
@@ -16,8 +15,82 @@ function HomePage() {
     useEffect(() => {
         handleFetchData();
         setLoading(0);
-    },[])
+    },[]);
 
+    return (
+        <div className="format homepage">
+            <div className="homepage_favourite">
+                <div className="hp_row_1">
+                    Oblíbené inzeráty
+                </div>
+                <div className="hp_row_2">
+                    <div className="hp_inzerat">
+                        <img src="./img/1/1.jpg" alt="" className="img"/>   
+                        <p>Název</p>
+                        <div className="hp_inzerat_detail_col">
+                            <div className="hp_inzerat_detail_row">
+                                <p>Category</p>
+                                <p>Place</p>
+                            </div>
+                            <div className="hp_inzerat_detail_row">
+                                <p>Views</p>
+                                <p>Price</p>
+                            </div>
+                        </div>
+                    </div>         
+                </div>
+            </div>
+
+            <div className="homepage_beginner">
+                <div className="hp_row_1">
+                    Pro začátečníky
+                </div>
+                <div className="hp_row_2">
+                    <div className="hp_inzerat">
+                        <img src="./img/1/1.jpg" alt="" className="img"/>   
+                        <p>Název</p>
+                        <div className="hp_inzerat_detail_col">
+                            <div className="hp_inzerat_detail_row">
+                                <p>Category</p>
+                                <p>Place</p>
+                            </div>
+                            <div className="hp_inzerat_detail_row">
+                                <p>Views</p>
+                                <p>Price</p>
+                            </div>
+                        </div>
+                    </div>                        
+                </div>
+            </div>
+
+            <div className="homepage_summer">
+                <div className="hp_row_1">
+                    Do letní zahrádky
+                </div>
+                <div className="hp_row_2">
+                    <div className="hp_inzerat">
+                        <img src="./img/1/1.jpg" alt="" className="img"/>   
+                        <p>Název</p>
+                        <div className="hp_inzerat_detail_col">
+                            <div className="hp_inzerat_detail_row">
+                                <p>Category</p>
+                                <p>Place</p>
+                            </div>
+                            <div className="hp_inzerat_detail_row">
+                                <p>Views</p>
+                                <p>Price</p>
+                            </div>
+                        </div>
+                    </div>              
+                </div>
+            </div>
+        </div>
+    );
+}
+
+export default HomePage;
+
+/*
     return(
         <div className="format">
             <p>Homepage</p>
@@ -42,6 +115,4 @@ function HomePage() {
             <img src="./img/1/1.jpg" alt="" className="img"/>            
         </div>
     );
-}
-
-export default HomePage;
+ */

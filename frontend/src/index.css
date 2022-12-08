@@ -68,5 +68,55 @@
 }
 
 .img {
-  width: 300px;
+  width: 180px;
+}
+
+.homepage {
+  display: grid;
+  grid-template-rows: 1fr 1fr 1fr;
+  row-gap: 1vw;
+}
+.homepage_favourite {
+  border: 1px solid red;
+
+  display: grid;
+  grid-template-rows: auto;
+}
+
+.homepage_beginner {
+  border: 1px solid blue;
+
+  display: grid;
+  grid-template-rows: auto;
+}
+
+.homepage_summer {
+  border: 1px solid orange;
+
+  display: grid;
+  grid-template-rows: auto;
+}
+
+.hp_row_2 {
+  background-color: #4B935A;
+}
+
+.hp_inzerat {
+  background-color: whitesmoke;
+  width: min-content;
+  padding-bottom: 0.8vw;
+  padding-left: 0.8vw;
+  padding-right: 0.8vw;
+  padding-top: 0.8vw;
+  margin: 20px;
+}
+
+.hp_inzerat_detail_col {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+
+.hp_inzerat_detail_row {
+  display: grid;
+  grid-template-rows: 1fr 1fr;
 }
