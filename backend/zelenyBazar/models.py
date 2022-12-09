@@ -65,7 +65,7 @@ class User(models.Model):
     name = models.CharField(max_length=20)
     surname = models.CharField(max_length=20)
     joinedOn  = models.DateTimeField(auto_now_add=True)
-
+    isFavorite = models.BooleanField(default=False)
     class Meta:
         managed = True
 

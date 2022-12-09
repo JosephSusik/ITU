@@ -1,4 +1,4 @@
-from django.http import HttpResponse, Http404, HttpResponseBadRequest
+from django.http import HttpResponse, Http404, HttpResponseBadRequest, QueryDict
 from .models import *
 from itertools import chain
 from django.core import serializers
@@ -49,7 +49,14 @@ def viewListings(request):
             listings = listings.filter(
                 author_id=request.GET.get('auth'))
 
-        response = serializers.serialize('json', listings.all())
+        images = []
+        for listing in listings.all():
+            image = Image.objects.filter(listing_id = listing.id).first()
+            if image:
+                images.append(image) 
+
+        combined = list(chain(listings.all(), images))
+        response = serializers.serialize('json', combined )
         return HttpResponse(response, content_type='text/json')
     if request.method == 'POST':
         listing_object = None
@@ -69,13 +76,16 @@ def viewListings(request):
         #     return HttpResponse(json.dumps({'Success': 'Object created', 'id': listing_object.id}), content_type='text/json')
 
         payload = json.loads(request.body)
-        if not ( payload.keys() >= {'title', 'description' , 'category' , 'author', 'difficulty', 'plantType', 'size', 'tradeType'}):
+        if not ( payload.keys() >= {'title', 'description' , 'category' , 'difficulty', 'plantType', 'size', 'tradeType'}):
             return HttpResponse(json.dumps({'Error' : 'Listing has missing fields'}), content_type = 'text/json')
         listing = Listing()
         listing.title = payload['title']
         listing.description = payload['description']
         listing.category_id = payload['category']
-        listing.author_id = payload['author']
+        if 'author' in payload:
+            listing.author_id = payload['author']
+        else:
+            listing.author_id = 1
         listing.difficulty = payload['difficulty']
         if 'price' in payload:
             listing.price = payload['price']
@@ -90,13 +100,18 @@ def viewListings(request):
             image.save()
         return HttpResponse(json.dumps({'Success' : listing.id}), content_type = 'text/json')
     if request.method == 'PUT':
-        payload = request.body()
+        payload = json.loads(request.body)
+        # payload = request.body()
+        #payload = QueryDict(request.body)
 
+        # print(payload)
+        # print(f"ID: {payload.get('favoriteId')}")
         if 'favoriteId' in payload:
-            listing = Listing.object.filter(id=payload['favoriteId']).all().first()
+            listing = Listing.objects.filter(id=payload['favoriteId']).all().first()
             listing.isFavorite = not listing.isFavorite
             listing.save()
             return HttpResponse(json.dumps({'Success' : listing.id, 'Listing set to' : 'Favorite' if listing.isFavorite else 'Not favorite' }), content_type = 'text/json')
+        return HttpResponseBadRequest()
 
 
         
@@ -106,11 +121,11 @@ def listing(request, id):
     listings = Listing.objects.filter(id=id).all()
     listing = listings.first()
     if not listings:
-        return Http404(json.dumps({'Error': 'Listing with specified ID not found'}), content_type='text/json')
+        return Http404()
 
     if request.method == 'GET':
-        comments = Comment.objects.select_related('listing').all()
-        images = Image.objects.select_related('listing').all()
+        comments = Comment.objects.filter(listing_id = id).all()
+        images = Image.objects.filter(listing_id = id).all()
         combined = list(chain(listings, images))
         combined = list(chain(combined, comments))
         response = serializers.serialize('json', combined)
@@ -118,7 +133,7 @@ def listing(request, id):
     if request.method == 'PUT':
         
 
-        payload = request.body()
+        payload = json.loads(request.body)
 
         
         listing.title = payload['title']
@@ -147,14 +162,15 @@ def listing(request, id):
         #     des_object.object.listing_id = id
         #     des_object.object.save()
         #     return HttpResponse(json.dumps({'Success': 'Comment added.', 'id': des_object.object.id}), content_type='text/json')
-        payload = request.body()
+        payload = json.loads(request.body)
 
         comment = Comment()
         comment.text = payload['text']
         comment.listing = listing
+        comment.author_id = 1
         if 'parentCommentId' in payload:
             comment.parentComment_id = payload['parentCommentId']
-            comment.save()
+        comment.save()
 
         return HttpResponse(json.dumps({'Success': 'Comment added.', 'id': comment.id}), content_type='text/json')
 
@@ -215,6 +231,14 @@ def viewUsers(request):
     if request.method == 'GET':
         response = serializers.serialize('json', User.objects.all())
         return HttpResponse(response, content_type='text/json')
+    if request.method == 'PUT':
+        payload = json.loads(request.body)
+        if 'favoriteId' in payload:
+            user = User.objects.filter(id=payload['favoriteId']).all().first()
+            user.isFavorite = not user.isFavorite
+            user.save()
+            return HttpResponse(json.dumps({'Success' : user.id, 'User set to' : 'Favorite' if user.isFavorite else 'Not favorite' }), content_type = 'text/json')
+        return HttpResponseBadRequest()
     # if request.method == 'POST':
     #     for des_user in serializers.deserialize('json', request.body):
     #         des_user.object.save()
@@ -239,7 +263,7 @@ def viewUser(request,id):
     if request.method == 'POST':
         rating = Rating()
 
-        payload = request.body()
+        payload = json.loads(request.body)
 
         rating.text = payload['text']
         rating.rating = payload['rating']
