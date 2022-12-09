@@ -150,4 +150,5 @@ dmypy.json
 .pytype/
 
 backend/zelenyBazar/__pycache__/
+backend/zelenyBazar/migrations/__pycache__/
 backend/backend/__pycache__/
