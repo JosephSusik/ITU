@@ -66,6 +66,8 @@ class User(models.Model):
     surname = models.CharField(max_length=20)
     joinedOn  = models.DateTimeField(auto_now_add=True)
     isFavorite = models.BooleanField(default=False)
+    profilePicture = models.CharField(max_length=60, default='')
+    averageRating = models.IntegerField(default=0)
     class Meta:
         managed = True
 
@@ -87,8 +89,8 @@ class Listing(models.Model):
     editedOn = models.DateTimeField(auto_now=True, null=True, blank=True)
     isFavorite = models.BooleanField(default=False)
 
-    category = models.ForeignKey(Category,on_delete=models.DO_NOTHING, null=False)
-    author = models.ForeignKey(User,on_delete=models.DO_NOTHING, null=False)
+    category = models.ForeignKey(Category,on_delete=models.DO_NOTHING, null=False, related_name='listing_category' )
+    author = models.ForeignKey(User,on_delete=models.DO_NOTHING, null=False, related_name='listing_author')
 
     class Meta:
         managed = True
@@ -99,8 +101,8 @@ class Comment(models.Model):
     createdOn = models.DateTimeField(auto_now_add=True)
 
     author = models.ForeignKey(User, on_delete=models.DO_NOTHING, null=False)
-    parentComment = models.ForeignKey('self', on_delete=models.CASCADE, null=True, blank=True)
-    listing = models.ForeignKey(Listing, on_delete=models.CASCADE, null=True)
+    parentComment = models.ForeignKey('self', on_delete=models.CASCADE, null=True, blank=True, related_name='comment_parent')
+    listing = models.ForeignKey(Listing, on_delete=models.CASCADE, null=True, related_name='comment_listing')
 
     class Meta:
         managed = True
@@ -114,15 +116,15 @@ class Rating(models.Model):
     text = models.CharField(max_length=1000)
     createdOn = models.DateTimeField(auto_now_add=True)
     
-    author = models.ForeignKey(User, on_delete=models.DO_NOTHING, null=False, related_name='author_id')
-    ratee = models.ForeignKey(User, on_delete=models.DO_NOTHING, null=False, related_name='ratee_id')
+    author = models.ForeignKey(User, on_delete=models.DO_NOTHING, null=False, related_name='rating_author')
+    ratee = models.ForeignKey(User, on_delete=models.DO_NOTHING, null=False, related_name='rating_ratee')
 
 
 class Image(models.Model):
     id = models.AutoField(primary_key=True)
     path = models.CharField(max_length=100)
 
-    listing =  models.ForeignKey(Listing, on_delete=models.CASCADE, null=False)
+    listing =  models.ForeignKey(Listing, on_delete=models.CASCADE, null=False, related_name='image_listing')
 
     class Meta:
         managed = True
