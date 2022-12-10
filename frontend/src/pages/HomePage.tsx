@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 
 function HomePage() {
 
@@ -22,7 +23,7 @@ function HomePage() {
             <div className="homepage_favourite">
                 <div className="hp_row_1">
                     <h3>Oblíbené inzeráty</h3>
-                    <button className="hp_button"><h3>Zobrazit všechny</h3></button>
+                    <Link to="/favourites" className="hp_button_link"><button className="hp_button"><h3>Zobrazit všechny</h3></button></Link>
                 </div>
                 <div className="hp_row_2">
                     <div className="hp_inzerat">
@@ -38,14 +39,59 @@ function HomePage() {
                                 <p className="hp_price">Price</p>
                             </div>
                         </div>
-                    </div>         
+                    </div>   
+
+                    <div className="hp_inzerat">
+                        <img src="./img/1/1.jpg" alt="" className="hp_img"/>   
+                        <p className="hp_title">Název</p>
+                        <div className="hp_inzerat_detail_col">
+                            <div className="hp_inzerat_detail_row">
+                                <p className="hp_cat">Category</p>
+                                <p className="hp_place">Place</p>
+                            </div>
+                            <div className="hp_inzerat_detail_row">
+                                <p className="hp_views">Views</p>
+                                <p className="hp_price">Price</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div className="hp_inzerat">
+                        <img src="./img/1/1.jpg" alt="" className="hp_img"/>   
+                        <p className="hp_title">Název</p>
+                        <div className="hp_inzerat_detail_col">
+                            <div className="hp_inzerat_detail_row">
+                                <p className="hp_cat">Category</p>
+                                <p className="hp_place">Place</p>
+                            </div>
+                            <div className="hp_inzerat_detail_row">
+                                <p className="hp_views">Views</p>
+                                <p className="hp_price">Price</p>
+                            </div>
+                        </div>
+                    </div> 
+
+                    <div className="hp_inzerat">
+                        <img src="./img/1/1.jpg" alt="" className="hp_img"/>   
+                        <p className="hp_title">Název</p>
+                        <div className="hp_inzerat_detail_col">
+                            <div className="hp_inzerat_detail_row">
+                                <p className="hp_cat">Category</p>
+                                <p className="hp_place">Place</p>
+                            </div>
+                            <div className="hp_inzerat_detail_row">
+                                <p className="hp_views">Views</p>
+                                <p className="hp_price">Price</p>
+                            </div>
+                        </div>
+                    </div>           
                 </div>
             </div>
 
             <div className="homepage_beginner">
                 <div className="hp_row_1">
                     <h3>Pro začátečníky</h3>
-                    <button className="hp_button"><h3>Zobrazit všechny</h3></button>
+                    <Link to="/beginners" className="hp_button_link"><button className="hp_button"><h3>Zobrazit všechny</h3></button></Link>
                 </div>
                 <div className="hp_row_2">
                     <div className="hp_inzerat">
@@ -68,7 +114,7 @@ function HomePage() {
             <div className="homepage_all">
                 <div className="hp_row_1">
                     <h3>Všechny inzeráty</h3>
-                    <button className="hp_button"><h3>Zobrazit všechny</h3></button>
+                    <Link to="/all" className="hp_button_link"><button className="hp_button"><h3>Zobrazit všechny</h3></button></Link>
                 </div>
                 <div className="hp_row_2">
                     <div className="hp_inzerat">

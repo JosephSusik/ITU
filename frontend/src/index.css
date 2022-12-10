@@ -108,14 +108,14 @@
 }
 
 .hp_img {
-  width: 180px;
+  width: 14vw;
   border-radius: 2px;
 }
 
 .homepage {
   display: grid;
   grid-template-rows: 1fr 1fr 1fr;
-  row-gap: 2vw;
+  row-gap: 2.5vw;
 }
 
 .homepage_favourite {
@@ -145,6 +145,10 @@
 .hp_row_2 {
   background-color: #4B935A;
   border-radius: 8px;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(16vw, 1fr)); /*Just 4 items*/
+  justify-items: center;
+
 }
 
 .hp_inzerat {
@@ -154,10 +158,11 @@
   padding-left: 0.8vw;
   padding-right: 0.8vw;
   padding-top: 0.8vw;
-  margin-left: 2vw;
   margin-top: 1vw;
   margin-bottom: 1vw;
   border-radius: 4px;
+  width: 14vw;
+  min-width: 8vw;
 }
 
 .hp_title {
@@ -195,6 +200,10 @@
   margin-right: 8px;
 }
 
+.hp_button_link {
+  justify-self: end;
+}
+
 .hp_button {
   padding-left: 1vw;
   padding-right: 1vw;
@@ -203,10 +212,26 @@
   border: 1px black solid;
   background-color: whitesmoke;
   width: fit-content;
-  justify-self: end;
 }
 
 .hp_button:hover {
   background-color: #4B935A;
   border: 1px solid #046A1A;
+}
+
+.f_a_b {
+  display: grid;
+  grid-template-rows: auto;
+  row-gap: 0.3vw;
+}
+
+.f_a_b_name {
+  margin-left: 8px;
+}
+
+.f_a_b_display {
+  width: 100%;
+  height: 500px;
+  background-color: #4B935A;
+  border-radius: 8px;
 }
