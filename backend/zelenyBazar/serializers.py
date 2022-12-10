@@ -6,6 +6,10 @@ class UserSerializer(serializers.ModelSerializer):
         model = User
         fields = '__all__'
 
+class CategorySerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Category
+        fields = '__all__'
 
 class ImageSerializer(serializers.ModelSerializer):
     class Meta:
@@ -24,16 +28,18 @@ class RatingSerializer(serializers.ModelSerializer):
         model = Rating
         fields = '__all__'
 
-class ListingSerializerNoAuth(serializers.ModelSerializer):
-    image_listing = ImageSerializer(many=True)
+class ListingSerializerAuthorPage(serializers.ModelSerializer):
+    mainImage = ImageSerializer(many=False)
+    category = CategorySerializer(many=False)
 
     class Meta:
         model = Listing
         fields = '__all__'
 
-class ListingSerializerWImages(serializers.ModelSerializer):
-    image_listing = ImageSerializer(many=True)
+class ListingSerializerMainPage(serializers.ModelSerializer):
+    mainImage = ImageSerializer(many=False)
     author = UserSerializer(many=False)
+    category = CategorySerializer(many=False)
 
     class Meta:
         model = Listing
@@ -44,13 +50,14 @@ class ListingSerializerFull(serializers.ModelSerializer):
     image_listing = ImageSerializer(many=True)
     comment_listing = CommentSerializer(many=True)
     author = UserSerializer(many=False)
+    category = CategorySerializer(many=False)
     class Meta:
         model = Listing
         fields = '__all__'
 
 class UserSerializerFull(serializers.ModelSerializer):
     rating_ratee = RatingSerializer(many=True)
-    listing_author = ListingSerializerNoAuth(many=True)
+    listing_author = ListingSerializerAuthorPage(many=True)
     class Meta:
         model = User
         fields = '__all__'

@@ -5,6 +5,7 @@ from django.core import serializers
 import json
 from django.db.models import Q
 from .serializers import *
+from statistics import mean
 
 # Create your views here.
 
@@ -14,7 +15,7 @@ from .serializers import *
 def viewListings(request):
 
     if request.method == 'GET':
-        listings = Listing.objects
+        listings = Listing.objects.filter(isListed=True)
         if request.GET.__contains__('search'):
             listings = listings.filter(Q(title__icontains=request.GET.get('search')) | Q(
                 description__icontains=request.GET.get('search')))
@@ -48,9 +49,12 @@ def viewListings(request):
         if request.GET.__contains__('auth'):
             listings = listings.filter(
                 author_id=request.GET.get('auth'))
+        if request.GET.__contains__('instructions'):
+            if request.GET.get('instructions') == 'true':
+                listings = listings.exclude(instructions='')
 
         listings = listings.select_related('author').prefetch_related('image_listing')
-        serializer = ListingSerializerWImages(listings, many=True)
+        serializer = ListingSerializerMainPage(listings, many=True)
         return HttpResponse(json.dumps(serializer.data), content_type = 'text/json')
 
 
@@ -182,7 +186,12 @@ def viewUser(request,id):
         rating.rating = payload['rating']
         rating.ratee = user
         rating.author_id = 1
-        rating.save
+        rating.save()
+
+        userRatings = Rating.objects.filter(ratee_id = id)
+        user.averageRating = mean([ rating.rating for rating in userRatings ])
+        user.save()
+
         return HttpResponse(json.dumps({'Success': 'Rating added.', 'id': rating.id}), content_type='text/json')
 
     return HttpResponseBadRequest(json.dumps({'Error' : f'{request.method} not supported'}), content_type='text/json')
@@ -215,7 +224,7 @@ def seedData(request):
     cat = Category()
     for categoryName in CategoryChoices.choices:
         cat = Category()
-        cat.name = categoryName
+        cat.name = categoryName[0]
         cat.save()
 
     currentUser = User()
@@ -283,6 +292,9 @@ def seedData(request):
     image1.listing = listing1
     image1.save()
 
+    listing1.mainImage = image1
+    listing1.save()
+
     image2 = Image()
     image2.path = 'PATH2'
     image2.listing = listing1
@@ -292,6 +304,9 @@ def seedData(request):
     image3.path = 'PATH3'
     image3.listing = listing2
     image3.save()
+
+    listing2.mainImage = image3
+    listing2.save()
 
     rating1 = Rating()
     rating1.ratee = marek
