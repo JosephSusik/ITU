@@ -5,6 +5,7 @@ import Navbar from './components/Navbar';
 import HomePage from './pages/HomePage';
 import ProfilePage from './pages/ProfilePage';
 import ProductPage from './pages/ProductPage';
+import Footer from './components/Footer';
 
 function App() {
   return (
@@ -15,6 +16,7 @@ function App() {
       <Route path="/profile" element={<ProfilePage />}/>;
       <Route path="/product/:id" element={<ProductPage />}/>
     </Routes>
+    <Footer />
   </BrowserRouter>
   );
 }
