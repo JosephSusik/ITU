@@ -8,5 +8,5 @@ urlpatterns = [
     path('users/', viewUsers),
     path('users/<int:id>/', viewUser),
     path('comment/<int:id>/', commentDelete),
-    path('rating/<int:id>/', ratingDelete)
+    path('rating/<int:id>/', ratingDelete),
 ]
