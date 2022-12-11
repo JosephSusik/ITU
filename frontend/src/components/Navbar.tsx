@@ -13,7 +13,7 @@ function Navbar() {
             </div>
             <div className="navbar_mid">
                 <input type="text" className="navbar_search" placeholder="Hledat..."></input>
-                <button className="navbar_button">Hledat</button>
+                <button className="navbar_button"><b>Hledat</b></button>
             </div>
             <div className="navbar_right">
                 <li>

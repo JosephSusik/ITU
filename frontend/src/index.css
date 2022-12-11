@@ -65,7 +65,7 @@
   width: 30vw;
   margin-right: 2vw;
   border-radius: 5px;
-  border: 1px black solid;
+  border: 2px black solid;
   height: 1.5vw;
   padding-left: 1vw;
 }
@@ -75,7 +75,7 @@
   padding-right: 1vw;
   cursor: pointer;
   border-radius: 5px;
-  border: 1px black solid;
+  border: 2px black solid;
   background-color: whitesmoke;
 }
 
@@ -208,16 +208,18 @@
 .hp_button {
   padding-left: 1vw;
   padding-right: 1vw;
+  padding-top: 0.25vw;
+  padding-bottom: 0.25vw;
   cursor: pointer;
   border-radius: 8px;
-  border: 1px black solid;
+  border: 2px black solid;
   background-color: whitesmoke;
   width: fit-content;
 }
 
 .hp_button:hover {
   background-color: #4B935A;
-  border: 1px solid #046A1A;
+  border: 2px solid #046A1A;
 }
 
 .f_a_b {

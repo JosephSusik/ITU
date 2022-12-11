@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
+import "../index.css";
+
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 
@@ -31,8 +33,8 @@ function HomePage() {
                 <div className="hp_row_2">
                     <div className="hp_inzerat">
                         <div className="hp_img_div">
-                            <FavoriteBorderIcon className="fav_icon" />
-                            <FavoriteIcon className="fav_icon_full" />  
+                            <FavoriteBorderIcon className="fav_icon"/>
+                            <FavoriteIcon className="fav_icon_full"/>
                             <img src="./img/1/1.jpg" alt="" className="hp_img"/>
                         </div>
                         <p className="hp_title">Název</p>
