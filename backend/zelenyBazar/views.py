@@ -18,7 +18,7 @@ def viewListings(request):
         listings = Listing.objects.filter(isListed=True)
         if request.GET.__contains__('search'):
             listings = listings.filter(Q(title__icontains=request.GET.get('search')) | Q(
-                description__icontains=request.GET.get('search')))
+                description__icontains=request.GET.get('search')) | Q(speciesCZ__icontains=request.GET.get('search')) | Q(speciesLat__icontains=request.GET.get('search')))
         if request.GET.__contains__('loc'):
             listings = listings.filter(
                 locationName__icontains=request.GET.get('loc'))
@@ -251,6 +251,8 @@ def seedData(request):
     listing1.category = cat
     listing1.locationName = 'Brno'
     listing1.locationZip = '61600'
+    listing1.instructions = 'These are instuctions for care of the plant'
+    listing1.speciesCZ = 'Kaktus'
     listing1.save()
 
     listing2 = Listing()
@@ -265,6 +267,7 @@ def seedData(request):
     listing2.category = cat
     listing2.locationName = 'Bratislava'
     listing2.locationZip = '61600'
+    listing2.speciesLat = 'Cactusius latinus'
     listing2.save()
 
     comment = Comment()

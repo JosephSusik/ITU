@@ -95,6 +95,8 @@ class Listing(models.Model):
     isFavorite = models.BooleanField(default=False)
     isListed = models.BooleanField(default=True)
     instructions = models.CharField(default='', max_length=1000)
+    speciesCZ = models.CharField(default='', max_length=100)
+    speciesLat = models.CharField(default='', max_length=100)
 
     category = models.ForeignKey(
         Category, on_delete=models.DO_NOTHING, null=False, related_name='listing_category')
