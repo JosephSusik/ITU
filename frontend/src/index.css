@@ -109,8 +109,10 @@
 
 .hp_img {
   width: 14vw;
-  border-radius: 2px;
+  border-radius: 4px;
   display: block;
+  margin-bottom: 0.5vw;
+  border: 0.5px solid black;
 }
 
 .homepage {
@@ -161,13 +163,18 @@
   padding-top: 0.8vw;
   margin-top: 1vw;
   margin-bottom: 1vw;
-  border-radius: 4px;
+  border-radius: 6px;
   width: 14vw;
   min-width: 8vw;
+  display: grid;
+  grid-template-rows: auto;
 }
 
 .hp_title {
   text-align: center;
+  margin-bottom: 0.5vw;
+  word-wrap: normal;
+  font-size: 1vw;
 }
 
 .hp_inzerat_detail_col {
@@ -178,6 +185,8 @@
 .hp_inzerat_detail_row {
   display: grid;
   grid-template-rows: 1fr 1fr;
+  row-gap: 0.5vw;
+  font-size: 0.8vw;
 }
 
 .hp_cat {
@@ -199,6 +208,7 @@
   justify-content: space-between;
   margin-left: 8px;
   margin-right: 8px;
+  align-items: center;
 }
 
 .hp_button_link {
@@ -243,28 +253,4 @@
 
 .hp_img_div {
   position: relative;
-}
-
-.fav_icon {
-  position: absolute;
-  color: whitesmoke;
-  right: 1px;
-  top: 1px;
-  cursor: pointer;
-}
-
-.fav_icon_full {
-  position: absolute;
-  color: transparent;
-  right: 1px;
-  top: 1px;
-  cursor: pointer;
-}
-
-.fav_icon_full:hover {
-  color: whitesmoke;
-}
-
-.fav_icon:hover {
-  color: transparent;
 }

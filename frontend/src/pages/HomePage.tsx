@@ -31,13 +31,12 @@ function HomePage() {
                     <Link to="/favourites" className="hp_button_link"><button className="hp_button"><h3>Zobrazit všechny</h3></button></Link>
                 </div>
                 <div className="hp_row_2">
+                    
                     <div className="hp_inzerat">
                         <div className="hp_img_div">
-                            <FavoriteBorderIcon className="fav_icon"/>
-                            <FavoriteIcon className="fav_icon_full"/>
                             <img src="./img/1/1.jpg" alt="" className="hp_img"/>
                         </div>
-                        <p className="hp_title">Název</p>
+                        <p className="hp_title"><b>Název květiny Název květiny Název květiny Název květiny</b></p>
                         <div className="hp_inzerat_detail_col">
                             <div className="hp_inzerat_detail_row">
                                 <p className="hp_cat">Category</p>
@@ -51,8 +50,8 @@ function HomePage() {
                     </div>   
 
                     <div className="hp_inzerat">
-                        <img src="./img/1/1.jpg" alt="" className="hp_img"/>   
-                        <p className="hp_title">Název</p>
+                        <img src="./img/2/1.jpg" alt="" className="hp_img"/>   
+                        <p className="hp_title"><b>Název</b></p>
                         <div className="hp_inzerat_detail_col">
                             <div className="hp_inzerat_detail_row">
                                 <p className="hp_cat">Category</p>
@@ -66,8 +65,8 @@ function HomePage() {
                     </div>
 
                     <div className="hp_inzerat">
-                        <img src="./img/1/1.jpg" alt="" className="hp_img"/>   
-                        <p className="hp_title">Název</p>
+                        <img src="./img/3/1.jpg" alt="" className="hp_img"/>   
+                        <p className="hp_title"><b>Název</b></p>
                         <div className="hp_inzerat_detail_col">
                             <div className="hp_inzerat_detail_row">
                                 <p className="hp_cat">Category</p>
@@ -81,8 +80,8 @@ function HomePage() {
                     </div> 
 
                     <div className="hp_inzerat">
-                        <img src="./img/1/1.jpg" alt="" className="hp_img"/>   
-                        <p className="hp_title">Název</p>
+                        <img src="./img/4/1.jpg" alt="" className="hp_img"/>   
+                        <p className="hp_title"><b>Název</b></p>
                         <div className="hp_inzerat_detail_col">
                             <div className="hp_inzerat_detail_row">
                                 <p className="hp_cat">Category</p>
@@ -104,7 +103,7 @@ function HomePage() {
                 </div>
                 <div className="hp_row_2">
                     <div className="hp_inzerat">
-                        <img src="./img/1/1.jpg" alt="" className="hp_img"/>   
+                        <img src="./img/5/1.jpg" alt="" className="hp_img"/>   
                         <p className="hp_title">Název</p>
                         <div className="hp_inzerat_detail_col">
                             <div className="hp_inzerat_detail_row">
@@ -127,7 +126,7 @@ function HomePage() {
                 </div>
                 <div className="hp_row_2">
                     <div className="hp_inzerat">
-                        <img src="./img/1/1.jpg" alt="" className="hp_img"/>   
+                        <img src="./img/6/1.jpg" alt="" className="hp_img"/>   
                         <p className="hp_title">Název</p>
                         <div className="hp_inzerat_detail_col">
                             <div className="hp_inzerat_detail_row">
