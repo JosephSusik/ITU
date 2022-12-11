@@ -6,6 +6,7 @@ import json
 from django.db.models import Q
 from .serializers import *
 from statistics import mean
+from typing import List
 
 # Create your views here.
 
@@ -229,101 +230,267 @@ def seedData(request):
         cat = Category()
         cat.name = categoryName[0]
         cat.save()
+        
+# ====================================================== #
+#                       SEED USERS                       #
+# ====================================================== #
 
-    currentUser = User()
-    currentUser.name = 'Current'
-    currentUser.surname = 'User'
-    currentUser.averageRating = 3
-    currentUser.save()
+    user1_MS = User()
+    user1_MS.name = 'Marek'
+    user1_MS.surname = 'Stolár'
+    user1_MS.averageRating = 4
+    user1_MS.save()
 
-    marek = User()
-    marek.name = 'Marek'
-    marek.surname = 'Stolár'
-    marek.averageRating = 4
-    marek.save()
+    user2_SS = User()
+    user2_SS.name = 'Samko'
+    user2_SS.surname = 'Sadík'
+    user2_SS.averageRating = 2
+    user2_SS.save()
+
+    user3_AC = User()
+    user3_AC.name = 'Adam'
+    user3_AC.surname = 'Conway'
+    user3_AC.averageRating = 5
+    user3_AC.save()
+    
+    user4_IT = User()
+    user4_IT.name = 'Igor'
+    user4_IT.surname = 'Toman'
+    user4_IT.averageRating = 1
+    user4_IT.save()
+    
+    user5_MV = User()
+    user5_MV.name = 'Marie'
+    user5_MV.surname = 'Valníková'
+    user5_MV.averageRating = 3
+    user5_MV.save()
+
+# ====================================================== #
+#                     SEED LISTINGS                      #
+# ====================================================== #
+    listings: List[Listing] = []
+# USER 1 LISTINGS
 
     listing1 = Listing()
-    listing1.title = 'New plant'
-    listing1.description = 'This is new plant to test my api.'
-    listing1.difficulty = DifficultyChoices.MEDUIM
-    listing1.tradeTypeChoices = TradeTypeChoices.CASH
-    listing1.size = HeightChoices.SECOND
-    listing1.price = 151
+    listing1.title = 'Daruji Sedmikrásku'
+    listing1.description = 'Daruji sedmikrásku za odvoz :)'
+    listing1.difficulty = DifficultyChoices.EASY
+    listing1.tradeTypeChoices = TradeTypeChoices.FREE
+    listing1.size = HeightChoices.TWENTY_FIFTY
     listing1.plantType = PlantTypeChoices.ALIVE_PLANT
-    listing1.author = marek
+    listing1.author = user1_MS
     listing1.category = cat
     listing1.locationName = 'Brno'
     listing1.locationZip = '61600'
-    listing1.instructions = 'These are instuctions for care of the plant'
-    listing1.speciesCZ = 'Kaktus'
+    listing1.speciesCZ = 'Sedmikráska'
     listing1.save()
+    listings.append(listing1)
 
     listing2 = Listing()
-    listing2.title = 'New plant2'
+    listing2.title = 'Prodám Orchidej'
     listing2.description = 'This is new plant to test my api.'
     listing2.difficulty = DifficultyChoices.MEDUIM
     listing2.tradeTypeChoices = TradeTypeChoices.CASH
-    listing2.size = HeightChoices.SECOND
+    listing2.size = HeightChoices.TWENTY_FIFTY
     listing2.price = 152
     listing2.plantType = PlantTypeChoices.ALIVE_PLANT
-    listing2.author = currentUser
+    listing2.author = user1_MS
     listing2.category = cat
-    listing2.locationName = 'Bratislava'
+    listing2.locationName = 'Brno'
     listing2.locationZip = '61600'
-    listing2.speciesLat = 'Cactusius latinus'
+    listing2.speciesLat = 'Orchidaceae'
     listing2.save()
+    listings.append(listing2)
+
+    listing3 = Listing()
+    listing3.title = 'Prodám Kaktusy'
+    listing3.description = 'Prodám 5 kaktusů'
+    listing3.difficulty = DifficultyChoices.EASY
+    listing3.tradeTypeChoices = TradeTypeChoices.FREE
+    listing3.size = HeightChoices.ONE_TWENTY
+    listing3.price = 600
+    listing3.plantType = PlantTypeChoices.ALIVE_PLANT
+    listing3.author = user1_MS
+    listing3.category = cat
+    listing3.locationName = 'Brno'
+    listing3.locationZip = '61600'
+    listing3.speciesCZ = 'Kaktus'
+    listing3.save()
+    listings.append(listing3)
+
+# USER 2 LISTINGS
+    listing4 = Listing()
+    listing4.title = 'Prodám Pampelišku'
+    listing4.description = 'Bude to ale fasa drahá pampeliška.'
+    listing4.difficulty = DifficultyChoices.EASY
+    listing4.tradeTypeChoices = TradeTypeChoices.CASH
+    listing4.size = HeightChoices.ONE_TWENTY
+    listing4.price = 1200
+    listing4.plantType = PlantTypeChoices.ALIVE_PLANT
+    listing4.author = user2_SS
+    listing4.category = cat
+    listing4.locationName = 'Praha - Haje'
+    listing4.locationZip = '14900'
+    listing4.speciesCZ = 'Pampeliška'
+    listing4.speciesLat = 'Taraxacum'
+    listing4.save()
+    listings.append(listing4)
+
+    listing5 = Listing()
+    listing5.title = 'Vyměním Růže'
+    listing5.description = 'Rád bych vyměnil růže za fikusy.'
+    listing5.difficulty = DifficultyChoices.EASY
+    listing5.tradeTypeChoices = TradeTypeChoices.TRADE
+    listing5.size = HeightChoices.TWENTY_FIFTY
+    listing5.plantType = PlantTypeChoices.ALIVE_PLANT
+    listing5.author = user2_SS
+    listing5.category = cat
+    listing5.locationName = 'Praha - Haje'
+    listing5.locationZip = '14900'
+    listing5.speciesCZ = 'Růže'
+    listing5.save()
+    listings.append(listing5)
+
+    listing6 = Listing()
+    listing6.title = 'Prodám Tulipány'
+    listing6.description = '5 kusů tulipánů.'
+    listing6.difficulty = DifficultyChoices.EASY
+    listing6.tradeTypeChoices = TradeTypeChoices.CASH
+    listing6.size = HeightChoices.TWENTY_FIFTY
+    listing6.price = 200
+    listing6.plantType = PlantTypeChoices.ALIVE_PLANT
+    listing6.author = user2_SS
+    listing6.category = cat
+    listing6.locationName = 'Praha - Haje'
+    listing6.locationZip = '14900'
+    listing6.speciesCZ = 'Tulipán'
+    listing6.save()
+    listings.append(listing6)
+
+# USER 3 LISTINGS
+    listing7 = Listing()
+    listing7.title = 'Lilie'
+    listing7.description = 'a'
+    listing7.difficulty = DifficultyChoices.EASY
+    listing7.tradeTypeChoices = TradeTypeChoices.CASH
+    listing7.size = HeightChoices.TWENTY_FIFTY
+    listing7.price = 200
+    listing7.plantType = PlantTypeChoices.ALIVE_PLANT
+    listing7.author = user3_AC
+    listing7.category = cat
+    listing7.locationName = 'Praha - Haje'
+    listing7.locationZip = '14900'
+    listing7.speciesCZ = 'Lilie'
+    listing7.save()
+    listings.append(listing7)
+
+# Hvozdík zahradní
+    listing8 = Listing()
+    listing8.category = cat
+    listing8.author = user3_AC
+    listing8.save()
+    listings.append(listing8)
+# Hyacint
+    listing9 = Listing()
+    listing9.category = cat
+    listing9.author = user3_AC
+    listing9.save()
+    listings.append(listing9)
+
+# USER 4 LISTINGS
+    listing10 = Listing()
+    listing10.category = cat
+    listing10.author = user4_IT
+    listing10.save()
+    listings.append(listing10)
+
+    listing11 = Listing()
+    listing11.category = cat
+    listing11.author = user4_IT
+    listing11.save()
+    listings.append(listing11)
+
+    listing12 = Listing()
+    listing12.category = cat
+    listing12.author = user4_IT
+    listing12.save()
+    listings.append(listing12)
+
+# USER 5 LISTINGS
+    listing13 = Listing()
+    listing13.category = cat
+    listing13.author = user5_MV
+    listing13.save()
+    listings.append(listing13)
+
+    listing14 = Listing()
+    listing14.category = cat
+    listing14.author = user5_MV
+    listing14.save()
+    listings.append(listing14)
+
+    listing15 = Listing()
+    listing15.category = cat
+    listing15.author = user5_MV
+    listing15.save()
+    listings.append(listing15)
+
+
+# ====================================================== #
+#                     SEED COMMENTS                      #
+# ====================================================== #
 
     comment = Comment()
     comment.text = 'Nice listing yo!'
-    comment.author = currentUser
+    comment.author = user1_MS
     comment.listing = listing1
     comment.save()
 
     comment2 = Comment()
     comment2.text = 'Bad listing :('
-    comment2.author = marek
+    comment2.author = user1_MS
     comment2.listing = listing2
     comment2.save()
 
     comment3 = Comment()
     comment3.text = 'Die'
-    comment3.author = currentUser
+    comment3.author = user1_MS
     comment3.listing = listing2
     comment3.parentComment = comment2
     comment3.save()
 
 
-    image1 = Image()
-    image1.path = '/img/1/1.jpg'
-    image1.listing = listing1
-    image1.save()
+# ====================================================== #
+#                       SEED IMAGES                      #
+# ====================================================== #
 
-    listing1.mainImage = image1
-    listing1.save()
+    for listing in listings:
+        mainImage = Image()
+        mainImage.path = f'/img/{listing.id}/1.jpg'
+        mainImage.listing = listing
+        mainImage.save()
+        listing.mainImage = mainImage
+        listing.save()
+        for imageIndex in range (2,6):
+            image = Image()
+            image.path = f'/img/{listing.id}/{imageIndex}.jpg'
+            image.listing = listing
+            image.save()
 
-    image2 = Image()
-    image2.path = '/img/1/2.jpg'
-    image2.listing = listing1
-    image2.save()
-
-    image3 = Image()
-    image3.path = '/img/1/3.jpg'
-    image3.listing = listing2
-    image3.save()
-
-    listing2.mainImage = image3
-    listing2.save()
+# ====================================================== #
+#                      SEED RATINGS                      #
+# ====================================================== #
 
     rating1 = Rating()
-    rating1.ratee = marek
-    rating1.author = currentUser
+    rating1.ratee = user2_SS
+    rating1.author = user1_MS
     rating1.rating = 4
     rating1.text = 'Mr. CoolGuy'
     rating1.save()
 
     rating2 = Rating()
-    rating2.ratee = currentUser
-    rating2.author = marek
+    rating2.ratee = user1_MS
+    rating2.author = user2_SS
     rating2.rating = 3
     rating2.text = 'Yes'
     rating2.save()
