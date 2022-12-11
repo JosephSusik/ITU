@@ -18,11 +18,11 @@ class DifficultyChoices(models.TextChoices):
 
 
 class HeightChoices(models.TextChoices):
-    FIRST = '1-20cm'
-    SECOND = '20-50cm'
-    THIRD = '50-100cm'
-    FOURTH = '100-150cm'
-    FIFTH = '>150cm'
+    ONE_TWENTY = '1-20cm'
+    TWENTY_FIFTY = '20-50cm'
+    FIFTY_HUNDRED = '50-100cm'
+    HUNDRED_HUNDREDFIFTY = '100-150cm'
+    HUNDREDFIFTY_PLUS = '>150cm'
     UNKNOWN = 'Unknown'
 
 
@@ -43,7 +43,7 @@ class PlantTypeChoices(models.TextChoices):
     SEEDS = 'Seeds'
     ALIVE_PLANT = 'Alive plant'
     UNKNOWN = 'Unknown'
-    Other = 'Other'
+    OTHER = 'Other'
 
 
 class RatingStarsChoices(models.IntegerChoices):
