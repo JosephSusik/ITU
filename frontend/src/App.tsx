@@ -4,7 +4,7 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import Navbar from './components/Navbar';
 import HomePage from './pages/HomePage';
 import ProfilePage from './pages/ProfilePage';
-import ProductPage from './pages/ProductPage';
+import ListingPage from './pages/ListingPage';
 
 function App() {
   return (
@@ -13,7 +13,7 @@ function App() {
     <Routes>
       <Route path="/" element={<HomePage />}/>;
       <Route path="/profile" element={<ProfilePage />}/>;
-      <Route path="/product/:id" element={<ProductPage />}/>
+      <Route path="/listing/:id" element={<ListingPage />}/>
     </Routes>
   </BrowserRouter>
   );
