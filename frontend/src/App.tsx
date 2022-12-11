@@ -9,7 +9,10 @@ import '@fontsource/roboto/300.css';
 import '@fontsource/roboto/400.css';
 import '@fontsource/roboto/500.css';
 import '@fontsource/roboto/700.css';
-
+import FavouritesPage from './pages/FavouritesPage';
+import Footer from './components/Footer';
+import AllPage from './pages/AllPage';
+import BeginnersPage from './pages/BeginnersPage';
 
 function App() {
   return (
@@ -17,9 +20,13 @@ function App() {
     <Navbar />
     <Routes>
       <Route path="/" element={<HomePage />}/>;
-      <Route path="/profile" element={<ProfilePage />}/>;
+      <Route path="/profile" element={<ProfilePage />}/>
       <Route path="/listing/:id" element={<ListingPage />}/>
+      <Route path="/all" element={<AllPage />}/>
+      <Route path="/favourites" element={<FavouritesPage />}/>
+      <Route path="/beginners" element={<BeginnersPage />}/>
     </Routes>
+    <Footer />
   </BrowserRouter>
   );
 }

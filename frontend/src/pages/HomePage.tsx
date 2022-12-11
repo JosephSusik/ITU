@@ -1,4 +1,10 @@
 import React, { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
+
+import "../index.css";
+
+import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
+import FavoriteIcon from '@mui/icons-material/Favorite';
 
 function HomePage() {
 
@@ -21,64 +27,115 @@ function HomePage() {
         <div className="format homepage">
             <div className="homepage_favourite">
                 <div className="hp_row_1">
-                    Oblíbené inzeráty
+                    <h3>Oblíbené inzeráty</h3>
+                    <Link to="/favourites" className="hp_button_link"><button className="hp_button"><h3>Zobrazit všechny</h3></button></Link>
                 </div>
                 <div className="hp_row_2">
+                    
                     <div className="hp_inzerat">
-                        <img src="./img/1/1.jpg" alt="" className="img"/>   
-                        <p>Název</p>
+                        <div className="hp_img_div">
+                            <img src="./img/1/1.jpg" alt="" className="hp_img"/>
+                        </div>
+                        <p className="hp_title"><b>Název květiny Název květiny Název květiny Název květiny</b></p>
                         <div className="hp_inzerat_detail_col">
                             <div className="hp_inzerat_detail_row">
-                                <p>Category</p>
-                                <p>Place</p>
+                                <p className="hp_cat">Category</p>
+                                <p className="hp_place">Place</p>
                             </div>
                             <div className="hp_inzerat_detail_row">
-                                <p>Views</p>
-                                <p>Price</p>
+                                <p className="hp_views">Views</p>
+                                <p className="hp_price">Price</p>
                             </div>
                         </div>
-                    </div>         
+                    </div>   
+
+                    <div className="hp_inzerat">
+                        <img src="./img/2/1.jpg" alt="" className="hp_img"/>   
+                        <p className="hp_title"><b>Název</b></p>
+                        <div className="hp_inzerat_detail_col">
+                            <div className="hp_inzerat_detail_row">
+                                <p className="hp_cat">Category</p>
+                                <p className="hp_place">Place</p>
+                            </div>
+                            <div className="hp_inzerat_detail_row">
+                                <p className="hp_views">Views</p>
+                                <p className="hp_price">Price</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div className="hp_inzerat">
+                        <img src="./img/3/1.jpg" alt="" className="hp_img"/>   
+                        <p className="hp_title"><b>Název</b></p>
+                        <div className="hp_inzerat_detail_col">
+                            <div className="hp_inzerat_detail_row">
+                                <p className="hp_cat">Category</p>
+                                <p className="hp_place">Place</p>
+                            </div>
+                            <div className="hp_inzerat_detail_row">
+                                <p className="hp_views">Views</p>
+                                <p className="hp_price">Price</p>
+                            </div>
+                        </div>
+                    </div> 
+
+                    <div className="hp_inzerat">
+                        <img src="./img/4/1.jpg" alt="" className="hp_img"/>   
+                        <p className="hp_title"><b>Název</b></p>
+                        <div className="hp_inzerat_detail_col">
+                            <div className="hp_inzerat_detail_row">
+                                <p className="hp_cat">Category</p>
+                                <p className="hp_place">Place</p>
+                            </div>
+                            <div className="hp_inzerat_detail_row">
+                                <p className="hp_views">Views</p>
+                                <p className="hp_price">Price</p>
+                            </div>
+                        </div>
+                    </div>           
                 </div>
             </div>
 
             <div className="homepage_beginner">
                 <div className="hp_row_1">
-                    Pro začátečníky
+                    <h3>Pro začátečníky</h3>
+                    <Link to="/beginners" className="hp_button_link"><button className="hp_button"><h3>Zobrazit všechny</h3></button></Link>
                 </div>
                 <div className="hp_row_2">
                     <div className="hp_inzerat">
-                        <img src="./img/1/1.jpg" alt="" className="img"/>   
-                        <p>Název</p>
+                        <img src="./img/5/1.jpg" alt="" className="hp_img"/>   
+                        <p className="hp_title">Název</p>
                         <div className="hp_inzerat_detail_col">
                             <div className="hp_inzerat_detail_row">
-                                <p>Category</p>
-                                <p>Place</p>
+                                <p className="hp_cat">Category</p>
+                                <p className="hp_place">Place</p>
                             </div>
                             <div className="hp_inzerat_detail_row">
-                                <p>Views</p>
-                                <p>Price</p>
+                                <p className="hp_views">Views</p>
+                                <p className="hp_price">Price</p>
                             </div>
                         </div>
                     </div>                        
                 </div>
             </div>
 
-            <div className="homepage_summer">
+            <div className="homepage_all">
                 <div className="hp_row_1">
-                    Do letní zahrádky
+                    <h3>Všechny inzeráty</h3>
+                    <Link to="/all" className="hp_button_link"><button className="hp_button"><h3>Zobrazit všechny</h3></button></Link>
                 </div>
                 <div className="hp_row_2">
                     <div className="hp_inzerat">
-                        <img src="./img/1/1.jpg" alt="" className="img"/>   
-                        <p>Název</p>
+                        <img src="./img/6/1.jpg" alt="" className="hp_img"/>   
+                        <p className="hp_title">Název</p>
                         <div className="hp_inzerat_detail_col">
                             <div className="hp_inzerat_detail_row">
-                                <p>Category</p>
-                                <p>Place</p>
+                                <p className="hp_cat">Category</p>
+                                <p className="hp_place">Place</p>
                             </div>
                             <div className="hp_inzerat_detail_row">
-                                <p>Views</p>
-                                <p>Price</p>
+                                <p className="hp_views">Views</p>
+                                <p className="hp_price">Price</p>
                             </div>
                         </div>
                     </div>              
