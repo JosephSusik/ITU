@@ -150,8 +150,11 @@ def listing(request, id):
 
 def viewUsers(request):
     if request.method == 'GET':
-        response = serializers.serialize('json', User.objects.all())
-        return HttpResponse(response, content_type='text/json')
+        # response = serializers.serialize('json', User.objects.all())
+        # return HttpResponse(response, content_type='text/json')
+        users = User.objects.all()
+        serializer = UserSerializer(users, many=True)
+        return HttpResponse(json.dumps(serializer.data), content_type = 'text/json')
     if request.method == 'PUT':
         payload = json.loads(request.body)
         if 'favoriteId' in payload:
