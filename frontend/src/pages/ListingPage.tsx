@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
+import Button from '@mui/material/Button'
 
 function ListingPage() {
 
@@ -14,6 +15,7 @@ function ListingPage() {
         const data = await response.json();
         console.log(data);
         setItem(data);
+        setMainImg({id: data.mainImage.id, path: data.mainImage.path})
     }
 
     useEffect(() => {
@@ -24,21 +26,7 @@ function ListingPage() {
     const i = 1;
     return (
         <>
-            {/* <pre>{JSON.stringify(items, null, 2)}</pre> */}
-            <div>
-                <div>
-                    <img src="/img/1/1.jpg" className="img"/>
-                </div>
-                <div>
-                    <img src="/img/1/1.jpg" className="img"/>
-                </div>
-                <div>
-                    <img src="/img/1/1.jpg" className="img"/>
-                </div>
-                <div>
-                    <img src="/img/1/1.jpg" className="img"/>
-                </div>
-            </div>
+            
             </>
     );
 }
