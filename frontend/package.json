@@ -6,10 +6,6 @@
   "dependencies": {
     "@emotion/react": "^11.10.5",
     "@emotion/styled": "^11.10.5",
-<<<<<<< HEAD
-    "@fontsource/roboto": "^4.5.8",
-=======
->>>>>>> d63b584902e0210fe721266002aef58523bbce85
     "@mui/icons-material": "^5.10.16",
     "@mui/material": "^5.10.17",
     "@testing-library/jest-dom": "^5.16.5",
