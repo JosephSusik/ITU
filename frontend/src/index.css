@@ -110,6 +110,7 @@
 .hp_img {
   width: 14vw;
   border-radius: 2px;
+  display: block;
 }
 
 .homepage {
@@ -236,5 +237,32 @@
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   justify-items: center;
+}
 
+.hp_img_div {
+  position: relative;
+}
+
+.fav_icon {
+  position: absolute;
+  color: whitesmoke;
+  right: 1px;
+  top: 1px;
+  cursor: pointer;
+}
+
+.fav_icon_full {
+  position: absolute;
+  color: transparent;
+  right: 1px;
+  top: 1px;
+  cursor: pointer;
+}
+
+.fav_icon_full:hover {
+  color: whitesmoke;
+}
+
+.fav_icon:hover {
+  color: transparent;
 }

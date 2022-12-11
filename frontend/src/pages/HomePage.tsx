@@ -1,6 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
+import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
+import FavoriteIcon from '@mui/icons-material/Favorite';
+
 function HomePage() {
 
     var [items, setItem]:any = useState([]);
@@ -27,7 +30,11 @@ function HomePage() {
                 </div>
                 <div className="hp_row_2">
                     <div className="hp_inzerat">
-                        <img src="./img/1/1.jpg" alt="" className="hp_img"/>   
+                        <div className="hp_img_div">
+                            <FavoriteBorderIcon className="fav_icon" />
+                            <FavoriteIcon className="fav_icon_full" />  
+                            <img src="./img/1/1.jpg" alt="" className="hp_img"/>
+                        </div>
                         <p className="hp_title">Název</p>
                         <div className="hp_inzerat_detail_col">
                             <div className="hp_inzerat_detail_row">
