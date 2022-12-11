@@ -51,6 +51,7 @@ class ListingSerializerFull(serializers.ModelSerializer):
     comment_listing = CommentSerializer(many=True)
     author = UserSerializer(many=False)
     category = CategorySerializer(many=False)
+    mainImage = ImageSerializer(many=False)
     class Meta:
         model = Listing
         fields = '__all__'
