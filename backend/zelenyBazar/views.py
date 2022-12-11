@@ -294,7 +294,7 @@ def seedData(request):
 
 
     image1 = Image()
-    image1.path = './img/1/1.jpg'
+    image1.path = '/img/1/1.jpg'
     image1.listing = listing1
     image1.save()
 
@@ -302,12 +302,12 @@ def seedData(request):
     listing1.save()
 
     image2 = Image()
-    image2.path = './img/1/1.jpg'
+    image2.path = '/img/1/2.jpg'
     image2.listing = listing1
     image2.save()
 
     image3 = Image()
-    image3.path = './img/1/1.jpg'
+    image3.path = '/img/1/3.jpg'
     image3.listing = listing2
     image3.save()
 

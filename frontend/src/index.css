@@ -120,3 +120,11 @@
   display: grid;
   grid-template-rows: 1fr 1fr;
 }
+
+/* LISTING PAGE */
+
+.center {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
