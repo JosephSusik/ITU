@@ -58,6 +58,9 @@ def viewListings(request):
                 listings = listings.filter(isFavorite=True)
             else:
                 listings = listings.filter(isFavorite=False)
+        if request.GET.__contains__('environment'):
+            listings = listings.filter(
+                environment=request.GET.get('environment'))
 
         listings = listings.select_related('author').prefetch_related('image_listing')
         serializer = ListingSerializerMainPage(listings, many=True)
@@ -79,6 +82,8 @@ def viewListings(request):
         listing.difficulty = payload['difficulty']
         if 'price' in payload:
             listing.price = payload['price']
+        if 'environment' in payload:
+            listing.environment = payload['environment']
         listing.plantType = payload['plantType']
         listing.size = payload['size']
         listing.tradeType = payload['tradeType']
@@ -226,11 +231,11 @@ def ratingDelete(request, id):
 
 def seedData(request):
 
-    # cat = Category()
-    # for categoryName in CategoryChoices.choices:
-    #     cat = Category()
-    #     cat.name = categoryName[0]
-    #     cat.save()
+    cat = Category()
+    for categoryName in CategoryChoices.choices:
+        cat = Category()
+        cat.name = categoryName[0]
+        cat.save()
         
 # ====================================================== #
 #                       SEED USERS                       #
@@ -280,9 +285,7 @@ def seedData(request):
     listing1.size = HeightChoices.TWENTY_FIFTY
     listing1.plantType = PlantTypeChoices.ALIVE_PLANT
     listing1.author = user1_MS
-    cat =  Category(name=CategoryChoices.OUTSIDE_PLANTS)
-    cat.save()
-    listing1.category = cat
+    listing1.category_id = 5
     listing1.locationName = 'Brno'
     listing1.locationZip = '61600'
     listing1.speciesCZ = 'Sedmikráska'
@@ -299,9 +302,7 @@ def seedData(request):
     listing2.price = 152
     listing2.plantType = PlantTypeChoices.ALIVE_PLANT
     listing2.author = user1_MS
-    cat =  Category(name=CategoryChoices.INDOOR_PLANTS)
-    cat.save()
-    listing2.category = cat
+    listing2.category_id = 5
     listing2.locationName = 'Brno'
     listing2.locationZip = '61600'
     listing2.speciesLat = 'Orchidaceae'
@@ -317,9 +318,7 @@ def seedData(request):
     listing3.price = 600
     listing3.plantType = PlantTypeChoices.ALIVE_PLANT
     listing3.author = user1_MS
-    cat =  Category(name=CategoryChoices.CACTI)
-    cat.save()
-    listing3.category = cat
+    listing3.category_id = 5
     listing3.locationName = 'Brno'
     listing3.locationZip = '61600'
     listing3.speciesCZ = 'Kaktus'
@@ -337,9 +336,7 @@ def seedData(request):
     listing4.price = 1200
     listing4.plantType = PlantTypeChoices.ALIVE_PLANT
     listing4.author = user2_SS
-    cat =  Category(name=CategoryChoices.OUTSIDE_PLANTS)
-    cat.save()
-    listing4.category = cat
+    listing4.category_id = 5
     listing4.locationName = 'Praha - Haje'
     listing4.locationZip = '14900'
     listing4.speciesCZ = 'Pampeliška'
@@ -355,9 +352,7 @@ def seedData(request):
     listing5.size = HeightChoices.TWENTY_FIFTY
     listing5.plantType = PlantTypeChoices.ALIVE_PLANT
     listing5.author = user2_SS
-    cat =  Category(name=CategoryChoices.OUTSIDE_PLANTS)
-    cat.save()
-    listing5.category = cat
+    listing5.category_id = 5
     listing5.locationName = 'Praha - Haje'
     listing5.locationZip = '14900'
     listing5.speciesCZ = 'Růže'
@@ -373,9 +368,7 @@ def seedData(request):
     listing6.price = 200
     listing6.plantType = PlantTypeChoices.ALIVE_PLANT
     listing6.author = user2_SS
-    cat =  Category(name=CategoryChoices.OUTSIDE_PLANTS)
-    cat.save()
-    listing6.category = cat
+    listing6.category_id = 5
     listing6.locationName = 'Praha - Haje'
     listing6.locationZip = '14900'
     listing6.speciesCZ = 'Tulipán'
@@ -392,9 +385,7 @@ def seedData(request):
     listing7.price = 200
     listing7.plantType = PlantTypeChoices.ALIVE_PLANT
     listing7.author = user3_AC
-    cat =  Category(name=CategoryChoices.OUTSIDE_PLANTS)
-    cat.save()
-    listing7.category = cat
+    listing7.category_id = 5
     listing7.locationName = 'Praha - Haje'
     listing7.locationZip = '14900'
     listing7.speciesCZ = 'Lilie'
@@ -410,9 +401,7 @@ def seedData(request):
     listing8.size = HeightChoices.TWENTY_FIFTY
     listing8.price = 200
     listing8.plantType = PlantTypeChoices.ALIVE_PLANT
-    cat =  Category(name=CategoryChoices.OUTSIDE_PLANTS)
-    cat.save()
-    listing8.category = cat
+    listing8.category_id = 5
     listing8.author = user3_AC
     listing8.save()
     listings.append(listing8)
@@ -425,9 +414,7 @@ def seedData(request):
     listing9.size = HeightChoices.TWENTY_FIFTY
     listing9.price = 200
     listing9.plantType = PlantTypeChoices.ALIVE_PLANT
-    cat =  Category(name=CategoryChoices.OUTSIDE_PLANTS)
-    cat.save()
-    listing9.category = cat
+    listing9.category_id = 5
     listing9.author = user3_AC
     listing9.save()
     listings.append(listing9)
@@ -441,9 +428,7 @@ def seedData(request):
     listing10.size = HeightChoices.TWENTY_FIFTY
     listing10.price = 200
     listing10.plantType = PlantTypeChoices.ALIVE_PLANT
-    cat =  Category(name=CategoryChoices.OUTSIDE_PLANTS)
-    cat.save()
-    listing10.category = cat
+    listing10.category_id = 5
     listing10.author = user4_IT
     listing10.save()
     listings.append(listing10)
@@ -456,9 +441,7 @@ def seedData(request):
     listing11.size = HeightChoices.TWENTY_FIFTY
     listing11.price = 200
     listing11.plantType = PlantTypeChoices.ALIVE_PLANT
-    cat =  Category(name=CategoryChoices.OUTSIDE_PLANTS)
-    cat.save()
-    listing11.category = cat
+    listing11.category_id = 5
     listing11.author = user4_IT
     listing11.save()
     listings.append(listing11)
@@ -471,9 +454,7 @@ def seedData(request):
     listing12.size = HeightChoices.TWENTY_FIFTY
     listing12.price = 200
     listing12.plantType = PlantTypeChoices.ALIVE_PLANT
-    cat =  Category(name=CategoryChoices.OUTSIDE_PLANTS)
-    cat.save()
-    listing12.category = cat
+    listing12.category_id = 5
     listing12.author = user4_IT
     listing12.save()
     listings.append(listing12)
@@ -487,9 +468,7 @@ def seedData(request):
     listing13.size = HeightChoices.TWENTY_FIFTY
     listing13.price = 200
     listing13.plantType = PlantTypeChoices.ALIVE_PLANT
-    cat =  Category(name=CategoryChoices.OUTSIDE_PLANTS)
-    cat.save()
-    listing13.category = cat
+    listing13.category_id = 5
     listing13.author = user5_MV
     listing13.save()
     listings.append(listing13)
@@ -502,9 +481,7 @@ def seedData(request):
     listing14.size = HeightChoices.TWENTY_FIFTY
     listing14.price = 200
     listing14.plantType = PlantTypeChoices.ALIVE_PLANT
-    cat =  Category(name=CategoryChoices.OUTSIDE_PLANTS)
-    cat.save()
-    listing14.category = cat
+    listing14.category_id = 5
     listing14.author = user5_MV
     listing14.save()
     listings.append(listing14)
@@ -517,9 +494,7 @@ def seedData(request):
     listing15.size = HeightChoices.TWENTY_FIFTY
     listing15.price = 200
     listing15.plantType = PlantTypeChoices.ALIVE_PLANT
-    cat =  Category(name=CategoryChoices.OUTSIDE_PLANTS)
-    cat.save()
-    listing15.category = cat
+    listing15.category_id = 5
     listing15.author = user5_MV
     listing15.save()
     listings.append(listing15)

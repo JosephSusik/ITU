@@ -27,12 +27,10 @@ class HeightChoices(models.TextChoices):
 
 
 class CategoryChoices(models.TextChoices):
-    INDOOR_PLANTS = 'Indoor plants'
     CACTI = 'Cacti'
     PALMS = 'Palms'
     FRUIT_TREES = 'Fruit trees'
     DECORATIVE_TREES = 'Decorative trees'
-    OUTSIDE_PLANTS = 'Outside plants'
     OTHERS = 'Others'
     HERBS = 'Herbs'
     EXOTIC_PLANTS = 'Exotic plants'
@@ -44,6 +42,12 @@ class PlantTypeChoices(models.TextChoices):
     ALIVE_PLANT = 'Alive plant'
     UNKNOWN = 'Unknown'
     OTHER = 'Other'
+
+
+class PlantEnvironment(models.TextChoices):
+    INSIDE = 'Inside'
+    OUTSIDE = 'Outside'
+    UNKNOWN = 'Unknown'
 
 
 class RatingStarsChoices(models.IntegerChoices):
@@ -97,6 +101,9 @@ class Listing(models.Model):
     instructions = models.CharField(default='', max_length=1000)
     speciesCZ = models.CharField(default='', max_length=100)
     speciesLat = models.CharField(default='', max_length=100)
+
+    environment = models.CharField(
+        choices=PlantEnvironment.choices, default=PlantEnvironment.UNKNOWN, max_length=20)
 
     category = models.ForeignKey(
         Category, on_delete=models.DO_NOTHING, null=False, related_name='listing_category')
