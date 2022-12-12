@@ -33,7 +33,7 @@ export default function PropertiesDisplay(props: any) {
             <PropertyDisplay icon={<GrassIcon fontSize='large' />} property={'Forma předání'} value={item.plantType} />
             <SpeciesDisplay czech={item.speciesCZ} latin={item.speciesLat} />
             <Grid2 lg={2}>
-                <div style={{ backgroundColor: "green", height: "5px", marginTop: "6px", marginBottom: "6px" }}></div>
+                <div style={{ backgroundColor: "green", height: "5px", marginTop: "1vw", marginBottom: "1vw" }}></div>
             </Grid2>
             <PropertyDisplay icon={<VisibilityIcon fontSize='large' />} property={'Zobrazeni'} value={item.views + 'x'} />
             <PropertyDisplay icon={<CalendarMonthIcon fontSize='large' />} property={'Vytvořeno'} value={createdDate} />
