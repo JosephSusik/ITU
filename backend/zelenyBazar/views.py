@@ -53,6 +53,11 @@ def viewListings(request):
         if request.GET.__contains__('instructions'):
             if request.GET.get('instructions') == 'true':
                 listings = listings.exclude(instructions='')
+        if request.GET.__contains__('favorite'):
+            if request.GET.get('favorite') == 'true':
+                listings = listings.filter(isFavorite=True)
+            else:
+                listings = listings.filter(isFavorite=False)
 
         listings = listings.select_related('author').prefetch_related('image_listing')
         serializer = ListingSerializerMainPage(listings, many=True)
