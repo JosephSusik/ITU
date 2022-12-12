@@ -21,7 +21,7 @@ function HomePage() {
     }
 
     const fetchFavourites = async () => {
-        const response = await fetch('http://localhost:8000/listings?isFavorite=false');
+        const response = await fetch('http://localhost:8000/listings/?favorite=true');
         const data = await response.json();
         console.log(data);
         setFavourites(data);
@@ -36,7 +36,7 @@ function HomePage() {
     
     useEffect(() => {
         fetchAll();
-        //fetchFavourites();
+        fetchFavourites();
         fetchBeginner();
         setLoading(0);
     },[]);
@@ -45,6 +45,8 @@ function HomePage() {
     var display_all = all.slice(0,4);
     var display_favourites = favourites.slice(0,4);
     var display_beginners = beginners.slice(0,4);
+
+    //TO-DO: if favourite is NULL?
 
     return (
         <div className="format homepage">
@@ -55,8 +57,14 @@ function HomePage() {
                 </div>
                 <div className="hp_row_2">
 
+                {(display_favourites == null)?
+                <>
+                    <h1>Je to emptry</h1>
+                </>
+                :
+                <>
                 {
-                    display_all.map((item:any) =>
+                    display_favourites.map((item:any) =>
                         <div key={item.id} className="hp_inzerat">
                             <div className="hp_img_div">
                                 <img src={item.mainImage.path} alt="" className="hp_img"/>
@@ -74,6 +82,8 @@ function HomePage() {
                             </div>
                         </div>   
                     )
+                }
+                </>
                 }
                    
                 </div>
