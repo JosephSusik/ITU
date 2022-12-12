@@ -286,6 +286,7 @@ def seedData(request):
     listing1.locationName = 'Brno'
     listing1.locationZip = '61600'
     listing1.speciesCZ = 'Sedmikráska'
+    listing1.isFavorite = True
     listing1.save()
     listings.append(listing1)
 
@@ -322,6 +323,7 @@ def seedData(request):
     listing3.locationName = 'Brno'
     listing3.locationZip = '61600'
     listing3.speciesCZ = 'Kaktus'
+    listing1.isFavorite = True
     listing3.save()
     listings.append(listing3)
 
