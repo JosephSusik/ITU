@@ -1,96 +1,80 @@
 import React, { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import Grid2 from '@mui/material/Unstable_Grid2';
-import Globals from "../components/Globals";
+import { Container } from "@mui/system"
+import FavoriteIcon from '@mui/icons-material/Favorite';
+import ClassIcon from '@mui/icons-material/Class';
+import WarningIcon from '@mui/icons-material/Warning';
 
 
-import ImageList from '@mui/material/ImageList';
-import ImageListItem from '@mui/material/ImageListItem';
-import { Container } from "@mui/system";
-
+import ImagePreview from "../components/ProductPage/ImagePreview";
+import PropertiesDisplay from "../components/ProductPage/PropertiesDisplay";
 
 function ListingPage() {
 
-    var [item, setItem]:any = useState([]);
-    var [loading, setLoading]:any = useState(1);
-    var [mainImg, setMainImg]:any = useState([])
-
-    const [value, setValue] = useState(0);
-    const handleChange = (event:any, newValue:any) => {
-        setValue(newValue);
-      };
 
     let { id } = useParams();
-    
+
+    var [item, setItem]: any = useState([]);
+    var [mainImg, setMainImg]: any = useState([]);
+
+
     const handleFetchData = async () => {
         const response = await fetch('http://localhost:8000/listings/' + id + '/');
         const data = await response.json();
         console.log(data);
         setItem(data);
-        setMainImg({id: data.mainImage.id, path: data.mainImage.path})
+        setMainImg({ id: data.mainImage.id, path: data.mainImage.path })
     }
 
     useEffect(() => {
         handleFetchData();
-        setLoading(0);
-    },[]);
+    }, []);
+
+
+    const handleClick = (event:any, id:any, path:any) => {
+        setMainImg({ id: id, path: path })
+    }
 
     const i = 1;
     return (
         <>
-            <div style={{width:"75%", margin: "auto"}}>
-                <Grid2 container spacing={2}>
-                    <Grid2 xs={2}>
-                        <ImageList sx={{ width: 150, height: 400 }} cols={1} rowHeight={150}>
-                            <Container fixed style={{maxWidth: "100%", maxHeight:"100px"}}>
-                                <img src="/img/1/1.jpg" style={{maxHeight:"100%", maxWidth:"100%"}}  className="center"></img>
-                            </Container>
-                            <Container fixed style={{maxWidth: "100%", maxHeight:"100px"}}>
-                                <img src="/img/1/4.jpg" style={{maxHeight:"100%", maxWidth:"100%"}}  className="center"></img>
-                            </Container>
-                            <Container fixed style={{maxWidth: "100%", maxHeight:"100px"}}>
-                                <img src="/img/1/1.jpg" style={{maxHeight:"100%", maxWidth:"100%"}}  className="center"></img>
-                            </Container>
-                            <Container fixed style={{maxWidth: "100%", maxHeight:"100px"}}>
-                                <img src="/img/1/4.jpg" style={{maxHeight:"100%", maxWidth:"100%"}}  className="center"></img>
-                            </Container>
-                            <Container fixed style={{maxWidth: "100%", maxHeight:"100px"}}>
-                                <img src="/img/1/1.jpg" style={{maxHeight:"100%", maxWidth:"100%"}}  className="center"></img>
-                            </Container>
-                            <Container fixed style={{maxWidth: "100%", maxHeight:"100px"}}>
-                                <img src="/img/1/4.jpg" style={{maxHeight:"100%", maxWidth:"100%"}}  className="center"></img>
-                            </Container>
-                            <Container fixed style={{maxWidth: "100%", maxHeight:"100px"}}>
-                                <img src="/img/1/1.jpg" style={{maxHeight:"100%", maxWidth:"100%"}}  className="center"></img>
-                            </Container>
-                            <Container fixed style={{maxWidth: "100%", maxHeight:"100px"}}>
-                                <img src="/img/1/4.jpg" style={{maxHeight:"100%", maxWidth:"100%"}}  className="center"></img>
-                            </Container>
-                            <Container fixed style={{maxWidth: "100%", maxHeight:"100px"}}>
-                                <img src="/img/1/1.jpg" style={{maxHeight:"100%", maxWidth:"100%"}}  className="center"></img>
-                            </Container>
-                            <Container fixed style={{maxWidth: "100%", maxHeight:"100px"}}>
-                                <img src="/img/1/4.jpg" style={{maxHeight:"100%", maxWidth:"100%"}}  className="center"></img>
-                            </Container>
-                            <Container fixed style={{maxWidth: "100%", maxHeight:"100px"}}>
-                                <img src="/img/1/1.jpg" style={{maxHeight:"100%", maxWidth:"100%"}}  className="center"></img>
-                            </Container>
-                            <Container fixed style={{maxWidth: "100%", maxHeight:"100px"}}>
-                                <img src="/img/1/4.jpg" style={{maxHeight:"100%", maxWidth:"100%"}}  className="center"></img>
-                            </Container>
-                        </ImageList>
+            <div style={{ width: "80%", marginLeft: "auto", marginRight:"auto" }}>
+                <Grid2 container spacing={1} columns={10} columnSpacing={0}>
+                    <Grid2 xs={1}>
+                        {/* {item && item.image_listing && item.image_listing.map((image: any) =>
+                            <Container key={image.id} fixed style={{ maxWidth: "70%", marginLeft: "auto", marginRight: 0 }}>
+                                <img src={image.path} style={{ maxWidth: "100%", border:"5px solid green" }} onClick={(event) => handleClick(event, image.id, image.path)} />
+                            </Container> )} */}
+                        {item && item.image_listing && item.image_listing.map((image: any) =>
+                            <ImagePreview image={image} handle={setMainImg} mainImgID={mainImg.id}/>
+                            )}
+
                     </Grid2>
-                    <Grid2 xs={5}>
-                        <Container fixed style={{width: "400px", height:"400px"}}>
-                            <img src="/img/1/1.jpg" style={{ maxWidth:"100%", maxHeight:"100%"}} className="center"/>
+                    <Grid2 md={4}>
+                        <Container fixed style={{ width: "100%" }}>
+                            <img src={mainImg.path} style={{ width: "100%", height: "100%" }} className="center"/>
                         </Container>
                     </Grid2>
-                    <Grid2 xs={5}>
+                    <Grid2 md={5}>
                         <h1>{item.title}</h1>
                         <p>{item.description}</p>
                         <h2>Starostlivost:</h2>
-                        <p>{item.instructions}</p>
-
+                        <p>{item.instructions ? item.instructions : 'Tento inzerat nemá žádné informace o starostlivosti.'}</p>
+                    </Grid2>
+                    <Grid2 xs={10}>
+                        <h2>Informace</h2>
+                    </Grid2>
+                    <Grid2 xs={5}>
+                    {item && item.image_listing &&
+                        <PropertiesDisplay item={item}/>
+                    }
+                    </Grid2>
+                    <Grid2 xs={10}>
+                        <h2>Akce</h2>
+                        <p><FavoriteIcon />Přidat do oblíbených</p>
+                        <p><ClassIcon color='warning' style={{color:'red'}}/>Nahlásit nesprávnou kategorii</p>
+                        <p><WarningIcon color='error'/>Nahlásit inzerát</p>
                     </Grid2>
                 </Grid2>
             </div>
