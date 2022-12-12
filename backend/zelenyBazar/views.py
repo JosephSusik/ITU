@@ -231,12 +231,15 @@ def ratingDelete(request, id):
 
 def seedData(request):
 
-    cat = Category()
+# ====================================================== #
+#                     SEED CATEGORIES                    #
+# ====================================================== #
+
     for categoryName in CategoryChoices.choices:
         cat = Category()
         cat.name = categoryName[0]
         cat.save()
-        
+
 # ====================================================== #
 #                       SEED USERS                       #
 # ====================================================== #
@@ -275,17 +278,18 @@ def seedData(request):
 #                     SEED LISTINGS                      #
 # ====================================================== #
     listings: List[Listing] = []
-# USER 1 LISTINGS
 
+# USER 1 LISTINGS
     listing1 = Listing()
     listing1.title = 'Daruji Sedmikrásku'
     listing1.description = 'Daruji sedmikrásku za odvoz :)'
     listing1.difficulty = DifficultyChoices.EASY
-    listing1.tradeTypeChoices = TradeTypeChoices.FREE
+    listing1.tradeType = TradeTypeChoices.FREE
     listing1.size = HeightChoices.TWENTY_FIFTY
     listing1.plantType = PlantTypeChoices.ALIVE_PLANT
     listing1.author = user1_MS
     listing1.category_id = 5
+    listing1.environment = PlantEnvironment.OUTSIDE
     listing1.locationName = 'Brno'
     listing1.locationZip = '61600'
     listing1.speciesCZ = 'Sedmikráska'
@@ -296,13 +300,14 @@ def seedData(request):
     listing2 = Listing()
     listing2.title = 'Prodám Orchidej'
     listing2.description = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec ac mollis nisl. Aenean elementum, mi ac feugiat dictum, urna nibh pulvinar erat, in blandit orci orci non sem. Integer venenatis euismod velit non suscipit. Nunc finibus scelerisque nulla, nec convallis leo tristique vitae. Mauris eleifend fringilla enim eu auctor. Pellentesque rutrum, magna sed sollicitudin gravida, tellus ante ornare purus, vitae suscipit est lacus in tellus. Proin convallis auctor dolor, vitae porttitor urna orci. '
-    listing2.difficulty = DifficultyChoices.MEDUIM
-    listing2.tradeTypeChoices = TradeTypeChoices.CASH
+    listing2.difficulty = DifficultyChoices.MEDIUM
+    listing2.tradeType = TradeTypeChoices.CASH
     listing2.size = HeightChoices.TWENTY_FIFTY
     listing2.price = 152
     listing2.plantType = PlantTypeChoices.ALIVE_PLANT
     listing2.author = user1_MS
     listing2.category_id = 5
+    listing2.environment = PlantEnvironment.INSIDE
     listing2.locationName = 'Brno'
     listing2.locationZip = '61600'
     listing2.speciesLat = 'Orchidaceae'
@@ -312,17 +317,18 @@ def seedData(request):
     listing3 = Listing()
     listing3.title = 'Prodám Kaktusy'
     listing3.description = 'Prodám 5 kaktusů'
-    listing3.difficulty = DifficultyChoices.EASY
-    listing3.tradeTypeChoices = TradeTypeChoices.FREE
+    listing3.difficulty = DifficultyChoices.HARD
+    listing3.tradeType = TradeTypeChoices.FREE
     listing3.size = HeightChoices.ONE_TWENTY
     listing3.price = 600
     listing3.plantType = PlantTypeChoices.ALIVE_PLANT
     listing3.author = user1_MS
-    listing3.category_id = 5
+    listing3.category_id = 1
+    listing3.environment = PlantEnvironment.ANYWHERE
     listing3.locationName = 'Brno'
     listing3.locationZip = '61600'
     listing3.speciesCZ = 'Kaktus'
-    listing1.isFavorite = True
+    listing3.isFavorite = True
     listing3.save()
     listings.append(listing3)
 
@@ -331,12 +337,13 @@ def seedData(request):
     listing4.title = 'Prodám Pampelišku'
     listing4.description = 'Bude to ale fasa drahá pampeliška. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed placerat pulvinar ligula. Nam tempus, sapien quis bibendum sollicitudin, libero odio dictum felis, eget tincidunt nibh dui id felis aenean. '
     listing4.difficulty = DifficultyChoices.EASY
-    listing4.tradeTypeChoices = TradeTypeChoices.CASH
+    listing4.tradeType = TradeTypeChoices.CASH
     listing4.size = HeightChoices.ONE_TWENTY
     listing4.price = 1200
     listing4.plantType = PlantTypeChoices.ALIVE_PLANT
     listing4.author = user2_SS
-    listing4.category_id = 5
+    listing4.category_id = 6
+    listing4.environment = PlantEnvironment.OUTSIDE
     listing4.locationName = 'Praha - Haje'
     listing4.locationZip = '14900'
     listing4.speciesCZ = 'Pampeliška'
@@ -348,11 +355,12 @@ def seedData(request):
     listing5.title = 'Vyměním Růže'
     listing5.description = 'Rád bych vyměnil růže za fikusy.'
     listing5.difficulty = DifficultyChoices.EASY
-    listing5.tradeTypeChoices = TradeTypeChoices.TRADE
+    listing5.tradeType = TradeTypeChoices.TRADE
     listing5.size = HeightChoices.TWENTY_FIFTY
     listing5.plantType = PlantTypeChoices.ALIVE_PLANT
     listing5.author = user2_SS
     listing5.category_id = 5
+    listing5.environment = PlantEnvironment.OUTSIDE
     listing5.locationName = 'Praha - Haje'
     listing5.locationZip = '14900'
     listing5.speciesCZ = 'Růže'
@@ -363,12 +371,13 @@ def seedData(request):
     listing6.title = 'Prodám Tulipány'
     listing6.description = '5 kusů tulipánů.'
     listing6.difficulty = DifficultyChoices.EASY
-    listing6.tradeTypeChoices = TradeTypeChoices.CASH
+    listing6.tradeType = TradeTypeChoices.CASH
     listing6.size = HeightChoices.TWENTY_FIFTY
     listing6.price = 200
     listing6.plantType = PlantTypeChoices.ALIVE_PLANT
     listing6.author = user2_SS
     listing6.category_id = 5
+    listing6.environment = PlantEnvironment.OUTSIDE
     listing6.locationName = 'Praha - Haje'
     listing6.locationZip = '14900'
     listing6.speciesCZ = 'Tulipán'
@@ -380,12 +389,13 @@ def seedData(request):
     listing7.title = 'Lilie'
     listing7.description = 'a'
     listing7.difficulty = DifficultyChoices.EASY
-    listing7.tradeTypeChoices = TradeTypeChoices.CASH
+    listing7.tradeType = TradeTypeChoices.CASH
     listing7.size = HeightChoices.TWENTY_FIFTY
     listing7.price = 200
     listing7.plantType = PlantTypeChoices.ALIVE_PLANT
     listing7.author = user3_AC
     listing7.category_id = 5
+    listing7.environment = PlantEnvironment.UNKNOWN
     listing7.locationName = 'Praha - Haje'
     listing7.locationZip = '14900'
     listing7.speciesCZ = 'Lilie'
@@ -397,11 +407,12 @@ def seedData(request):
     listing8.title = 'Hvozdik Zahradní'
     listing8.description = 'Is Hvozdík'
     listing8.difficulty = DifficultyChoices.EASY
-    listing8.tradeTypeChoices = TradeTypeChoices.CASH
+    listing8.tradeType = TradeTypeChoices.CASH
     listing8.size = HeightChoices.TWENTY_FIFTY
     listing8.price = 200
     listing8.plantType = PlantTypeChoices.ALIVE_PLANT
     listing8.category_id = 5
+    listing8.environment = PlantEnvironment.OUTSIDE
     listing8.author = user3_AC
     listing8.save()
     listings.append(listing8)
@@ -410,11 +421,12 @@ def seedData(request):
     listing9.title = 'Hyacint'
     listing9.description = 'Is Hyacint'
     listing9.difficulty = DifficultyChoices.EASY
-    listing9.tradeTypeChoices = TradeTypeChoices.CASH
+    listing9.tradeType = TradeTypeChoices.CASH
     listing9.size = HeightChoices.TWENTY_FIFTY
     listing9.price = 200
     listing9.plantType = PlantTypeChoices.ALIVE_PLANT
     listing9.category_id = 5
+    listing9.environment = PlantEnvironment.OUTSIDE
     listing9.author = user3_AC
     listing9.save()
     listings.append(listing9)
@@ -423,12 +435,13 @@ def seedData(request):
     listing10 = Listing()
     listing10.title = 'Chryzantéma'
     listing10.description = 'Is Chryzantéma'
-    listing10.difficulty = DifficultyChoices.EASY
-    listing10.tradeTypeChoices = TradeTypeChoices.CASH
+    listing10.difficulty = DifficultyChoices.MEDIUM
+    listing10.tradeType = TradeTypeChoices.CASH
     listing10.size = HeightChoices.TWENTY_FIFTY
     listing10.price = 200
     listing10.plantType = PlantTypeChoices.ALIVE_PLANT
     listing10.category_id = 5
+    listing10.environment = PlantEnvironment.INSIDE
     listing10.author = user4_IT
     listing10.save()
     listings.append(listing10)
@@ -436,12 +449,13 @@ def seedData(request):
     listing11 = Listing()
     listing11.title = 'Narcis'
     listing11.description = 'Is Narcis'
-    listing11.difficulty = DifficultyChoices.EASY
-    listing11.tradeTypeChoices = TradeTypeChoices.CASH
+    listing11.difficulty = DifficultyChoices.MEDIUM
+    listing11.tradeType = TradeTypeChoices.CASH
     listing11.size = HeightChoices.TWENTY_FIFTY
     listing11.price = 200
     listing11.plantType = PlantTypeChoices.ALIVE_PLANT
     listing11.category_id = 5
+    listing11.environment = PlantEnvironment.INSIDE
     listing11.author = user4_IT
     listing11.save()
     listings.append(listing11)
@@ -450,11 +464,12 @@ def seedData(request):
     listing12.title = 'Vlčí Mák'
     listing12.description = 'Vlčí Mák'
     listing12.difficulty = DifficultyChoices.EASY
-    listing12.tradeTypeChoices = TradeTypeChoices.CASH
+    listing12.tradeType = TradeTypeChoices.CASH
     listing12.size = HeightChoices.TWENTY_FIFTY
     listing12.price = 200
     listing12.plantType = PlantTypeChoices.ALIVE_PLANT
-    listing12.category_id = 5
+    listing12.category_id = 6
+    listing12.environment = PlantEnvironment.INSIDE
     listing12.author = user4_IT
     listing12.save()
     listings.append(listing12)
@@ -464,11 +479,12 @@ def seedData(request):
     listing13.title = 'Slunečnice'
     listing13.description = 'Is Slunečnice'
     listing13.difficulty = DifficultyChoices.EASY
-    listing13.tradeTypeChoices = TradeTypeChoices.CASH
+    listing13.tradeType = TradeTypeChoices.CASH
     listing13.size = HeightChoices.TWENTY_FIFTY
     listing13.price = 200
     listing13.plantType = PlantTypeChoices.ALIVE_PLANT
-    listing13.category_id = 5
+    listing13.category_id = 7
+    listing13.environment = PlantEnvironment.OUTSIDE
     listing13.author = user5_MV
     listing13.save()
     listings.append(listing13)
@@ -476,12 +492,13 @@ def seedData(request):
     listing14 = Listing()
     listing14.title = '???'
     listing14.description = 'But for real ???'
-    listing14.difficulty = DifficultyChoices.EASY
-    listing14.tradeTypeChoices = TradeTypeChoices.CASH
+    listing14.difficulty = DifficultyChoices.HARD
+    listing14.tradeType = TradeTypeChoices.CASH
     listing14.size = HeightChoices.TWENTY_FIFTY
     listing14.price = 200
     listing14.plantType = PlantTypeChoices.ALIVE_PLANT
-    listing14.category_id = 5
+    listing14.category_id = 8
+    listing14.environment = PlantEnvironment.ANYWHERE
     listing14.author = user5_MV
     listing14.save()
     listings.append(listing14)
@@ -490,11 +507,12 @@ def seedData(request):
     listing15.title = 'Hvězdník'
     listing15.description = 'Is Hvězdník'
     listing15.difficulty = DifficultyChoices.EASY
-    listing15.tradeTypeChoices = TradeTypeChoices.CASH
+    listing15.tradeType = TradeTypeChoices.CASH
     listing15.size = HeightChoices.TWENTY_FIFTY
     listing15.price = 200
     listing15.plantType = PlantTypeChoices.ALIVE_PLANT
-    listing15.category_id = 5
+    listing15.category_id = 8
+    listing15.environment = PlantEnvironment.INSIDE
     listing15.author = user5_MV
     listing15.save()
     listings.append(listing15)

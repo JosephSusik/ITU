@@ -12,7 +12,7 @@ class TradeTypeChoices(models.TextChoices):
 
 class DifficultyChoices(models.TextChoices):
     EASY = 'Easy'
-    MEDUIM = 'Medium'
+    MEDIUM = 'Medium'
     HARD = 'Hard'
     UNKNOWN = 'Unknown'
 
@@ -31,6 +31,7 @@ class CategoryChoices(models.TextChoices):
     PALMS = 'Palms'
     FRUIT_TREES = 'Fruit trees'
     DECORATIVE_TREES = 'Decorative trees'
+    DECORATIVE_PLANTS = 'Decorative plants'
     OTHERS = 'Others'
     HERBS = 'Herbs'
     EXOTIC_PLANTS = 'Exotic plants'
@@ -47,6 +48,7 @@ class PlantTypeChoices(models.TextChoices):
 class PlantEnvironment(models.TextChoices):
     INSIDE = 'Inside'
     OUTSIDE = 'Outside'
+    ANYWHERE = 'Anywhere'
     UNKNOWN = 'Unknown'
 
 
