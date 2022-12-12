@@ -7,6 +7,7 @@ from django.db.models import Q
 from .serializers import *
 from statistics import mean
 from typing import List
+import random
 
 # Create your views here.
 
@@ -294,6 +295,7 @@ def seedData(request):
     listing1.locationZip = '61600'
     listing1.speciesCZ = 'Sedmikráska'
     listing1.isFavorite = True
+    listing1.views = random.random()*100
     listing1.save()
     listings.append(listing1)
 
@@ -311,6 +313,7 @@ def seedData(request):
     listing2.locationName = 'Brno'
     listing2.locationZip = '61600'
     listing2.speciesLat = 'Orchidaceae'
+    listing2.views = random.random()*100
     listing2.save()
     listings.append(listing2)
 
@@ -329,6 +332,7 @@ def seedData(request):
     listing3.locationZip = '61600'
     listing3.speciesCZ = 'Kaktus'
     listing3.isFavorite = True
+    listing3.views = random.random()*100
     listing3.save()
     listings.append(listing3)
 
@@ -348,6 +352,7 @@ def seedData(request):
     listing4.locationZip = '14900'
     listing4.speciesCZ = 'Pampeliška'
     listing4.speciesLat = 'Taraxacum'
+    listing4.views = random.random()*100
     listing4.save()
     listings.append(listing4)
 
@@ -364,6 +369,7 @@ def seedData(request):
     listing5.locationName = 'Praha - Haje'
     listing5.locationZip = '14900'
     listing5.speciesCZ = 'Růže'
+    listing5.views = random.random()*100
     listing5.save()
     listings.append(listing5)
 
@@ -381,6 +387,7 @@ def seedData(request):
     listing6.locationName = 'Praha - Haje'
     listing6.locationZip = '14900'
     listing6.speciesCZ = 'Tulipán'
+    listing6.views = random.random()*100
     listing6.save()
     listings.append(listing6)
 
@@ -399,6 +406,7 @@ def seedData(request):
     listing7.locationName = 'Praha - Haje'
     listing7.locationZip = '14900'
     listing7.speciesCZ = 'Lilie'
+    listing7.views = random.random()*100
     listing7.save()
     listings.append(listing7)
 
@@ -414,6 +422,7 @@ def seedData(request):
     listing8.category_id = 5
     listing8.environment = PlantEnvironment.OUTSIDE
     listing8.author = user3_AC
+    listing8.views = random.random()*100
     listing8.save()
     listings.append(listing8)
 # Hyacint
@@ -428,6 +437,7 @@ def seedData(request):
     listing9.category_id = 5
     listing9.environment = PlantEnvironment.OUTSIDE
     listing9.author = user3_AC
+    listing9.views = random.random()*100
     listing9.save()
     listings.append(listing9)
 
@@ -443,6 +453,7 @@ def seedData(request):
     listing10.category_id = 5
     listing10.environment = PlantEnvironment.INSIDE
     listing10.author = user4_IT
+    listing10.views = random.random()*100
     listing10.save()
     listings.append(listing10)
 
@@ -457,6 +468,7 @@ def seedData(request):
     listing11.category_id = 5
     listing11.environment = PlantEnvironment.INSIDE
     listing11.author = user4_IT
+    listing11.views = random.random()*100
     listing11.save()
     listings.append(listing11)
 
@@ -471,6 +483,7 @@ def seedData(request):
     listing12.category_id = 6
     listing12.environment = PlantEnvironment.INSIDE
     listing12.author = user4_IT
+    listing12.views = random.random()*100
     listing12.save()
     listings.append(listing12)
 
@@ -486,6 +499,7 @@ def seedData(request):
     listing13.category_id = 7
     listing13.environment = PlantEnvironment.OUTSIDE
     listing13.author = user5_MV
+    listing13.views = random.random()*100
     listing13.save()
     listings.append(listing13)
 
@@ -500,6 +514,7 @@ def seedData(request):
     listing14.category_id = 8
     listing14.environment = PlantEnvironment.ANYWHERE
     listing14.author = user5_MV
+    listing14.views = random.random()*100
     listing14.save()
     listings.append(listing14)
 
@@ -514,6 +529,7 @@ def seedData(request):
     listing15.category_id = 8
     listing15.environment = PlantEnvironment.INSIDE
     listing15.author = user5_MV
+    listing15.views = random.random()*100
     listing15.save()
     listings.append(listing15)
 

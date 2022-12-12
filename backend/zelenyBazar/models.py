@@ -103,6 +103,7 @@ class Listing(models.Model):
     instructions = models.CharField(default='', max_length=1000)
     speciesCZ = models.CharField(default='', max_length=100)
     speciesLat = models.CharField(default='', max_length=100)
+    views = models.IntegerField(default=0) 
 
     environment = models.CharField(
         choices=PlantEnvironment.choices, default=PlantEnvironment.UNKNOWN, max_length=20)
