@@ -8,20 +8,43 @@ import FavoriteIcon from '@mui/icons-material/Favorite';
 
 function HomePage() {
 
-    var [items, setItem]:any = useState([]);
+    var [all, setAll]:any = useState([]);
+    var [favourites, setFavourites]:any = useState([]);
+    var [beginners, setBeginners]:any = useState([]);
     var [loading, setLoading]:any = useState(1);
 
-    const handleFetchData = async () => {
+    const fetchAll = async () => {
         const response = await fetch('http://localhost:8000/listings/');
         const data = await response.json();
         console.log(data);
-        setItem(data);
+        setAll(data);
+    }
+
+    const fetchFavourites = async () => {
+        const response = await fetch('http://localhost:8000/listings?isFavorite=false');
+        const data = await response.json();
+        console.log(data);
+        setFavourites(data);
+    }
+
+    const fetchBeginner = async () => {
+        const response = await fetch('http://localhost:8000/listings/?diff=Easy');
+        const data = await response.json();
+        console.log(data);
+        setBeginners(data);
     }
     
     useEffect(() => {
-        handleFetchData();
+        fetchAll();
+        //fetchFavourites();
+        fetchBeginner();
         setLoading(0);
     },[]);
+
+
+    var display_all = all.slice(0,4);
+    var display_favourites = favourites.slice(0,4);
+    var display_beginners = beginners.slice(0,4);
 
     return (
         <div className="format homepage">
@@ -31,68 +54,28 @@ function HomePage() {
                     <Link to="/favourites" className="hp_button_link"><button className="hp_button"><h3>Zobrazit všechny</h3></button></Link>
                 </div>
                 <div className="hp_row_2">
-                    
-                    <div className="hp_inzerat">
-                        <div className="hp_img_div">
-                            <img src="./img/1/1.jpg" alt="" className="hp_img"/>
-                        </div>
-                        <p className="hp_title"><b>Název květiny Název květiny Název květiny Název květiny</b></p>
-                        <div className="hp_inzerat_detail_col">
-                            <div className="hp_inzerat_detail_row">
-                                <p className="hp_cat">Category</p>
-                                <p className="hp_place">Place</p>
-                            </div>
-                            <div className="hp_inzerat_detail_row">
-                                <p className="hp_views">Views</p>
-                                <p className="hp_price">Price</p>
-                            </div>
-                        </div>
-                    </div>   
 
-                    <div className="hp_inzerat">
-                        <img src="./img/2/1.jpg" alt="" className="hp_img"/>   
-                        <p className="hp_title"><b>Název</b></p>
-                        <div className="hp_inzerat_detail_col">
-                            <div className="hp_inzerat_detail_row">
-                                <p className="hp_cat">Category</p>
-                                <p className="hp_place">Place</p>
+                {
+                    display_all.map((item:any) =>
+                        <div key={item.id} className="hp_inzerat">
+                            <div className="hp_img_div">
+                                <img src={item.mainImage.path} alt="" className="hp_img"/>
                             </div>
-                            <div className="hp_inzerat_detail_row">
-                                <p className="hp_views">Views</p>
-                                <p className="hp_price">Price</p>
+                            <p className="hp_title"><b>{item.description}</b></p>
+                            <div className="hp_inzerat_detail_col">
+                                <div className="hp_inzerat_detail_row">
+                                    <p className="hp_cat">{item.category.name}</p>
+                                    <p className="hp_place">{item.locationName}</p>
+                                </div>
+                                <div className="hp_inzerat_detail_row">
+                                    <p className="hp_views">{item.size}</p>
+                                    <p className="hp_price"><b>{item.price} czk</b></p>
+                                </div>
                             </div>
-                        </div>
-                    </div>
-
-                    <div className="hp_inzerat">
-                        <img src="./img/3/1.jpg" alt="" className="hp_img"/>   
-                        <p className="hp_title"><b>Název</b></p>
-                        <div className="hp_inzerat_detail_col">
-                            <div className="hp_inzerat_detail_row">
-                                <p className="hp_cat">Category</p>
-                                <p className="hp_place">Place</p>
-                            </div>
-                            <div className="hp_inzerat_detail_row">
-                                <p className="hp_views">Views</p>
-                                <p className="hp_price">Price</p>
-                            </div>
-                        </div>
-                    </div> 
-
-                    <div className="hp_inzerat">
-                        <img src="./img/4/1.jpg" alt="" className="hp_img"/>   
-                        <p className="hp_title"><b>Název</b></p>
-                        <div className="hp_inzerat_detail_col">
-                            <div className="hp_inzerat_detail_row">
-                                <p className="hp_cat">Category</p>
-                                <p className="hp_place">Place</p>
-                            </div>
-                            <div className="hp_inzerat_detail_row">
-                                <p className="hp_views">Views</p>
-                                <p className="hp_price">Price</p>
-                            </div>
-                        </div>
-                    </div>           
+                        </div>   
+                    )
+                }
+                   
                 </div>
             </div>
 
@@ -102,20 +85,26 @@ function HomePage() {
                     <Link to="/beginners" className="hp_button_link"><button className="hp_button"><h3>Zobrazit všechny</h3></button></Link>
                 </div>
                 <div className="hp_row_2">
-                    <div className="hp_inzerat">
-                        <img src="./img/5/1.jpg" alt="" className="hp_img"/>   
-                        <p className="hp_title">Název</p>
-                        <div className="hp_inzerat_detail_col">
-                            <div className="hp_inzerat_detail_row">
-                                <p className="hp_cat">Category</p>
-                                <p className="hp_place">Place</p>
+                {
+                    display_beginners.map((item:any) =>
+                        <div key={item.id} className="hp_inzerat">
+                            <div className="hp_img_div">
+                                <img src={item.mainImage.path} alt="" className="hp_img"/>
                             </div>
-                            <div className="hp_inzerat_detail_row">
-                                <p className="hp_views">Views</p>
-                                <p className="hp_price">Price</p>
+                            <p className="hp_title"><b>{item.description}</b></p>
+                            <div className="hp_inzerat_detail_col">
+                                <div className="hp_inzerat_detail_row">
+                                    <p className="hp_cat">{item.category.name}</p>
+                                    <p className="hp_place">{item.locationName}</p>
+                                </div>
+                                <div className="hp_inzerat_detail_row">
+                                    <p className="hp_views">{item.size}</p>
+                                    <p className="hp_price"><b>{item.price} czk</b></p>
+                                </div>
                             </div>
-                        </div>
-                    </div>                        
+                        </div>   
+                    )
+                }             
                 </div>
             </div>
 
@@ -125,20 +114,26 @@ function HomePage() {
                     <Link to="/all" className="hp_button_link"><button className="hp_button"><h3>Zobrazit všechny</h3></button></Link>
                 </div>
                 <div className="hp_row_2">
-                    <div className="hp_inzerat">
-                        <img src="./img/6/1.jpg" alt="" className="hp_img"/>   
-                        <p className="hp_title">Název</p>
-                        <div className="hp_inzerat_detail_col">
-                            <div className="hp_inzerat_detail_row">
-                                <p className="hp_cat">Category</p>
-                                <p className="hp_place">Place</p>
+                {
+                    display_all.map((item:any) =>
+                        <div key={item.id} className="hp_inzerat">
+                            <div className="hp_img_div">
+                                <img src={item.mainImage.path} alt="" className="hp_img"/>
                             </div>
-                            <div className="hp_inzerat_detail_row">
-                                <p className="hp_views">Views</p>
-                                <p className="hp_price">Price</p>
+                            <p className="hp_title"><b>{item.description}</b></p>
+                            <div className="hp_inzerat_detail_col">
+                                <div className="hp_inzerat_detail_row">
+                                    <p className="hp_cat">{item.category.name}</p>
+                                    <p className="hp_place">{item.locationName}</p>
+                                </div>
+                                <div className="hp_inzerat_detail_row">
+                                    <p className="hp_views">{item.size}</p>
+                                    <p className="hp_price"><b>{item.price} czk</b></p>
+                                </div>
                             </div>
-                        </div>
-                    </div>              
+                        </div>   
+                    )
+                }  
                 </div>
             </div>
         </div>
