@@ -288,7 +288,7 @@ def seedData(request):
 
     listing2 = Listing()
     listing2.title = 'Prodám Orchidej'
-    listing2.description = 'This is new plant to test my api.'
+    listing2.description = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec ac mollis nisl. Aenean elementum, mi ac feugiat dictum, urna nibh pulvinar erat, in blandit orci orci non sem. Integer venenatis euismod velit non suscipit. Nunc finibus scelerisque nulla, nec convallis leo tristique vitae. Mauris eleifend fringilla enim eu auctor. Pellentesque rutrum, magna sed sollicitudin gravida, tellus ante ornare purus, vitae suscipit est lacus in tellus. Proin convallis auctor dolor, vitae porttitor urna orci. '
     listing2.difficulty = DifficultyChoices.MEDUIM
     listing2.tradeTypeChoices = TradeTypeChoices.CASH
     listing2.size = HeightChoices.TWENTY_FIFTY
@@ -321,7 +321,7 @@ def seedData(request):
 # USER 2 LISTINGS
     listing4 = Listing()
     listing4.title = 'Prodám Pampelišku'
-    listing4.description = 'Bude to ale fasa drahá pampeliška.'
+    listing4.description = 'Bude to ale fasa drahá pampeliška. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed placerat pulvinar ligula. Nam tempus, sapien quis bibendum sollicitudin, libero odio dictum felis, eget tincidunt nibh dui id felis aenean. '
     listing4.difficulty = DifficultyChoices.EASY
     listing4.tradeTypeChoices = TradeTypeChoices.CASH
     listing4.size = HeightChoices.ONE_TWENTY
