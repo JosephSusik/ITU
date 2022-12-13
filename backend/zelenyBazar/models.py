@@ -13,7 +13,7 @@ class TradeTypeChoices(models.TextChoices):
 class DifficultyChoices(models.TextChoices):
     EASY = 'Lehká'
     MEDIUM = 'Střední'
-    HARD = 'Ťežká'
+    HARD = 'Težká'
     UNKNOWN = 'Nezadáno'
 
 
@@ -31,13 +31,13 @@ class CategoryChoices(models.TextChoices):
     PALMS = 'Palmy'
     FRUIT_TREES = 'Ovocné stromy'
     DECORATIVE_TREES = 'Okrasné stromy'
-    DECORATIVE_BUSHES = 'Okrasné keře'
     DECORATIVE_PLANTS = 'Okrasné rostliny'
     OTHERS = 'Ostatní'
     HERBS = 'Bylinky'
-    EXOTIC_PLANTS = 'Exotické rastliny'
-    UTILITY_PLANTS = 'Úžitkové rosltiny'
+    EXOTIC_PLANTS = 'Exotické rostliny'
     ROCKY_PLANTS = 'Skalničky'
+    UTILITY_PLANTS = 'Užitkové rostliny'
+    DECORATIVE_BUSHES = 'Okrasné keře'
 
 
 
@@ -45,8 +45,8 @@ class PlantTypeChoices(models.TextChoices):
     CUT = 'Řízek'
     SEEDS = 'Semínka'
     ALIVE_PLANT = 'Živá rostlina'
-    UNKNOWN = 'Ostatní'
-    OTHER = 'Nezadáno'
+    OTHER = 'Ostatní'
+    UNKNOWN = 'Nezadáno'
 
 
 class PlantEnvironment(models.TextChoices):
