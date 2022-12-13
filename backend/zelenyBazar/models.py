@@ -5,16 +5,16 @@ from django.db import models
 
 
 class TradeTypeChoices(models.TextChoices):
-    FREE = 'Free'
-    TRADE = 'Trade'
-    CASH = 'Sell'
+    FREE = 'Zdarma'
+    TRADE = 'Výměna'
+    CASH = 'Prodej'
 
 
 class DifficultyChoices(models.TextChoices):
-    EASY = 'Easy'
-    MEDIUM = 'Medium'
-    HARD = 'Hard'
-    UNKNOWN = 'Unknown'
+    EASY = 'Lehká'
+    MEDIUM = 'Střední'
+    HARD = 'Ťežká'
+    UNKNOWN = 'Nezadáno'
 
 
 class HeightChoices(models.TextChoices):
@@ -23,33 +23,37 @@ class HeightChoices(models.TextChoices):
     FIFTY_HUNDRED = '50-100cm'
     HUNDRED_HUNDREDFIFTY = '100-150cm'
     HUNDREDFIFTY_PLUS = '>150cm'
-    UNKNOWN = 'Unknown'
+    UNKNOWN = 'Nezadáno'
 
 
 class CategoryChoices(models.TextChoices):
-    CACTI = 'Cacti'
-    PALMS = 'Palms'
-    FRUIT_TREES = 'Fruit trees'
-    DECORATIVE_TREES = 'Decorative trees'
-    DECORATIVE_PLANTS = 'Decorative plants'
-    OTHERS = 'Others'
-    HERBS = 'Herbs'
-    EXOTIC_PLANTS = 'Exotic plants'
+    CACTI = 'Kaktusy'
+    PALMS = 'Palmy'
+    FRUIT_TREES = 'Ovocné stromy'
+    DECORATIVE_TREES = 'Okrasné stromy'
+    DECORATIVE_BUSHES = 'Okrasné keře'
+    DECORATIVE_PLANTS = 'Okrasné rostliny'
+    OTHERS = 'Ostatní'
+    HERBS = 'Bylinky'
+    EXOTIC_PLANTS = 'Exotické rastliny'
+    UTILITY_PLANTS = 'Úžitkové rosltiny'
+    ROCKY_PLANTS = 'Skalničky'
+
 
 
 class PlantTypeChoices(models.TextChoices):
-    CUT = 'Cut'
-    SEEDS = 'Seeds'
-    ALIVE_PLANT = 'Alive plant'
-    UNKNOWN = 'Unknown'
-    OTHER = 'Other'
+    CUT = 'Řízek'
+    SEEDS = 'Semínka'
+    ALIVE_PLANT = 'Živá rostlina'
+    UNKNOWN = 'Ostatní'
+    OTHER = 'Nezadáno'
 
 
 class PlantEnvironment(models.TextChoices):
-    INSIDE = 'Inside'
-    OUTSIDE = 'Outside'
-    ANYWHERE = 'Anywhere'
-    UNKNOWN = 'Unknown'
+    INSIDE = 'Uvnitř'
+    OUTSIDE = 'Venku'
+    ANYWHERE = 'Všude'
+    UNKNOWN = 'Nezadáno'
 
 
 class RatingStarsChoices(models.IntegerChoices):
