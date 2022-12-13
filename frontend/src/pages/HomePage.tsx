@@ -3,9 +3,6 @@ import { Link } from "react-router-dom";
 
 import "../index.css";
 
-import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
-import FavoriteIcon from '@mui/icons-material/Favorite';
-
 function HomePage() {
 
     var [all, setAll]:any = useState([]);
@@ -28,7 +25,7 @@ function HomePage() {
     }
 
     const fetchBeginner = async () => {
-        const response = await fetch('http://localhost:8000/listings/?diff=Easy');
+        const response = await fetch('http://localhost:8000/listings/?diff=Lehká');
         const data = await response.json();
         console.log(data);
         setBeginners(data);
@@ -58,6 +55,7 @@ function HomePage() {
                 <div className="hp_row_2">
                 {
                     display_all.map((item:any) =>
+                        <Link to={"listing/" + item.id} className="inzerat_link" >
                         <div key={item.id} className="hp_inzerat">
                             <div className="hp_img_div">
                                 <img src={item.mainImage.path} alt="" className="hp_img"/>
@@ -74,6 +72,7 @@ function HomePage() {
                                 </div>
                             </div>
                         </div>   
+                        </Link>
                     )
                 }  
                 </div>
@@ -94,6 +93,7 @@ function HomePage() {
                 <div className="hp_row_2">
                 {
                     display_favourites.map((item:any) =>
+                    <Link to={"listing/" + item.id} className="inzerat_link" >
                         <div key={item.id} className="hp_inzerat">
                             <div className="hp_img_div">
                                 <img src={item.mainImage.path} alt="" className="hp_img"/>
@@ -110,6 +110,7 @@ function HomePage() {
                                 </div>
                             </div>
                         </div>   
+                    </Link>
                     )
                 }
                 </div>
@@ -125,6 +126,7 @@ function HomePage() {
                 <div className="hp_row_2">
                 {
                     display_beginners.map((item:any) =>
+                    <Link to={"listing/" + item.id} className="inzerat_link" >
                         <div key={item.id} className="hp_inzerat">
                             <div className="hp_img_div">
                                 <img src={item.mainImage.path} alt="" className="hp_img"/>
@@ -141,6 +143,7 @@ function HomePage() {
                                 </div>
                             </div>
                         </div>   
+                    </Link>    
                     )
                 }             
                 </div>
