@@ -13,7 +13,7 @@ class TradeTypeChoices(models.TextChoices):
 class DifficultyChoices(models.TextChoices):
     EASY = 'Lehká'
     MEDIUM = 'Střední'
-    HARD = 'Težká'
+    HARD = 'Těžká'
     UNKNOWN = 'Nezadáno'
 
 
