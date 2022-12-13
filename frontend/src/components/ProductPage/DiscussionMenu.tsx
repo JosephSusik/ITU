@@ -5,7 +5,7 @@ import MenuItem from '@mui/material/MenuItem';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 import Globals from '../Globals';
 
-
+//Source: https://mui.com/material-ui/react-menu/
 export default function DiscussionMenu(props:any) {
     const [anchorEl, setAnchorEl] = React.useState(null);
     const open = Boolean(anchorEl);

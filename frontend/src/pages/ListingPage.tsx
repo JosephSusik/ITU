@@ -42,9 +42,13 @@ function ListingPage() {
             <div style={{ width: "80%", minWidth: "800px", marginLeft: "auto", marginRight: "auto" }}>
                 <Grid2 container spacing={1} columns={10} columnSpacing={0}>
                     <Grid2 xs={1}>
-                        {item && item.image_listing && item.image_listing.map((image: any) =>
-                            <ImagePreview image={image} handle={handleImageChange} mainImgID={mainImg.id} />
-                        )}
+                        {item && item.image_listing &&
+                            <ImagePreview image={item.mainImage} handle={handleImageChange} mainImgID={mainImg.id} />
+                        }
+                        {item && item.image_listing &&
+                            item.image_listing.map((image: any) => 
+                                image.id != item.mainImage.id && <ImagePreview image={image} handle={handleImageChange} mainImgID={mainImg.id} />
+                            )}
 
                     </Grid2>
                     <Grid2 md={4}>
@@ -74,8 +78,9 @@ function ListingPage() {
                     </Grid2>
                 </Grid2>
                 <div style={{ padding: "2vw" }} />
+                <h2>Diskuze</h2>
                 {item && item.image_listing &&
-                    <DiscussionSection OpId={item.author.id} comments={item.comment_listing} fetchData={handleFetchData} />
+                    <DiscussionSection OpId={item.author.id} comments={item.comment_listing} fetchData={handleFetchData} listingID={item.id} />
                 }
             </div>
         </>

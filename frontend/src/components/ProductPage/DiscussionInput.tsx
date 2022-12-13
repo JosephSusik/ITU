@@ -41,9 +41,10 @@ export default function DiscussionInput(props: any) {
     }
 
     return (
-        <div className={props.classes.container} style={{ marginLeft: "4vw", paddingTop: "1vw", paddingBottom: "0" }}>
-            <TextField error={inputErr != ''} helperText={inputErr} id="message" name='message' rows={2} inputRef={inputref} style={{ width: "100%", resize: "none" }} onChange={()=>setInputErr('')} inputProps={{maxLength: Globals.CONSTRAINTS.COMMENTMAXLEN}}/>
-            <Button onClick={handleClick}>Post</Button>
+        <div className={props.classes.container} style={{ marginLeft: (props.parentComment? "4vw" : "2vw"), paddingTop: "1vw", paddingBottom: "0" }}>
+            {!props.parentComment && <h3>Přidat příspěvek</h3>}
+            <TextField autoFocus={props.parentComment} error={inputErr != ''} helperText={inputErr} id="message" name='message' rows={2} inputRef={inputref} style={{ width: "100%", resize: "none" }} onChange={()=>setInputErr('')} inputProps={{maxLength: Globals.CONSTRAINTS.COMMENTMAXLEN}}/>
+            <Button onClick={handleClick}>Odeslat</Button>
         </div>
     )
 }

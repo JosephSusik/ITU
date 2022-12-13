@@ -2,41 +2,19 @@ import React, { useState } from "react";
 import Grid2 from '@mui/material/Unstable_Grid2/Grid2'
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import ExpandLessIcon from '@mui/icons-material/ExpandLess';
-import { makeStyles } from '@material-ui/core/styles';
 import DiscussionReply from "./DiscussionReply";
 import DiscussionInput from "./DiscussionInput";
 import { Button } from '@mui/material';
 import Globals from "../Globals";
 import DiscussionMenu from "./DiscussionMenu";
+import IconButton from '@mui/material/IconButton';
 
-const useStyles = makeStyles({
-  container: {
-    position: 'relative',
-    padding: "1vw",
-    paddingTop: "2px",
-    backgroundColor: "white",
-    border: "2px solid black",
-    borderRadius: "8px",
-    marginBottom: "1vw", 
-    marginRight: "1vw",
-    marginLeft: "2vw"
-  },
-  topRight: {
-    position: 'absolute',
-    top: 0,
-    right: 0,
-  },
-  topRightIconless: {
-    position: 'absolute',
-    top: "0.5vw",
-    right: "0.5vw",
-  }
-});
+
 
 export default function DiscussionThread(props: any) {
   var [expand, setExpand]: any = useState([true]);
 
-  const classes = useStyles()
+  const classes = props.classes
 
   const handleExpandClick = () => {
     setExpand(!expand)
@@ -55,18 +33,27 @@ export default function DiscussionThread(props: any) {
     <>
       <div className={classes.container} >
         <div>
-          {props.comment.author.name + ' ' + props.comment.author.surname} <DiscussionMenu deletable={Globals.CURRENT_USER_ID == props.comment.author.id} fetchData={props.fetchData} commentId={props.comment.id} />
+          {props.comment.author.name + ' ' + props.comment.author.surname} 
         </div>
         <div className={props.level == 1 ? classes.topRight : classes.topRightIconless}>
-          <div onClick={handleExpandClick} >
+          <div  >
             {createdDate}
-            {props.level == 1 && (expand ? <ExpandLessIcon /> : <ExpandMoreIcon />)}
+            <DiscussionMenu deletable={Globals.CURRENT_USER_ID == props.comment.author.id} fetchData={props.fetchData} commentId={props.comment.id} />
+            {/* {props.level == 1 && (expand ? <ExpandLessIcon onClick={handleExpandClick}/> : <ExpandMoreIcon onClick={handleExpandClick}/>)} */}
+            <IconButton
+                aria-label="more"
+                id="long-button"
+                aria-haspopup="true"
+                onClick={handleExpandClick}
+            >
+                {expand ? <ExpandLessIcon /> : <ExpandMoreIcon />}
+            </IconButton>
           </div>
 
         </div>
         <p>{props.comment.text}</p>
         {props.level == 1 && //TODO: CHECK FOR CHILD COMMENTS
-          <Button onClick={handleReplyClick} >ODPOVEDET</Button>
+          <Button onClick={handleReplyClick} >přidat opověd</Button>
         }
       </div>
       {props.replyID == props.comment.id && <DiscussionInput classes={classes} listingID={props.comment.listing} fetchData={props.fetchData} parentComment={props.comment.id}/>}
