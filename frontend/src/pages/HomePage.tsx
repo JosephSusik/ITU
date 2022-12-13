@@ -82,7 +82,7 @@ function HomePage() {
             <div className="homepage_favourite">
                 <div className="hp_row_1">
                     <h3>Oblíbené inzeráty</h3>
-                    <Link to="/all" state={ {favorite: "ano"} } className="hp_button_link"><button className="hp_button"><h3>Zobrazit všechny</h3></button></Link>
+                    <Link to="/all" state={ {favorite_loc: "ano"} } className="hp_button_link"><button className="hp_button"><h3>Zobrazit všechny</h3></button></Link>
                 </div>
 
                 {(display_favourites == null)?

@@ -1,22 +1,36 @@
 import { useEffect, useState } from "react";
-import { useLocation } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 
 function AllPage() {
+    //var [loading, setLoading]:any = useState(1);
 
     const location = useLocation();
-    var {favorite} = location?.state || "ne";
-
-    if (favorite !== "ano") { favorite = "ne"}
+    //Get value
+    var {favorite_loc} = location?.state || "ne";
+    var {category_loc} = location?.state || "def";
+    var {narocnost_loc} = location?.state || "def";
+    var {prostredni_loc} = location?.state || "def";
+    var {platba_loc} = location?.state || "def";
+    
+    //Check if value of default
+    if (favorite_loc !== "ano") { favorite_loc = "ne"}
+    if (category_loc !== ("a"||"b"||"c"||"e"||"d"||"f"||"g"||"h")) { category_loc = "def"}
+    if (narocnost_loc !== ("a"||"b"||"c"||"d")) { category_loc = "def"}
+    if (prostredni_loc !== ("a"||"b"||"c"||"d")) { prostredni_loc = "def"}
+    if (platba_loc !== ("a"||"b"||"c")) { platba_loc = "def"}
 
     var [all, setAll]:any = useState([]);
-    var [loading, setLoading]:any = useState(1);
 
-    var [category, setCategory]:any = useState("def");
-    var [favourite, setFavourite]:any = useState(favorite);
+    var [category, setCategory]:any = useState(category_loc);
+    var [favourite, setFavourite]:any = useState(favorite_loc);
+    var [difficulty, setDifficulty]:any = useState(narocnost_loc);
+    var [place, setPlace]:any = useState(prostredni_loc);
+    var [pay, setPay]:any = useState(platba_loc);
 
     var fetch_link = 'http://localhost:8000/listings/';
    
-    if (favorite === "ano") {
+    //if (favorite_loc === "ano") {
+    if (favourite === "ano") {
         fetch_link = 'http://localhost:8000/listings/?favorite=true';
     }
 
@@ -29,7 +43,7 @@ function AllPage() {
 
     useEffect(() => {
         fetchAll();
-        setLoading(0);
+        //setLoading(0);
     },[]);
 
     const handleCategory = (event:any) => {
@@ -38,6 +52,18 @@ function AllPage() {
 
     const handleFavourite = (event:any) => {
         setFavourite(event.target.value);
+    }
+
+    const handleDifficulty = (event:any) => {
+        setDifficulty(event.target.value);
+    }
+
+    const handlePlace = (event:any) => {
+        setPlace(event.target.value);
+    }
+
+    const handlePay = (event:any) => {
+        setPay(event.target.value);
     }
 
     return (
@@ -85,7 +111,7 @@ function AllPage() {
                     
                     <div className="filter_item filter_drpdwn">
                         <p>Náročnost</p>
-                        <select>
+                        <select value={difficulty} onChange={handleDifficulty}>
                             <option value="def">Náročnost</option>
                             <option value="a">Začátečníci</option>
                             <option value="b">Pokročilí</option>
@@ -96,7 +122,7 @@ function AllPage() {
                     
                     <div className="filter_item filter_drpdwn">
                         <p>Prostředí</p>
-                        <select>
+                        <select value={place} onChange={handlePlace}>
                             <option value="def">Prostředí</option>
                             <option value="a">Vnitřní</option>
                             <option value="b">Venkovní</option>
@@ -107,7 +133,7 @@ function AllPage() {
 
                     <div className="filter_item filter_drpdwn">
                         <p>Forma platby</p>
-                        <select>
+                        <select value={pay} onChange={handlePay}>
                             <option value="def">Forma platby</option>
                             <option value="a">Zdarma</option>
                             <option value="b">Prodej</option>
@@ -144,7 +170,7 @@ function AllPage() {
 
                     <div className="filter_item filter_drpdwn">
                         <p>Pouze oblíbené "{favourite}"</p>
-                        <select onChange={handleFavourite} value={favourite}>
+                        <select value={favourite} onChange={handleFavourite}>
                             <option value="ano">Ano</option>
                             <option value="ne">Ne</option>
                         </select>
@@ -153,7 +179,13 @@ function AllPage() {
                     <div className="format_div_nemazat_abrakadabra"></div>
                     <div className="format_div_nemazat_abrakadabra"></div>
 
-                    <button className="filter_button">Hledat</button>
+                    <Link to="/all" state={{favorite:favourite,
+                                            category_loc:category,
+                                            narocnost_loc:difficulty,
+                                            prostredni_loc:place,
+                                            platba_loc:pay
+                                    
+                                    }}><button className="filter_button">Hledat</button></Link>
 
                 </div>
             </div>
