@@ -3,8 +3,11 @@ import { Link, useParams } from "react-router-dom";
 import Grid2 from '@mui/material/Unstable_Grid2';
 import { Container } from "@mui/system"
 import FavoriteIcon from '@mui/icons-material/Favorite';
+import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import ClassIcon from '@mui/icons-material/Class';
 import WarningIcon from '@material-ui/icons/Warning'
+import Globals from "../components/Globals";
+import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 
 import ImagePreview from "../components/ProductPage/ImagePreview";
 import PropertiesDisplay from "../components/ProductPage/PropertiesDisplay";
@@ -27,6 +30,17 @@ function ListingPage() {
         setMainImg({ id: data.mainImage.id, path: data.mainImage.path })
     }
 
+    const handleFavoriteClick = () => {
+        const payload = {favoriteId:item.id}
+        const requestOptions = {
+            method: 'PUT',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(payload)
+        }
+        fetch(Globals.BACKEND_URL + 'listings/', requestOptions)
+            .then(() => handleFetchData())
+    }
+
     useEffect(() => {
         handleFetchData();
     }, []);
@@ -46,7 +60,7 @@ function ListingPage() {
                             <ImagePreview image={item.mainImage} handle={handleImageChange} mainImgID={mainImg.id} />
                         }
                         {item && item.image_listing &&
-                            item.image_listing.map((image: any) => 
+                            item.image_listing.map((image: any) =>
                                 image.id != item.mainImage.id && <ImagePreview image={image} handle={handleImageChange} mainImgID={mainImg.id} />
                             )}
 
@@ -72,9 +86,13 @@ function ListingPage() {
                     </Grid2>
                     <Grid2 xs={10}>
                         <h2>Akce</h2>
-                        <p><FavoriteIcon />Přidat do oblíbených</p>
-                        <p><ClassIcon color='warning' />Nahlásit nesprávnou kategorii</p>
-                        <p><WarningIcon color='error' />Nahlásit inzerát</p>
+                        {!item.isFavorite ?
+                            <p onClick={handleFavoriteClick} style={{cursor: "pointer"}}><FavoriteBorderIcon/>Přidat do oblíbených</p> :
+                            <p onClick={handleFavoriteClick} style={{cursor: "pointer"}}><FavoriteIcon/>Odebrat z oblíbených</p>
+                        }
+                        <p style={{cursor: "pointer"}}><ClassIcon color='warning' />Nahlásit nesprávnou kategorii</p>
+                        <p style={{cursor: "pointer"}}><WarningIcon color='error' />Nahlásit inzerát</p>
+                        <p style={{cursor: "pointer"}}><DeleteForeverIcon color='error' />Smazat inzerát</p>
                     </Grid2>
                 </Grid2>
                 <div style={{ padding: "2vw" }} />

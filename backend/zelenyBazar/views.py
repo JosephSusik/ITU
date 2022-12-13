@@ -118,7 +118,7 @@ def listing(request, id):
         return Http404()
 
     if request.method == 'GET':
-        listing = Listing.objects.filter(id = id).select_related('author').prefetch_related('image_listing').prefetch_related('comment_listing')
+        listing = Listing.objects.filter(id = id).select_related('author').prefetch_related('image_listing')
         serializer = ListingSerializerFull(listing.first(), many=False)
         return HttpResponse(json.dumps(serializer.data), content_type = 'text/json')
     if request.method == 'PUT':
@@ -158,8 +158,6 @@ def listing(request, id):
 
 def viewUsers(request):
     if request.method == 'GET':
-        # response = serializers.serialize('json', User.objects.all())
-        # return HttpResponse(response, content_type='text/json')
         users = User.objects.all()
         serializer = UserSerializer(users, many=True)
         return HttpResponse(json.dumps(serializer.data), content_type = 'text/json')

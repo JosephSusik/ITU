@@ -136,6 +136,7 @@ class Comment(models.Model):
 
     class Meta:
         managed = True
+        ordering = ['-pk']
 
 
 class Rating(models.Model):

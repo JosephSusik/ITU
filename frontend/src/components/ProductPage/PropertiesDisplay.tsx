@@ -21,7 +21,7 @@ export default function PropertiesDisplay(props: any) {
         day: "numeric"
     });
     var price: string = item.price + " czk"
-    if (item.tradeType != "Sell") {
+    if (item.tradeType != "Prodej") {
         price = item.tradeType
     }
     return (

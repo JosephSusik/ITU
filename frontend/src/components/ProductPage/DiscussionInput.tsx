@@ -10,7 +10,14 @@ export default function DiscussionInput(props: any) {
     const replyInput = useRef(null)
     const inputref = useRef<any>(null)
 
-    const handleClick = () => {
+
+    const handleKeyPress = (event:any) => {
+        if(event.keyCode == 13){
+            handleSend()
+        }
+    }
+
+    const handleSend = () => {
         if (inputref.current == null) {
             return
         }
@@ -36,15 +43,29 @@ export default function DiscussionInput(props: any) {
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(payload)
         }
+        if(props.replyHandler){
+            props.replyHandler(0)
+        }
         fetch(Globals.BACKEND_URL + 'listings/' + props.listingID + '/', requestOptions)
             .then(() => props.fetchData())
     }
 
     return (
-        <div className={props.classes.container} style={{ marginLeft: (props.parentComment? "4vw" : "2vw"), paddingTop: "1vw", paddingBottom: "0" }}>
+        <div className={props.classes.container} style={{ marginLeft: (props.parentComment? "8vw" : "2vw"), paddingTop: "1vw", paddingBottom: "0" }}>
             {!props.parentComment && <h3>Přidat příspěvek</h3>}
-            <TextField autoFocus={props.parentComment} error={inputErr != ''} helperText={inputErr} id="message" name='message' rows={2} inputRef={inputref} style={{ width: "100%", resize: "none" }} onChange={()=>setInputErr('')} inputProps={{maxLength: Globals.CONSTRAINTS.COMMENTMAXLEN}}/>
-            <Button onClick={handleClick}>Odeslat</Button>
+            <TextField 
+            autoFocus={props.parentComment} 
+            error={inputErr != ''} 
+            onKeyDown={handleKeyPress} 
+            helperText={inputErr} 
+            id="message" name='message' 
+            rows={2} 
+            inputRef={inputref} 
+            style={{ width: "100%", resize: "none" }} 
+            onChange={()=>setInputErr('')} 
+            inputProps={{maxLength: Globals.CONSTRAINTS.COMMENTMAXLEN}}
+            />
+            <button className='button'  style={{marginTop:"0.6vw", marginBottom:"0.6vw"}} onClick={handleSend}>Odeslat</button>
         </div>
     )
 }

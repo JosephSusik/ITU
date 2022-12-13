@@ -376,3 +376,28 @@
 .filter_button:hover {
   background-color: #4B935A;
 }
+
+
+.button {
+  padding-left: 1vw;
+  padding-right: 1vw;
+  padding-top: 0.25vw;
+  padding-bottom: 0.25vw;
+  cursor: pointer;
+  border-radius: 8px;
+  border: 2px black solid;
+  background-color: whitesmoke;
+}
+
+.button:hover {
+  background-color: #4B935A;
+  border: 2px solid #046A1A;
+}
+
+.discussion_input {
+  width: 30vw;
+  margin-right: 2vw;
+  border-radius: 5px;
+  border: 2px black solid;
+  padding-left: 1vw;
+}

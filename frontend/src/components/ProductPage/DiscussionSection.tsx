@@ -12,30 +12,35 @@ const useStyles = makeStyles({
     backgroundColor: "white",
     border: "2px solid black",
     borderRadius: "8px",
-    marginBottom: "1vw", 
+    marginBottom: "0.3vw",
     marginRight: "1vw",
     marginLeft: "2vw"
   },
   topRight: {
-    position: 'absolute',
+    position: "absolute",
     top: 0,
     right: 0,
   },
   topRightIconless: {
-    position: 'absolute',
+    position: "absolute",
     top: "0.5vw",
     right: "0.5vw",
+  },
+  bottomRight: {
+    position: "absolute",
+    right: "0.5vw",
+    bottom: "0.5vw",
   }
 });
 
 
-export default function DiscussionSection(props:any) {
+export default function DiscussionSection(props: any) {
   var [replyId, setReplyId]: any = useState([0]);
 
   const classes = useStyles()
 
   const handlereplyIdChange = (id: number) => {
-    if( id == replyId){
+    if (id == replyId) {
       setReplyId(0)
     } else {
       setReplyId(id)
@@ -43,12 +48,12 @@ export default function DiscussionSection(props:any) {
   }
 
   return (
-    <div style={{backgroundColor:Globals.COLORS.MAIN2, borderRadius:"8px", paddingTop:"1vw", paddingBottom:"1vw", border:"2px solid black"}}>
-      <DiscussionInput classes={classes} listingID={props.listingID} fetchData={props.fetchData} parentComment={false}/>
-        {props.comments.map((comment:any)=>
+    <div style={{ backgroundColor: Globals.COLORS.MAIN2, borderRadius: "8px", paddingTop: "1vw", paddingBottom: "1vw", border: "2px solid black" }}>
+      <DiscussionInput classes={classes} listingID={props.listingID} fetchData={props.fetchData} parentComment={false} replyHandler={handlereplyIdChange} />
+      {props.comments.map((comment: any) =>
         comment.parentComment == null &&
-            <DiscussionThread classes={classes} OpId={props.OpId} comment={comment} comments={props.comments} level={1} replyID={replyId} replyHandler={handlereplyIdChange} fetchData={props.fetchData}/>
-        )}
+        <DiscussionThread classes={classes} OpId={props.OpId} comment={comment} comments={props.comments} level={1} replyID={replyId} replyHandler={handlereplyIdChange} fetchData={props.fetchData} />
+      )}
     </div>
   )
 }
