@@ -32,7 +32,7 @@ function ListingPage() {
     }, []);
 
 
-    const handleClick = (event: any, id: any, path: any) => {
+    const handleImageChange = (id: any, path: any) => {
         setMainImg({ id: id, path: path })
     }
 
@@ -43,7 +43,7 @@ function ListingPage() {
                 <Grid2 container spacing={1} columns={10} columnSpacing={0}>
                     <Grid2 xs={1}>
                         {item && item.image_listing && item.image_listing.map((image: any) =>
-                            <ImagePreview image={image} handle={setMainImg} mainImgID={mainImg.id} />
+                            <ImagePreview image={image} handle={handleImageChange} mainImgID={mainImg.id} />
                         )}
 
                     </Grid2>
@@ -75,7 +75,7 @@ function ListingPage() {
                 </Grid2>
                 <div style={{ padding: "2vw" }} />
                 {item && item.image_listing &&
-                    <DiscussionSection comments={item.comment_listing} />
+                    <DiscussionSection OpId={item.author.id} comments={item.comment_listing} fetchData={handleFetchData} />
                 }
             </div>
         </>

@@ -10,14 +10,13 @@ function ImagePreview(props: any) {
         border = "5px solid green"
     }
 
-    const handleClick = (event:any, id:any, path:any) => {
-        props.handle({ id: id, path: path })
+    const handleClick = (event:any) => {
+        props.handle(props.image.id, props.image.path)
     }
 
     return (
         <Container key={props.image} fixed style={{ maxWidth: "100%", marginRight:0, marginLeft:"auto"}}>
-            <img src={props.image.path} style={{ maxWidth: "100%", border:border, marginRight:0, marginLeft:"auto"}} onClick={(event) => handleClick(event, props.image.id, props.image.path)} />
-            {/* <img src={props.image.path} style={{ maxWidth: "40%", border:border}} onClick={(event) => handleClick(event, props.image.id, props.image.path)} /> */}
+            <img src={props.image.path} style={{ maxWidth: "100%", border:border, marginRight:0, marginLeft:"auto"}} onClick={handleClick} />
         </Container>
     )
 }

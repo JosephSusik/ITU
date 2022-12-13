@@ -552,10 +552,25 @@ def seedData(request):
 
     comment3 = Comment()
     comment3.text = 'Die'
-    comment3.author = user1_MS
+    comment3.author = user2_SS
     comment3.listing = listing2
     comment3.parentComment = comment2
     comment3.save()
+
+    comment4 = Comment()
+    comment4.text = 'Live'
+    comment4.author = user3_AC
+    comment4.listing = listing2
+    comment4.parentComment = comment2
+    comment4.save()
+
+    comment5 = Comment()
+    comment5.text = 'I like apples'
+    comment5.author = user4_IT
+    comment5.listing = listing2
+    comment5.save()
+
+    
 
 
 # ====================================================== #
