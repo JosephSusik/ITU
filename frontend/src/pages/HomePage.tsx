@@ -50,26 +50,55 @@ function HomePage() {
 
     return (
         <div className="format homepage">
+               <div className="homepage_all">
+                <div className="hp_row_1">
+                    <h3>Všechny inzeráty</h3>
+                    <Link to="/all" className="hp_button_link"><button className="hp_button"><h3>Zobrazit všechny</h3></button></Link>
+                </div>
+                <div className="hp_row_2">
+                {
+                    display_all.map((item:any) =>
+                        <div key={item.id} className="hp_inzerat">
+                            <div className="hp_img_div">
+                                <img src={item.mainImage.path} alt="" className="hp_img"/>
+                            </div>
+                            <p className="hp_title"><b>{item.title}</b></p>
+                            <div className="hp_inzerat_detail_col">
+                                <div className="hp_inzerat_detail_row">
+                                    <p className="hp_cat">{item.category.name}</p>
+                                    <p className="hp_place">{item.locationName}</p>
+                                </div>
+                                <div className="hp_inzerat_detail_row">
+                                    <p className="hp_views">{item.size}</p>
+                                    <p className="hp_price"><b>{item.price} czk</b></p>
+                                </div>
+                            </div>
+                        </div>   
+                    )
+                }  
+                </div>
+            </div>
+
             <div className="homepage_favourite">
                 <div className="hp_row_1">
                     <h3>Oblíbené inzeráty</h3>
-                    <Link to="/favourites" className="hp_button_link"><button className="hp_button"><h3>Zobrazit všechny</h3></button></Link>
+                    <Link to="/all" state={ {favorite: "ano"} } className="hp_button_link"><button className="hp_button"><h3>Zobrazit všechny</h3></button></Link>
                 </div>
-                <div className="hp_row_2">
 
                 {(display_favourites == null)?
-                <>
-                    <h1>Je to emptry</h1>
-                </>
+                <div className="hp_row_2_no_fav">
+                    <p>Nemáte žádné oblíbené inzeráty</p>
+                </div>
                 :
                 <>
+                <div className="hp_row_2">
                 {
                     display_favourites.map((item:any) =>
                         <div key={item.id} className="hp_inzerat">
                             <div className="hp_img_div">
                                 <img src={item.mainImage.path} alt="" className="hp_img"/>
                             </div>
-                            <p className="hp_title"><b>{item.description}</b></p>
+                            <p className="hp_title"><b>{item.title}</b></p>
                             <div className="hp_inzerat_detail_col">
                                 <div className="hp_inzerat_detail_row">
                                     <p className="hp_cat">{item.category.name}</p>
@@ -83,16 +112,15 @@ function HomePage() {
                         </div>   
                     )
                 }
+                </div>
                 </>
                 }
-                   
-                </div>
             </div>
 
             <div className="homepage_beginner">
                 <div className="hp_row_1">
                     <h3>Pro začátečníky</h3>
-                    <Link to="/beginners" className="hp_button_link"><button className="hp_button"><h3>Zobrazit všechny</h3></button></Link>
+                    <Link to="/all" className="hp_button_link"><button className="hp_button"><h3>Zobrazit všechny</h3></button></Link>
                 </div>
                 <div className="hp_row_2">
                 {
@@ -101,7 +129,7 @@ function HomePage() {
                             <div className="hp_img_div">
                                 <img src={item.mainImage.path} alt="" className="hp_img"/>
                             </div>
-                            <p className="hp_title"><b>{item.description}</b></p>
+                            <p className="hp_title"><b>{item.title}</b></p>
                             <div className="hp_inzerat_detail_col">
                                 <div className="hp_inzerat_detail_row">
                                     <p className="hp_cat">{item.category.name}</p>
@@ -118,34 +146,7 @@ function HomePage() {
                 </div>
             </div>
 
-            <div className="homepage_all">
-                <div className="hp_row_1">
-                    <h3>Všechny inzeráty</h3>
-                    <Link to="/all" className="hp_button_link"><button className="hp_button"><h3>Zobrazit všechny</h3></button></Link>
-                </div>
-                <div className="hp_row_2">
-                {
-                    display_all.map((item:any) =>
-                        <div key={item.id} className="hp_inzerat">
-                            <div className="hp_img_div">
-                                <img src={item.mainImage.path} alt="" className="hp_img"/>
-                            </div>
-                            <p className="hp_title"><b>{item.description}</b></p>
-                            <div className="hp_inzerat_detail_col">
-                                <div className="hp_inzerat_detail_row">
-                                    <p className="hp_cat">{item.category.name}</p>
-                                    <p className="hp_place">{item.locationName}</p>
-                                </div>
-                                <div className="hp_inzerat_detail_row">
-                                    <p className="hp_views">{item.size}</p>
-                                    <p className="hp_price"><b>{item.price} czk</b></p>
-                                </div>
-                            </div>
-                        </div>   
-                    )
-                }  
-                </div>
-            </div>
+         
         </div>
     );
 }
