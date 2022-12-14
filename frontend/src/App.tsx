@@ -4,10 +4,8 @@ import Navbar from './components/Navbar';
 import HomePage from './pages/HomePage';
 import ProfilePage from './pages/ProfilePage';
 import ListingPage from './pages/ListingPage';
-import FavouritesPage from './pages/FavouritesPage';
 import Footer from './components/Footer';
 import AllPage from './pages/AllPage';
-import BeginnersPage from './pages/BeginnersPage';
 import UserList from './components/profile/UserList';
 import './index.css';
 import '@fontsource/roboto/300.css';
@@ -26,8 +24,6 @@ function App() {
       <Route path="/profile/:userId" element={<ProfilePage />}/>
       <Route path="/listing/:id" element={<ListingPage />}/>
       <Route path="/all" element={<AllPage />}/>
-      <Route path="/favourites" element={<FavouritesPage />}/>
-      <Route path="/beginners" element={<BeginnersPage />}/>
       <Route path="/listing/create" element={<CreateListingPage />}/>
     </Routes>
     <Footer />

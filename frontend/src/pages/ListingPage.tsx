@@ -14,6 +14,8 @@ import UserPreview from "../components/profile/UserPreview";
 import ImagePreview from "../components/ProductPage/ImagePreview";
 import PropertiesDisplay from "../components/ProductPage/PropertiesDisplay";
 import DiscussionSection from "../components/ProductPage/DiscussionSection";
+import MessageIcon from '@mui/icons-material/Message';
+import { Message } from "@material-ui/icons";
 
 function ListingPage() {
 
@@ -58,12 +60,12 @@ function ListingPage() {
             <div style={{ width: "80%", minWidth: "800px", marginLeft: "auto", marginRight: "auto" }}>
                 <Grid2 container spacing={1} columns={10} columnSpacing={0}>
                     <Grid2 xs={1}>
-                        {item && item.image_listing &&
+                        {/* {item && item.image_listing &&
                             <ImagePreview image={item.mainImage} handle={handleImageChange} mainImgID={mainImg.id} />
-                        }
+                        } */}
                         {item && item.image_listing &&
                             item.image_listing.map((image: any) =>
-                                image.id != item.mainImage.id && <ImagePreview image={image} handle={handleImageChange} mainImgID={mainImg.id} />
+                                <ImagePreview image={image} handle={handleImageChange} mainImgID={mainImg.id} />
                             )}
 
                     </Grid2>
@@ -95,12 +97,13 @@ function ListingPage() {
                     <Grid2 xs={10}>
                         <h2>Akce</h2>
                         {!item.isFavorite ?
-                            <p onClick={handleFavoriteClick} style={{cursor: "pointer"}}><FavoriteBorderIcon/>Přidat do oblíbených</p> :
-                            <p onClick={handleFavoriteClick} style={{cursor: "pointer"}}><FavoriteIcon/>Odebrat z oblíbených</p>
+                            <p onClick={handleFavoriteClick} style={{cursor: "pointer", marginBottom:"0.2vw"}}><FavoriteBorderIcon/>Přidat do oblíbených</p> :
+                            <p onClick={handleFavoriteClick} style={{cursor: "pointer", marginBottom:"0.2vw"}}><FavoriteIcon/>Odebrat z oblíbených</p>
                         }
-                        <p style={{cursor: "pointer"}}><ClassIcon color='warning' />Nahlásit nesprávnou kategorii</p>
-                        <p style={{cursor: "pointer"}}><WarningIcon color='error' />Nahlásit inzerát</p>
-                        <p style={{cursor: "pointer"}}><DeleteForeverIcon color='error' />Smazat inzerát</p>
+                        <p style={{cursor: "pointer", marginBottom:"0.2vw"}}><MessageIcon color='error' />Kontaktovat prodejce</p>
+                        <p style={{cursor: "pointer", marginBottom:"0.2vw"}}><ClassIcon color='warning' />Nahlásit nesprávnou kategorii</p>
+                        <p style={{cursor: "pointer", marginBottom:"0.2vw"}}><WarningIcon color='error' />Nahlásit inzerát</p>
+                        <p style={{cursor: "pointer", marginBottom:"0.2vw"}}><DeleteForeverIcon color='error' />Smazat inzerát</p>
                     </Grid2>
                 </Grid2>
                 <div style={{ padding: "2vw" }} />

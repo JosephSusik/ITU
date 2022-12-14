@@ -7,6 +7,8 @@ import ThemedTextArea from '../components/themedInputFields/ThemedTextArea';
 import Grid2 from '@mui/material/Unstable_Grid2/Grid2';
 import ThemedSelect from '../components/themedInputFields/ThemedSelect';
 import { redirect } from 'react-router-dom';
+import { useNavigate } from "react-router-dom";
+  
 
 
 const useStyles = makeStyles({
@@ -51,6 +53,12 @@ export default function CreateListingPage() {
     var tradeTypeRef = useRef<HTMLInputElement>(null)
     var priceRef = useRef<HTMLSelectElement>(null)
     var instructionsRef = useRef<HTMLInputElement>(null)
+    var czechNameRef = useRef<HTMLInputElement>(null)
+    var latinNameRef = useRef<HTMLInputElement>(null)
+    
+    
+    const navigate = useNavigate();
+      
 
     const handleTradeTypeChange = () => {
         if(tradeTypeRef.current?.value != 'Prodej') {
@@ -94,7 +102,7 @@ export default function CreateListingPage() {
             setPriceErr('Tohle pole nesmi být prázdné.')
             error = true
         }else{
-            setPriceErr('S')
+            setPriceErr('')
         }
         
         if(categoryRef.current?.value == 'Kategorie'){
@@ -122,8 +130,12 @@ export default function CreateListingPage() {
             locationN: locationNameRef.current?.value,
             locationZ: locationZipRef.current?.value,
             tradeType: tradeTypeRef.current?.value,
-            price: priceRef.current?.value
+            price: priceRef.current?.value,
+            speciesCZ: czechNameRef.current?.value,
+            speciesLat: latinNameRef.current?.value,
         }
+
+
 
         const requestOptions = {
             method: 'POST',
@@ -132,7 +144,7 @@ export default function CreateListingPage() {
         }
         
         fetch(Globals.BACKEND_URL + 'listings/', requestOptions)
-            .then(() => redirect('/'))
+            .then(() => navigate("/"))
         
 
     }
@@ -207,6 +219,18 @@ export default function CreateListingPage() {
                                     <ThemedSelect options={Globals.LISTS.PLANT_TYPE_LIST} style={{ width: "100%" }} reference={plantTypeRef} />
                                 </div>
                             </Grid2>
+                            <Grid2 xs={1}>
+                                <div style={{ margin: "0.5vw" }}>
+                                    Druh česky:
+                                    <ThemedTextInput type="text" style={{ width: "100%" }} reference={czechNameRef} />
+                                </div>
+                            </Grid2>
+                            <Grid2 xs={1}>
+                                <div style={{ margin: "0.5vw", marginLeft: "4vw", width: "100%" }}>
+                                    Druh latinsky:
+                                    <ThemedTextInput type="text" style={{ width: "100%" }} reference={latinNameRef} />
+                                </div>
+                            </Grid2>
                         </Grid2>
                         <h3>Lokace</h3>
                         <div style={{ margin: "0.5vw" }}>
@@ -226,7 +250,7 @@ export default function CreateListingPage() {
                         </div>
                     </Grid2>
                 </Grid2>
-                <button onClick={handleClick}>Pridat</button>
+                <button className='button' onClick={handleClick}>Pridat</button>
             </div>
         </div>
     )

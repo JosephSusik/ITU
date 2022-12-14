@@ -287,6 +287,18 @@
   justify-items: center;
 }
 
+.f_a_b_display_ne {
+  width: 100%;
+  background-color: #4B935A;
+  border-radius: 8px;
+  justify-items: center;
+  text-align: center;
+}
+
+.f_a_b_display_ne p {
+  font-size: 2vw;
+}
+
 .hp_img_div {
   position: relative;
 }
@@ -410,7 +422,6 @@
 .filter_button:hover {
   background-color: #4B935A;
 }
-
 
 .button {
   padding-left: 1vw;

@@ -1,4 +1,11 @@
-import { setDefaultResultOrder } from "dns/promises";
+
+/**
+ * File: AllPage.tsx
+ * Autor: Josef Susík <xsusik00>
+ */
+
+
+/* eslint-disable react-hooks/exhaustive-deps */
 import { useEffect, useState } from "react";
 import { Link, useLocation } from 'react-router-dom';
 
@@ -6,7 +13,6 @@ import { Link, useLocation } from 'react-router-dom';
 var trigger = false;
 
 function AllPage() {
-    //var [loading, setLoading]:any = useState(1);
 
     const location = useLocation();
     //Get value
@@ -17,8 +23,9 @@ function AllPage() {
     var {platba_loc} = location?.state || "def";
     var {psc_loc} =  location?.state || "def";
     var {plant_type_loc} = location?.state || "def";
-
-    console.log("fav-loc: " + favorite_loc);
+    var {height_loc} = location?.state || "def";
+    var {min_price_loc} = location?.state || "def";
+    var {max_price_loc} = location?.state || "def";
 
 
     //Check if value of default
@@ -28,6 +35,9 @@ function AllPage() {
     if (prostredni_loc !== ("Uvnitř"||"Venku"||"Všude"||"Nezadáno")) { prostredni_loc = "def"}
     if (platba_loc !== ("Zdarma"||"Výměna"||"Prodej")) { platba_loc = "def"}
     if (psc_loc === (null||undefined||"")) {  psc_loc = "" }
+    if (height_loc === (null||undefined||"")) {  height_loc = "" }
+    if (min_price_loc === (null||undefined||"")) {  min_price_loc = "" }
+    if (max_price_loc === (null||undefined||"")) {  max_price_loc = "" }
     if (plant_type_loc !== ("Řízek"||"Semínka"||"Živá rostlina"||"Ostatní"||"Nezadáno")) { plant_type_loc = "def"}
 
 
@@ -40,6 +50,10 @@ function AllPage() {
     var [pay, setPay]:any = useState(platba_loc);
     var [plantType, setPlantType]:any = useState(plant_type_loc);
     var [psc, setPsc]:any = useState(psc_loc);
+    
+    var [height, setHeight]:any = useState(height_loc);
+    var [minPrice, setMinPrice]:any = useState(min_price_loc);
+    var [maxPrice, setMaxPrice]:any = useState(max_price_loc);
     
     var fetch_link = 'http://localhost:8000/listings/?';
 
@@ -60,7 +74,7 @@ function AllPage() {
     }
 
     if (pay !== "def") {
-        //fetch_link += 'ttype=' + pay + '&';
+        fetch_link += 'ttype=' + pay + '&';
     }
 
     if (plantType !== "def") {
@@ -69,6 +83,18 @@ function AllPage() {
 
     if ((psc !== "") && (psc !== undefined) && (psc !== null)) {
         fetch_link += 'zip=' + psc + '&';
+    }
+
+    if ((height !== "") && (height !== undefined) && (height !== null)) {
+        fetch_link += 'height=' + height + '&';
+    }
+
+    if ((minPrice !== "") && (minPrice !== undefined) && (minPrice !== null)) {
+        fetch_link += 'minprice=' + minPrice + '&';
+    }
+
+    if ((maxPrice !== "") && (maxPrice !== undefined) && (maxPrice !== null)) {
+        fetch_link += 'maxprice=' + maxPrice + '&';
     }
 
     const fetchAll = async () => {
@@ -82,12 +108,10 @@ function AllPage() {
         trigger = !trigger;
     }
 
-    console.log("fetch: " + fetch_link);
-
     useEffect(() => {
         fetchAll();
-        //setLoading(0);
-        //console.log("fetching...");
+        window.scrollTo(0, 0)
+        console.log("Fetch: " + fetch_link);
     },[trigger]);
 
     const handleCategory = (event:any) => {
@@ -114,9 +138,23 @@ function AllPage() {
         setPsc(event.target.value);
     }
 
+    const handleHeight = (event:any) => {
+        setHeight(event.target.value);
+    }
+
     const handlePlantType= (event:any) => {
         setPlantType(event.target.value);
     }
+
+    const handleMinPrice= (event:any) => {
+        setMinPrice(event.target.value);
+    }
+
+    const handleMaxPrice= (event:any) => {
+        setMaxPrice(event.target.value);
+    }
+
+
 
     const reset = () => {
         setCategory("def");
@@ -125,6 +163,9 @@ function AllPage() {
         setPlace("def");
         setPay("def");
         setPsc("");
+        setHeight("");
+        setMinPrice("");
+        setMaxPrice("");
         setPlantType("def");
     }
 
@@ -173,7 +214,7 @@ function AllPage() {
                     <div className="filter_item filter_input">
                         <p>Velikost rostliny</p>
                         <div className="filter_max_cm">
-                            <input placeholder="Max"></input>
+                            <input placeholder="Max" onChange={handleHeight} value={height}></input>
                             <p>cm</p>
                         </div>
                     </div>
@@ -216,7 +257,7 @@ function AllPage() {
                     <div className="filter_item filter_input">
                         <p>Min. cena</p>
                         <div className="filter_max_cm">
-                            <input placeholder="Min"></input>
+                            <input placeholder="Min"  onChange={handleMinPrice} value={minPrice}></input>
                             <p>czk</p>
                         </div>
                     </div>
@@ -224,7 +265,7 @@ function AllPage() {
                     <div className="filter_item filter_input">
                         <p>Max. cena</p>
                         <div className="filter_max_cm">
-                            <input placeholder="Max"></input>
+                            <input placeholder="Max"  onChange={handleMaxPrice} value={maxPrice}></input>
                             <p>czk</p>
                         </div>
                     </div>
@@ -262,16 +303,23 @@ function AllPage() {
                                             platba_loc:pay,
                                             psc_loc:psc,
                                             plant_type_loc:plantType
-                                    
+                                             
                                     }}><button className="filter_button" onClick={()=>toggle()}>Hledat</button></Link>
-
                 </div>
             </div>
-      
+            
+            {(all.length === 0)?
+            <>
+                <div className="f_a_b_display_ne">
+                    <p>Vaše požadavky nesplňuje žádný inzerát</p>
+                </div>
+            </>
+            :
+            <>
             <div className="f_a_b_display">
             {
                 all.map((item:any) =>
-                    <Link to={"../listing/" + item.id} className="inzerat_link" >
+                    <Link to={"../listing/" + item.id} className="inzerat_link" key={item.id} >
                         <div key={item.id} className="hp_inzerat">
                             <div className="hp_img_div">
                                 <img src={item.mainImage.path} alt="" className="hp_img"/>
@@ -290,8 +338,10 @@ function AllPage() {
                         </div>
                     </Link>
                     )
-            }  
+            }
             </div>
+            </>
+            }  
         </div>    
     );
 }
