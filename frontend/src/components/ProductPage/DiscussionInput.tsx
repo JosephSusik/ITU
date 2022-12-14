@@ -2,13 +2,14 @@ import React, { useRef, useState } from 'react'
 import TextField from '@mui/material/TextField';
 import { Button } from '@mui/material';
 import Globals from '../Globals';
+import ThemedTextInput from '../themedInputFields/ThemedTextInput';
 
 export default function DiscussionInput(props: any) {
 
     var [inputErr, setInputErr]: any = useState([''])
 
-    const replyInput = useRef(null)
-    const inputref = useRef<any>(null)
+    
+    const inputref = useRef<HTMLInputElement>(null)
 
 
     const handleKeyPress = (event:any) => {
@@ -23,7 +24,7 @@ export default function DiscussionInput(props: any) {
         }
         var input = inputref.current.value
 
-        if (input.replace(/\s/g, '') == '') {
+        if (input) {
             setInputErr('Toto pole nesmí být prázdné')
             return;
         } else {
@@ -57,8 +58,7 @@ export default function DiscussionInput(props: any) {
             autoFocus={props.parentComment} 
             error={inputErr != ''} 
             onKeyDown={handleKeyPress} 
-            helperText={inputErr} 
-            id="message" name='message' 
+            helperText={inputErr}
             rows={2} 
             inputRef={inputref} 
             style={{ width: "100%", resize: "none" }} 
