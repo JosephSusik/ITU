@@ -68,7 +68,7 @@ export default function CreateListingPage() {
         }
     }
 
-    const handleClick = () => {
+    const handleClick = async () => {
 
         var error = false
         if(titleRef.current?.value.replace(/\s/g, '') == ''){
@@ -143,10 +143,10 @@ export default function CreateListingPage() {
             body: JSON.stringify(payload)
         }
         
-        fetch(Globals.BACKEND_URL + 'listings/', requestOptions)
-            .then(() => navigate("/"))
-        
-
+        const response = await fetch(Globals.BACKEND_URL + 'listings/', requestOptions)
+            // .then(() => navigate("/"))
+        const data:any = await response.json()
+        navigate("/listing/" + data.Success)
     }
 
 

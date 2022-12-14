@@ -29,7 +29,6 @@ function ListingPage() {
     const handleFetchData = async () => {
         const response = await fetch('http://localhost:8000/listings/' + id + '/');
         const data = await response.json();
-        console.log(data);
         setItem(data);
         setMainImg({ id: data.mainImage.id, path: data.mainImage.path })
     }
