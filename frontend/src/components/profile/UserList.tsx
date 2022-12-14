@@ -28,6 +28,8 @@ function UserList() {
           ))}
       </div> */}
       <div style={{marginLeft: "6vw"}}>
+        <h1>Users</h1>
+        <br />
         <Grid container spacing={1}>
           {users &&
             users.map((user: any) => (
