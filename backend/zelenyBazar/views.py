@@ -32,7 +32,7 @@ def viewListings(request):
                 difficulty=request.GET.get('diff'))
         if request.GET.__contains__('ttype'):
             listings = listings.filter(
-                trade_type=request.GET.get('ttype'))
+                tradeType=request.GET.get('ttype'))
         if request.GET.__contains__('height'):
             listings = listings.filter(
                 size=request.GET.get('height'))
