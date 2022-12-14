@@ -194,7 +194,7 @@ def listing(request, id):
 def viewUsers(request):
     if request.method == 'GET':
         users = User.objects.all()
-        serializer = UserSerializer(users, many=True)
+        serializer = UserSerializerFull(users, many=True)
         return HttpResponse(json.dumps(serializer.data), content_type = 'text/json')
     if request.method == 'PUT':
         payload = json.loads(request.body)
@@ -281,31 +281,28 @@ def seedData(request):
     user1_MS = User()
     user1_MS.name = 'Marek'
     user1_MS.surname = 'Stolár'
-    user1_MS.averageRating = 4
+    user1_MS.averageRating = 3
     user1_MS.save()
 
     user2_SS = User()
     user2_SS.name = 'Samko'
     user2_SS.surname = 'Sadík'
-    user2_SS.averageRating = 2
+    user2_SS.averageRating = 4
     user2_SS.save()
 
     user3_AC = User()
     user3_AC.name = 'Adam'
     user3_AC.surname = 'Conway'
-    user3_AC.averageRating = 5
     user3_AC.save()
     
     user4_IT = User()
     user4_IT.name = 'Igor'
     user4_IT.surname = 'Toman'
-    user4_IT.averageRating = 1
     user4_IT.save()
     
     user5_MV = User()
     user5_MV.name = 'Marie'
     user5_MV.surname = 'Valníková'
-    user5_MV.averageRating = 3
     user5_MV.save()
 
 # ====================================================== #

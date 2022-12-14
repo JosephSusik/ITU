@@ -8,7 +8,7 @@ function Navbar() {
             <div className="navbar">
             <div className="navbar_left">
                 <li>
-                    <Link to="/" className="link">PAGENAME</Link>
+                    <Link to="/" className="link">ZELENÝ BAZÁR</Link>
                 </li>
             </div>
             <div className="navbar_mid">
@@ -17,7 +17,13 @@ function Navbar() {
             </div>
             <div className="navbar_right">
                 <li>
-                    <Link to="/profile/1/" className="link">PROFILE</Link>
+                    <Link to="/listing/create" className="link">PŘIDAT INZERÁT</Link>
+                </li>
+                <li>
+                    <Link to="/users/all/" className="link">UŽIVATELÉ</Link>
+                </li>
+                <li>
+                    <Link to="/profile/1/" className="link">PROFIL</Link>
                 </li>
             </div>
         </div>
