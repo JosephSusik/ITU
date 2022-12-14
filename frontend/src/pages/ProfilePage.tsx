@@ -1,3 +1,11 @@
+/**
+ * @file ProfilePage.tsx
+ * @author Rudolf Hyksa (xhyksa00@stud.fit.vutbr.cz)
+ * @brief 
+ * @version 0.1
+ * @date 2022-12-14
+ */
+
 import React, { useEffect, useState } from "react";
 import ProfileView from "../components/profile/ProfileView";
 import ProfileTabs from "../components/profile/ProfileTabs";
@@ -27,7 +35,7 @@ function ProfilePage() {
   return (
     <div className="format profilepage">
       <div className="profilepage_user_info">
-        <ProfileView userId={userId} userData={userData} />
+        <ProfileView userId={userId} userData={userData} fetchData={fetchUserData} />
       </div>
       <div className="profilepage_tabs">
         <ProfileTabs userListings={userListings} userRatings={userRatings} userId={userId} fetchData={fetchUserData}/>

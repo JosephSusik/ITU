@@ -1,3 +1,11 @@
+/**
+ * @file UserRatings.tsx
+ * @author Rudolf Hyksa (xhyksa00@stud.fit.vutbr.cz)
+ * @brief 
+ * @version 0.1
+ * @date 2022-12-14
+ */
+
 import React, { useState, useEffect, useRef } from "react";
 import Globals from "../Globals";
 import { makeStyles } from "@material-ui/core/styles";
@@ -63,6 +71,9 @@ function UserRatings({ userId, userRatings, fetchData }: any) {
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(payload),
     };
+
+    valueRef.current.value = 3
+    textRef.current.value = ""
 
     fetch(Globals.BACKEND_URL + "users/" + userId + "/", requestOptions).then(
       () => fetchData()

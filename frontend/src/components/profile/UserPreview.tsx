@@ -1,3 +1,11 @@
+/**
+ * @file UserPreview.tsx
+ * @author Rudolf Hyksa (xhyksa00@stud.fit.vutbr.cz)
+ * @brief User preview
+ * @version 0.1
+ * @date 2022-12-14
+ */
+
 import "../../index.css";
 import { Box, Avatar } from "@mui/material";
 import Rating from "@mui/material/Rating";

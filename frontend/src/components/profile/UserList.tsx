@@ -1,3 +1,11 @@
+/**
+ * @file UserList.tsx
+ * @author Rudolf Hyksa (xhyksa00@stud.fit.vutbr.cz)
+ * @brief Handles listing all users
+ * @version 0.1
+ * @date 2022-12-14
+ */
+
 import React, { useState, useEffect } from "react";
 import UserPreview from "./UserPreview";
 import { Grid } from "@material-ui/core";
@@ -21,12 +29,6 @@ function UserList() {
 
   return (
     <>
-      {/* <div className="user_grid">
-        {users &&
-          users.map((user: any) => (
-            <UserPreview userData={user} showLink={true} />
-          ))}
-      </div> */}
       <div style={{marginLeft: "6vw"}}>
         <h1>Users</h1>
         <br />
