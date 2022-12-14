@@ -1,3 +1,9 @@
+/**
+ * File: ImagePreview.tsx
+ * Author: Leopold Nemček <xnemce07>
+ * Brief: Component for rendering small image icons used in ListingPage
+ */
+
 import React from 'react'
 import { Container } from "@mui/system"
 
@@ -10,6 +16,9 @@ function ImagePreview(props: any) {
         border = "5px solid green"
     }
 
+    /**
+     * Set this preview as main image
+     */
     const handleClick = (event:any) => {
         props.handle(props.image.id, props.image.path)
     }

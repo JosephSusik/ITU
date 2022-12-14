@@ -1,3 +1,9 @@
+/**
+ * File: DiscussionReply.tsx
+ * Author: Leopold Nemček <xnemce07>
+ * Brief: Component for viewing all replies tin a thread
+ */
+
 import React from 'react'
 import { Menu, MenuItem } from '@mui/material'
 import DiscussionMenu from './DiscussionMenu'

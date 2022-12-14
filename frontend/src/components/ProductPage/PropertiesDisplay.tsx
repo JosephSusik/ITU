@@ -1,3 +1,9 @@
+/**
+ * File: PropertiesDisplay.tsx
+ * Author: Leopold Nemček <xnemce07>
+ * Brief: Component for displaying all properties of a listing
+ */
+
 import Grid2 from '@mui/material/Unstable_Grid2/Grid2'
 import React from 'react'
 import PropertyDisplay from './PropertyDisplay'

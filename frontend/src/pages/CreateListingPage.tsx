@@ -45,11 +45,6 @@ export default function CreateListingPage() {
     var titleRef = useRef<HTMLInputElement>(null)
     var categoryRef = useRef<HTMLInputElement>(null)
     var descriptionRef = useRef<HTMLInputElement>(null)
-    var imagesRef = useRef<HTMLInputElement>(null)
-    var phoneNumberRef = useRef<HTMLInputElement>(null)
-    var phoneNumberCheckBoxRef = useRef<HTMLInputElement>(null)
-    var emailRef = useRef<HTMLInputElement>(null)
-    var emailCheckBoxRef = useRef<HTMLInputElement>(null)
     var difficultyRef = useRef<HTMLInputElement>(null)
     var envRef = useRef<HTMLInputElement>(null)
     var heightRef = useRef<HTMLInputElement>(null)
@@ -185,6 +180,7 @@ export default function CreateListingPage() {
                                 <ThemedTextArea rows={4} style={{ width: "100%", resize: "none" }} reference={descriptionRef} error={descritpionErr} />
                             </div>
                             <div style={{ margin: "0.5vw" }}>
+                                {/* Image inserting does not work, and is here only for demonstration purposes */}
                                 Obrázky:
                                 <ThemedTextArea rows={4} style={{ width: "100%", resize: "none" }} />
                             </div>

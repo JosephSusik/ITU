@@ -1,7 +1,7 @@
 /**
  * File: DiscussionSection.tsx
  * Author: Leopold Nemček <xnemce07>
- * Brief: Component for displaying discussion section under post
+ * Brief: Component for displaying discussion section under a listing
  */
 
 import React, { useState } from "react";
@@ -45,6 +45,9 @@ export default function DiscussionSection(props: any) {
 
   const classes = useStyles()
 
+  /**
+   * This is for making it so that only one thread has open the reply window under it
+   */
   const handlereplyIdChange = (id: number) => {
     if (id == replyId) {
       setReplyId(0)
@@ -55,7 +58,9 @@ export default function DiscussionSection(props: any) {
 
   return (
     <div style={{ backgroundColor: Globals.COLORS.MAIN2, borderRadius: "8px", paddingTop: "1vw", paddingBottom: "1vw", border: "2px solid black" }}>
+      {/* Input for creating new threads */}
       <DiscussionInput classes={classes} listingID={props.listingID} fetchData={props.fetchData} parentComment={false} replyHandler={handlereplyIdChange} />
+      {/* Rendering existing threads */}
       {props.comments.map((comment: any) =>
         comment.parentComment == null &&
         <DiscussionThread classes={classes} OpId={props.OpId} comment={comment} comments={props.comments} level={1} replyID={replyId} replyHandler={handlereplyIdChange} fetchData={props.fetchData} />

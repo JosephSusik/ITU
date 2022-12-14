@@ -1,3 +1,9 @@
+/**
+ * File: DiscussionMenu.tsx
+ * Author: Leopold Nemček <xnemce07>
+ * Brief: Component with menu button on comments, lets users delete the
+ */
+
 import React from 'react'
 import IconButton from '@mui/material/IconButton';
 import Menu from '@mui/material/Menu';
@@ -5,7 +11,7 @@ import MenuItem from '@mui/material/MenuItem';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 import Globals from '../Globals';
 
-//Source: https://mui.com/material-ui/react-menu/
+//Source for the button: https://mui.com/material-ui/react-menu/
 export default function DiscussionMenu(props:any) {
     const [anchorEl, setAnchorEl] = React.useState(null);
     const open = Boolean(anchorEl);
@@ -18,6 +24,9 @@ export default function DiscussionMenu(props:any) {
 
     const ITEM_HEIGHT = 48;
 
+    /**
+     * Deleting discussion post and then fetching data
+     */
     const handleDelete = () => {
         const requestOptions = {
             method: 'DELETE'

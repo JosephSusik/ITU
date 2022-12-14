@@ -1,3 +1,9 @@
+/**
+ * File: DiscussionInput.tsx
+ * Author: Leopold Nemček <xnemce07>
+ * Brief: Component for adding new reply to discussion, or starting a new thread
+ */
+
 import React, { useRef, useState } from 'react'
 import TextField from '@mui/material/TextField';
 import { Button } from '@mui/material';
@@ -11,13 +17,18 @@ export default function DiscussionInput(props: any) {
     
     const inputref = useRef<HTMLInputElement>(null)
 
-
+    /**
+     * Detect enter key and send data
+     */
     const handleKeyPress = (event:any) => {
         if(event.keyCode == 13){
             handleSend()
         }
     }
 
+    /**
+     * Checking for validity of input, if valid, send data and update, if not, set error message
+     */
     const handleSend = () => {
         if (inputref.current == null) {
             return
@@ -38,6 +49,7 @@ export default function DiscussionInput(props: any) {
         }
 
 
+        //Clear the input field on sending
         inputref.current.value = ''
         const requestOptions = {
             method: 'POST',

@@ -1,3 +1,8 @@
+/**
+ * File: DiscussionThread.tsx
+ * Author: Leopold Nemček <xnemce07>
+ * Brief: Page for adding new listings
+ */
 import React, { useState, useEffect } from "react";
 import Grid2 from '@mui/material/Unstable_Grid2/Grid2'
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
@@ -17,6 +22,9 @@ export default function DiscussionThread(props: any) {
 
   const classes = props.classes
 
+  /**
+   * Check whether this thread has any replies, depending on this, the chevron for hiding/showing replies will be shown/hidden
+   */
   const detectChildComments = () => {
     var res = false
     props.comments.map((comment: any) => {
@@ -31,6 +39,9 @@ export default function DiscussionThread(props: any) {
     detectChildComments();
   }, [props.comments]);
 
+  /**
+   * Show/hide replies 
+   */
   const handleExpandClick = () => {
     setExpand(!expand)
     if (expand && props.replyID == props.comment.id) {
@@ -38,6 +49,9 @@ export default function DiscussionThread(props: any) {
     }
   }
 
+  /**
+   * Shows reply window for this thread, hides all other reply windows
+   */
   const handleReplyClick = () => {
     props.replyHandler(props.comment.id)
     setExpand(true)

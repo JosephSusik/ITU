@@ -1,5 +1,11 @@
+/**
+ * File: PropertyDisplay.tsx
+ * Author: Leopold Nemček <xnemce07>
+ * Brief: Component for displaying a single property of a listing, it shows an Icon, name of the property and its value
+ */
 import React from 'react'
 import Grid2 from '@mui/material/Unstable_Grid2/Grid2';
+
 
 
 export default function PropertyDisplay(props:any) {
