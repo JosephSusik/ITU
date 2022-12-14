@@ -435,3 +435,12 @@
   border: 2px black solid;
   padding-left: 1vw;
 }
+
+.div_side_by_side{
+  display: flex;
+  flex-direction: row;
+}
+
+.profilepage_user_info{
+  margin-bottom: 5px;
+}
