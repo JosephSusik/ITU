@@ -13,8 +13,15 @@ export default function SpeciesDisplay(props:any) {
                     </Grid2>
                     <Grid2 xs={2}>
                         <h3>Druh</h3>
-                        {props.czech} <br />
-                        {props.latin}
+                        {props.czech || props.latin ?
+                          <>
+                          {props.czech ? (props.czech + '<br />') : ''}
+                          {props.latin}
+                          </> :
+                          'Nezadáno'
+                        }
+                        
+                        
 
                     </Grid2>
                 </Grid2>
