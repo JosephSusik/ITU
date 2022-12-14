@@ -14,5 +14,15 @@ export default {
     } ,
     CONSTRAINTS: {
         COMMENTMAXLEN: 100
+    },
+    LISTS: {
+        CATEGORY_LIST: ['Kategorie','Kaktusy', 'Palmy', 'Ovocné stromy', 'Okrasné stromy', 'Okrasné rostliny', 'Ostatní', 'Bylinky', 'Exotické rostliny', 'Skalničky', 'Užitkové rostliny', 'Okrasné keře'],
+        DIFFICULTY_LIST: ['Náročnost', 'Lehká', 'Střední', 'Těžká'],
+        ENVIRONMENT_LIST: ['Prostředí', 'Uvnitř', 'Venku', 'Všude'],
+        TRADETYPE_LIST: ['Prodej','Výměna','Zdarma'],
+        HEIGHT_LIST: ['Výška','1-20cm', '20-50cm', '50-100cm', '100-150cm', '>150cm'],
+        PLANT_TYPE_LIST: ['Forma předání','Řízek', 'Semínka', 'Živá rostlina', 'Ostatní']
     }
 }
+
+

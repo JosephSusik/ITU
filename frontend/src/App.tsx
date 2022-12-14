@@ -13,6 +13,7 @@ import '@fontsource/roboto/300.css';
 import '@fontsource/roboto/400.css';
 import '@fontsource/roboto/500.css';
 import '@fontsource/roboto/700.css';
+import CreateListingPage from './pages/CreateListingPage';
 
 function App() {
   return (
@@ -25,6 +26,7 @@ function App() {
       <Route path="/all" element={<AllPage />}/>
       <Route path="/favourites" element={<FavouritesPage />}/>
       <Route path="/beginners" element={<BeginnersPage />}/>
+      <Route path="/listing/create" element={<CreateListingPage />}/>
     </Routes>
     <Footer />
   </BrowserRouter>
