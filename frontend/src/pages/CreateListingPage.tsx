@@ -157,8 +157,8 @@ export default function CreateListingPage() {
         <div className={classes.pageContainer}>
             <h1>Přidat inzerát</h1>
             <div className={classes.container}>
-                <Grid2 container columns={2} >
-                    <Grid2 style={{ width: "45%" }}>
+                <Grid2 container columns={2}  >
+                    <Grid2 style={{ width: "45%" }} xl={1}>
                         <h3>Zakladní informace</h3>
                         <div>
                             <div style={{ margin: "0.5vw" }}>
@@ -192,40 +192,40 @@ export default function CreateListingPage() {
                             <ThemedTextArea rows={4} style={{ width: "100%", resize: "none" }} reference={instructionsRef} />
                         </div>
                     </Grid2>
-                    <Grid2 style={{ marginLeft: "5vw", width: "45%" }}>
+                    <Grid2 style={{ marginLeft: "5vw", width: "45%" }} xl={1}>
                         <h3>Dodatečné informace</h3>
                         <Grid2 container style={{ width: "90%" }} columns={2}>
-                            <Grid2 xs={1}>
+                            <Grid2 lg={1}>
                                 <div style={{ margin: "0.5vw" }} >
                                     Náročnost starostlivosti:
                                     <ThemedSelect options={Globals.LISTS.DIFFICULTY_LIST} style={{ width: "100%" }} reference={difficultyRef} />
                                 </div>
                             </Grid2>
-                            <Grid2 xs={1}>
+                            <Grid2 lg={1}>
                                 <div style={{ margin: "0.5vw", marginLeft: "4vw", width: "100%" }}>
                                     Postředí:
                                     <ThemedSelect options={Globals.LISTS.ENVIRONMENT_LIST} style={{ width: "100%" }} reference={envRef} />
                                 </div>
                             </Grid2>
-                            <Grid2 xs={1}>
+                            <Grid2 lg={1}>
                                 <div style={{ margin: "0.5vw" }}>
                                     Výška:
                                     <ThemedSelect options={Globals.LISTS.HEIGHT_LIST} style={{ width: "100%" }} reference={heightRef} />
                                 </div>
                             </Grid2>
-                            <Grid2 xs={1}>
+                            <Grid2 lg={1}>
                                 <div style={{ margin: "0.5vw", marginLeft: "4vw", width: "100%" }}>
                                     Forma předání:
                                     <ThemedSelect options={Globals.LISTS.PLANT_TYPE_LIST} style={{ width: "100%" }} reference={plantTypeRef} />
                                 </div>
                             </Grid2>
-                            <Grid2 xs={1}>
+                            <Grid2 lg={1}>
                                 <div style={{ margin: "0.5vw", width: "90%"}}>
                                     Druh česky:
                                     <ThemedTextInput type="text" style={{ width: "100%" }} reference={czechNameRef} />
                                 </div>
                             </Grid2>
-                            <Grid2 xs={1}>
+                            <Grid2 lg={1}>
                                 <div style={{ margin: "0.5vw", marginLeft: "4vw", width: "95%" }}>
                                     Druh latinsky:
                                     <ThemedTextInput type="text" style={{ width: "100%" }} reference={latinNameRef} />
