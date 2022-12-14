@@ -1,7 +1,7 @@
 /**
  * @file ProfilePage.tsx
  * @author Rudolf Hyksa (xhyksa00@stud.fit.vutbr.cz)
- * @brief 
+ * @brief Handles fetching user data and rendering profile pages
  * @version 0.1
  * @date 2022-12-14
  */

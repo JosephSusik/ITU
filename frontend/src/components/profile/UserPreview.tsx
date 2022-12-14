@@ -1,7 +1,7 @@
 /**
  * @file UserPreview.tsx
  * @author Rudolf Hyksa (xhyksa00@stud.fit.vutbr.cz)
- * @brief User preview
+ * @brief User Preview component
  * @version 0.1
  * @date 2022-12-14
  */

@@ -1,7 +1,7 @@
 /**
  * @file ProfileView.tsx
  * @author Rudolf Hyksa (xhyksa00@stud.fit.vutbr.cz)
- * @brief Combines user previews 
+ * @brief Combines user previews with additional profile inforamtion
  * @version 0.1
  * @date 2022-12-14
  */
