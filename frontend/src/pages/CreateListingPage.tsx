@@ -246,7 +246,7 @@ export default function CreateListingPage() {
                             Typ inzerce:
                             <ThemedSelect options={Globals.LISTS.TRADETYPE_LIST} style={{ width: "100%"}} reference={tradeTypeRef} onChange={handleTradeTypeChange} />
                             Cena:
-                            <ThemedTextInput type="text" style={{ width: "30%" }} reference={priceRef} error={priceErr} disabled={priceDisabled}/>
+                            <ThemedTextInput type="text" style={{ width: "30%" }} reference={priceRef} error={priceErr} disabled={priceDisabled} unit={' czk'}/>
                         </div>
                     </Grid2>
                 </Grid2>

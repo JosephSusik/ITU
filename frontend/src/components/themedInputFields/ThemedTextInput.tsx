@@ -39,6 +39,7 @@ export default function (props: any) {
               maxLength={props.maxLength}
               disabled={props.disabled}
           />
+          {props.unit}
           {(props.error && props.error != '')  ?
               <div className={classes.errorMsg}>
                   {props.error}
