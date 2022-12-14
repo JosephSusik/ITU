@@ -7,18 +7,18 @@ const useStyles = makeStyles({
     padding: "0.2vw",
     borderRadius: "6px",
     border: "2px black solid",
-    height: "1.5vw"
+    height: "19px"
   },
   inputFieldError: {
     border: "3px solid red",
     borderRadius: "6px",
     padding: "0.2vw",
-    height: "1.5vw"
+    height: "19px"
   },
   errorMsg: {
     color: "white",
     fontSize: "small",
-    fontWeight: "bold"
+    fontWeight: "bold",
   }
 });
 
@@ -39,6 +39,7 @@ export default function (props: any) {
               maxLength={props.maxLength}
               disabled={props.disabled}
           />
+          {props.unit}
           {(props.error && props.error != '')  ?
               <div className={classes.errorMsg}>
                   {props.error}

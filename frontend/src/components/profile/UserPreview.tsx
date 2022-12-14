@@ -18,7 +18,7 @@ function UserPreview({ userId, userData, showLink=false, scale=1 }: any) {
             <Box sx={{ width: 125 * scale, }}>
               <Avatar
                 alt={userData.name}
-                src="/avatars/avatar.jpg"
+                src={"/avatars/" + userData.id + ".jpg"}
                 sx={{ width: 125 * scale, height: 125 * scale, border: 1 }}
               />
             </Box>
