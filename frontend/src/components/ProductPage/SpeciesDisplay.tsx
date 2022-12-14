@@ -6,7 +6,7 @@ export default function SpeciesDisplay(props:any) {
   return (
     <>
     <Grid2 xs={1}>
-        <div style={{width:"200px"}}>
+        <div style={{width:"15vw"}}>
                 <Grid2 container columns={3} columnSpacing={0}>
                     <Grid2 xs={1}>
                         <MenuBookIcon fontSize='large' />
@@ -15,7 +15,13 @@ export default function SpeciesDisplay(props:any) {
                         <h3>Druh</h3>
                         {props.czech || props.latin ?
                           <>
-                          {props.czech ? (props.czech + '<br />') : ''}
+                          {props.czech ?
+                          <>
+                          {props.czech} <br />
+                          </>
+                          : 
+                          ''
+                          }
                           {props.latin}
                           </> :
                           'Nezadáno'

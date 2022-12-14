@@ -86,7 +86,7 @@ function HomePage() {
                     <Link to="/all" state={ {favorite_loc: "ano"} } className="hp_button_link"><button className="hp_button"><h3>Zobrazit všechny</h3></button></Link>
                 </div>
 
-                {(display_favourites == null)?
+                {(display_favourites.length === 0)?
                 <div className="hp_row_2_no_fav">
                     <p>Nemáte žádné oblíbené inzeráty</p>
                 </div>
