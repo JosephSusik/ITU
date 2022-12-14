@@ -17,7 +17,7 @@ function Navbar() {
             </div>
             <div className="navbar_right">
                 <li>
-                    <Link to="/profile" className="link">PROFILE</Link>
+                    <Link to="/profile/1/" className="link">PROFILE</Link>
                 </li>
             </div>
         </div>

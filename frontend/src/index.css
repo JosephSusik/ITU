@@ -305,6 +305,25 @@
   font-size: 1.8vw;
 }
 
+.filter_title_reset {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+  column-gap: 3vw;
+}
+
+.filter_reset_btn {
+  border: 2px black solid;
+  border-radius: 6px;
+  background-color: whitesmoke;
+  cursor: pointer;
+  font-size: 1.2vw;
+  width: 100%;
+}
+
+.filter_reset_btn:hover {
+  background-color: red;
+}
+
 .filter_r_1 {
   display: grid;
   grid-template-columns: 1fr 2fr 1fr 1fr;
@@ -415,4 +434,13 @@
   border-radius: 5px;
   border: 2px black solid;
   padding-left: 1vw;
+}
+
+.div_side_by_side{
+  display: flex;
+  flex-direction: row;
+}
+
+.profilepage_user_info{
+  margin-bottom: 5px;
 }

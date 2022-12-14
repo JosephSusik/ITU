@@ -21,7 +21,7 @@ function App() {
     <Navbar />
     <Routes>
       <Route path="/" element={<HomePage />}/>;
-      <Route path="/profile" element={<ProfilePage />}/>
+      <Route path="/profile/:userId" element={<ProfilePage />}/>
       <Route path="/listing/:id" element={<ListingPage />}/>
       <Route path="/all" element={<AllPage />}/>
       <Route path="/favourites" element={<FavouritesPage />}/>
