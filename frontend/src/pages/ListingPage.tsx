@@ -1,3 +1,9 @@
+/**
+ * File: ListingPage.tsx
+ * Author: Leopold Nemček <xnemce07>
+ * Brief: Page for viewing a listing
+ */
+
 import React, { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import Grid2 from '@mui/material/Unstable_Grid2';
@@ -5,7 +11,6 @@ import { Container } from "@mui/system"
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import ClassIcon from '@mui/icons-material/Class';
-// import WarningIcon from '@material-ui/icons/Warning'
 import WarningIcon from '@mui/icons-material/Warning'
 import Globals from "../components/Globals";
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
@@ -15,7 +20,6 @@ import ImagePreview from "../components/ProductPage/ImagePreview";
 import PropertiesDisplay from "../components/ProductPage/PropertiesDisplay";
 import DiscussionSection from "../components/ProductPage/DiscussionSection";
 import MessageIcon from '@mui/icons-material/Message';
-import { Message } from "@material-ui/icons";
 
 function ListingPage() {
 
@@ -26,6 +30,9 @@ function ListingPage() {
     var [mainImg, setMainImg]: any = useState([]);
 
 
+    /**
+     * Fetch and deserialize item data
+     */
     const handleFetchData = async () => {
         const response = await fetch('http://localhost:8000/listings/' + id + '/');
         const data = await response.json();
@@ -33,6 +40,9 @@ function ListingPage() {
         setMainImg({ id: data.mainImage.id, path: data.mainImage.path })
     }
 
+    /**
+     * Send a PUT request to add item to favorites, then fetch data
+     */
     const handleFavoriteClick = () => {
         const payload = { favoriteId: item.id }
         const requestOptions = {
@@ -49,6 +59,10 @@ function ListingPage() {
     }, []);
 
 
+    /**
+     * 
+     * Function for changing selected image for viewing
+     */
     const handleImageChange = (id: any, path: any) => {
         setMainImg({ id: id, path: path })
     }
@@ -59,9 +73,6 @@ function ListingPage() {
             <div style={{ width: "80%", minWidth: "800px", marginLeft: "auto", marginRight: "auto" }}>
                 <Grid2 container spacing={1} columns={10} columnSpacing={0}>
                     <Grid2 xs={1}>
-                        {/* {item && item.image_listing &&
-                            <ImagePreview image={item.mainImage} handle={handleImageChange} mainImgID={mainImg.id} />
-                        } */}
                         {item && item.image_listing &&
                             item.image_listing.map((image: any) =>
                                 <ImagePreview image={image} handle={handleImageChange} mainImgID={mainImg.id} />
@@ -99,6 +110,7 @@ function ListingPage() {
                             <p onClick={handleFavoriteClick} style={{ cursor: "pointer", marginBottom: "0.2vw" }}><FavoriteBorderIcon />Přidat do oblíbených</p> :
                             <p onClick={handleFavoriteClick} style={{ cursor: "pointer", marginBottom: "0.2vw" }}><FavoriteIcon />Odebrat z oblíbených</p>
                         }
+                        {/* These items don't do anythind, they're there for demonstration purposes */}
                         {item && item.author && Globals.CURRENT_USER_ID != item.author.id &&
                             <p style={{ cursor: "pointer", marginBottom: "0.2vw" }}><MessageIcon color='error' />Kontaktovat prodejce</p>
                         }

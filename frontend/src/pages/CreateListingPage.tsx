@@ -1,3 +1,8 @@
+/**
+ * File: CreateListingPage.tsx
+ * Author: Leopold Nemček <xnemce07>
+ * Brief: Page for adding new listings
+ */
 import React, { useRef, useState } from 'react'
 import { makeStyles } from '@material-ui/core/styles';
 import { borderRadius } from '@mui/system';
@@ -27,6 +32,7 @@ const useStyles = makeStyles({
 
 export default function CreateListingPage() {
 
+    // States for setting error messages for input fields
     var [titleErr, setTitleErr] = useState('')
     var [categoryErr, setCategoryErr] = useState('')
     var [descritpionErr, setDescritpionErr] = useState('')
@@ -59,7 +65,9 @@ export default function CreateListingPage() {
     
     const navigate = useNavigate();
       
-
+    /**
+     * Disable and enable price input field, accordint to sale type (Prodej, Vymena or Zdarma)
+     */
     const handleTradeTypeChange = () => {
         if(tradeTypeRef.current?.value != 'Prodej') {
             setPriceDisabled(true)
@@ -68,6 +76,9 @@ export default function CreateListingPage() {
         }
     }
 
+    /**
+     * Check for validity of input fields, if all are valid, sent put request, to create new item
+     */
     const handleClick = async () => {
 
         var error = false
@@ -144,8 +155,8 @@ export default function CreateListingPage() {
         }
         
         const response = await fetch(Globals.BACKEND_URL + 'listings/', requestOptions)
-            // .then(() => navigate("/"))
         const data:any = await response.json()
+        //Redirect to page of the added listing
         navigate("/listing/" + data.Success)
     }
 
@@ -178,15 +189,6 @@ export default function CreateListingPage() {
                                 <ThemedTextArea rows={4} style={{ width: "100%", resize: "none" }} />
                             </div>
                         </div>
-                        {/* <h3>Kontakt:</h3>
-                        <div style={{ margin: "0.5vw" }}>
-                            Telefónní číslo:
-                            <ThemedTextInput type="tel" style={{ width: "100%" }} reference={phoneNumberRef} />
-                        </div>
-                        <div style={{ margin: "0.5vw" }}>
-                            E-mailová adresa:
-                            <ThemedTextInput type="email" style={{ width: "100%" }} reference={emailRef} />
-                        </div> */}
                         <div style={{ margin: "0.5vw" }}>
                             Informace o starostlivosti:
                             <ThemedTextArea rows={4} style={{ width: "100%", resize: "none" }} reference={instructionsRef} />
@@ -246,7 +248,7 @@ export default function CreateListingPage() {
                             Typ inzerce:
                             <ThemedSelect options={Globals.LISTS.TRADETYPE_LIST} style={{ width: "100%"}} reference={tradeTypeRef} onChange={handleTradeTypeChange} />
                             Cena:
-                            <ThemedTextInput type="text" style={{ width: "30%" }} reference={priceRef} error={priceErr} disabled={priceDisabled} unit={' czk'}/>
+                            <ThemedTextInput inputType="number" style={{ width: "30%" }} reference={priceRef} error={priceErr} disabled={priceDisabled} unit={' czk'}/>
                         </div>
                     </Grid2>
                 </Grid2>

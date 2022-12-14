@@ -24,7 +24,7 @@ export default function DiscussionInput(props: any) {
         }
         var input = inputref.current.value
 
-        if (input) {
+        if (input.replace(/\s/g, '') == '') {
             setInputErr('Toto pole nesmí být prázdné')
             return;
         } else {

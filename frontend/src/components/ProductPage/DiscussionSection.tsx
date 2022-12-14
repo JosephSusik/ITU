@@ -1,3 +1,9 @@
+/**
+ * File: DiscussionSection.tsx
+ * Author: Leopold Nemček <xnemce07>
+ * Brief: Component for displaying discussion section under post
+ */
+
 import React, { useState } from "react";
 import Globals from '../Globals'
 import DiscussionInput from "./DiscussionInput";
