@@ -24,9 +24,6 @@ function ProfilePage() {
   var userListings = userData.listing_author;
   var userRatings = userData.rating_ratee;
 
-  console.log("=== Profile Page ===")
-  console.log(userId);
-  console.log(userData);
   return (
     <div className="format profilepage">
       <div className="profilepage_user_info">
