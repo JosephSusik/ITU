@@ -1,3 +1,4 @@
+import { setDefaultResultOrder } from "dns/promises";
 import { useEffect, useState } from "react";
 import { Link, useLocation } from 'react-router-dom';
 
@@ -15,14 +16,19 @@ function AllPage() {
     var {prostredni_loc} = location?.state || "def";
     var {platba_loc} = location?.state || "def";
     var {psc_loc} =  location?.state || "def";
+    var {plant_type_loc} = location?.state || "def";
+
+    console.log("fav-loc: " + favorite_loc);
+
 
     //Check if value of default
-    if (favorite_loc !== "ano") { favorite_loc = "ne"}
+    if (favorite_loc !== "ano") { favorite_loc = "ne" }
     if (category_loc !== ("1"||"2"||"3"||"4"||"5"||"6"||"7"||"8"||"9"||"10"||"11")) { category_loc = "def"}
     if (narocnost_loc !== ("Lehká"||"Střední"||"Těžká"||"Nezadáno")) { narocnost_loc = "def"}
     if (prostredni_loc !== ("Uvnitř"||"Venku"||"Všude"||"Nezadáno")) { prostredni_loc = "def"}
     if (platba_loc !== ("Zdarma"||"Výměna"||"Prodej")) { platba_loc = "def"}
     if (psc_loc === (null||undefined||"")) {  psc_loc = "" }
+    if (plant_type_loc !== ("Řízek"||"Semínka"||"Živá rostlina"||"Ostatní"||"Nezadáno")) { plant_type_loc = "def"}
 
 
     var [all, setAll]:any = useState([]);
@@ -32,10 +38,9 @@ function AllPage() {
     var [difficulty, setDifficulty]:any = useState(narocnost_loc);
     var [place, setPlace]:any = useState(prostredni_loc);
     var [pay, setPay]:any = useState(platba_loc);
+    var [plantType, setPlantType]:any = useState(plant_type_loc);
     var [psc, setPsc]:any = useState(psc_loc);
-
-
-
+    
     var fetch_link = 'http://localhost:8000/listings/?';
 
     if (category !== "def") {
@@ -58,6 +63,10 @@ function AllPage() {
         //fetch_link += 'ttype=' + pay + '&';
     }
 
+    if (plantType !== "def") {
+        fetch_link += 'ptype=' + plantType + '&';
+    }
+
     if ((psc !== "") && (psc !== undefined) && (psc !== null)) {
         fetch_link += 'zip=' + psc + '&';
     }
@@ -78,6 +87,7 @@ function AllPage() {
     useEffect(() => {
         fetchAll();
         //setLoading(0);
+        //console.log("fetching...");
     },[trigger]);
 
     const handleCategory = (event:any) => {
@@ -104,10 +114,31 @@ function AllPage() {
         setPsc(event.target.value);
     }
 
+    const handlePlantType= (event:any) => {
+        setPlantType(event.target.value);
+    }
+
+    const reset = () => {
+        setCategory("def");
+        setFavourite("ne");
+        setDifficulty("def");
+        setPlace("def");
+        setPay("def");
+        setPsc("");
+        setPlantType("def");
+    }
+
     return (
         <div className="format f_a_b">
             <div className="f_a_b_filter">
-                <h4>Filtry</h4>
+                <div className="filter_title_reset">
+                    <h4>Filtry</h4>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <Link to="/all" className="filter_reset_link"><button className="filter_reset_btn" onClick={()=>{toggle();reset()}}>Reset filtry</button></Link>
+                </div>
+                
                 <div className="filter_r_1">
                     <div className="filter_item filter_drpdwn">
                         <p>Kategorie</p>
@@ -140,10 +171,10 @@ function AllPage() {
                     </div>
                 
                     <div className="filter_item filter_input">
-                        <p>Vzdálenost</p>
+                        <p>Velikost rostliny</p>
                         <div className="filter_max_cm">
                             <input placeholder="Max"></input>
-                            <p>km</p>
+                            <p>cm</p>
                         </div>
                     </div>
 
@@ -151,9 +182,9 @@ function AllPage() {
                 <div className="filter_r_2">
                     
                     <div className="filter_item filter_drpdwn">
-                        <p>Obtížnost</p>
+                        <p>Náročnost</p>
                         <select value={difficulty} onChange={handleDifficulty}>
-                            <option value="def">Obtížnost</option>
+                            <option value="def">Náročnost</option>
                             <option value="Lehká">Lehká</option>
                             <option value="Střední">Střední</option>
                             <option value="Těžká">Těžká</option>
@@ -183,34 +214,38 @@ function AllPage() {
                     </div>
 
                     <div className="filter_item filter_input">
-                        <p>Výška</p>
+                        <p>Min. cena</p>
                         <div className="filter_max_cm">
-                            <input placeholder="Max"></input>
-                            <p>cm</p>
+                            <input placeholder="Min"></input>
+                            <p>czk</p>
                         </div>
                     </div>
 
                     <div className="filter_item filter_input">
-                        <p>Průměr květináče</p>
+                        <p>Max. cena</p>
                         <div className="filter_max_cm">
                             <input placeholder="Max"></input>
-                            <p>cm</p>
+                            <p>czk</p>
                         </div>
                     </div>
 
                 </div>
                 <div className="filter_r_3">
                     
-                    <div className="filter_item filter_input">
-                        <p>Průměr květináče</p>
-                        <div className="filter_max_cm">
-                            <input placeholder="Max"></input>
-                            <p>cm</p>
-                        </div>
+                    <div className="filter_item filter_drpdwn">
+                        <p>Typ květiny</p>
+                        <select value={plantType} onChange={handlePlantType}>
+                            <option value="def">Typ květiny</option>
+                            <option value="Řízek">Řízek</option>
+                            <option value="Semínka">Semínka</option>
+                            <option value="Živá rostlina">Živá rostlina</option>
+                            <option value="Ostatní">Ostatní</option>
+                            <option value="Nezadáno">Nezadáno</option>
+                        </select>
                     </div>
 
                     <div className="filter_item filter_drpdwn">
-                        <p>Pouze oblíbené "{favourite}"</p>
+                        <p>Pouze oblíbené</p>
                         <select value={favourite} onChange={handleFavourite}>
                             <option value="ano">Ano</option>
                             <option value="ne">Ne</option>
@@ -220,12 +255,13 @@ function AllPage() {
                     <div className="format_div_nemazat_abrakadabra"></div>
                     <div className="format_div_nemazat_abrakadabra"></div>
 
-                    <Link to="/all" state={{favorite:favourite,
+                    <Link to="/all" state={{favorite_loc:favourite,
                                             category_loc:category,
                                             narocnost_loc:difficulty,
                                             prostredni_loc:place,
                                             platba_loc:pay,
-                                            psc_loc:psc
+                                            psc_loc:psc,
+                                            plant_type_loc:plantType
                                     
                                     }}><button className="filter_button" onClick={()=>toggle()}>Hledat</button></Link>
 

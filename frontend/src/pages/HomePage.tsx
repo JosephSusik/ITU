@@ -121,7 +121,7 @@ function HomePage() {
             <div className="homepage_beginner">
                 <div className="hp_row_1">
                     <h3>Pro začátečníky</h3>
-                    <Link to="/all" className="hp_button_link"><button className="hp_button"><h3>Zobrazit všechny</h3></button></Link>
+                    <Link to="/all" state={ {narocnost_loc: "Lehká"} }className="hp_button_link"><button className="hp_button"><h3>Zobrazit všechny</h3></button></Link>
                 </div>
                 <div className="hp_row_2">
                 {
@@ -155,30 +155,3 @@ function HomePage() {
 }
 
 export default HomePage;
-
-/*
-    return(
-        <div className="format">
-            <p>Homepage</p>
-            {loading?
-                <>
-                <p>loading</p>
-                </>
-            :
-            <>
-            <pre>{JSON.stringify(items, null, 2)}</pre>
-            {
-                items.map((item:any) =>
-                    <div key={item.pk}>
-                        <h1>{item.fields.title}</h1>
-                        <h3>{item.fields.description}</h3>
-                        <Link to={"/product/" + item.pk} >{item.fields.title}</Link>
-                    </div>
-                )
-            }
-            </>
-            }
-            <img src="./img/1/1.jpg" alt="" className="img"/>            
-        </div>
-    );
- */
