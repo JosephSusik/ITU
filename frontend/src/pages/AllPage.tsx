@@ -12,6 +12,7 @@ var trigger = false;
 
 function AllPage() {
 
+    //Retrieve values from Links
     const location = useLocation();
     //Get value
     var {favorite_loc} = location?.state || "ne";
@@ -26,8 +27,7 @@ function AllPage() {
     var {max_price_loc} = location?.state || "def";
     var {search_loc} = location?.state || "def";
 
-
-    //Check if value of default
+    //Check if value or default
     if (favorite_loc !== "ano") { favorite_loc = "ne" }
     if (category_loc !== ("1"||"2"||"3"||"4"||"5"||"6"||"7"||"8"||"9"||"10"||"11")) { category_loc = "def"}
     if (narocnost_loc !== ("Lehká"||"Střední"||"Těžká"||"Nezadáno")) { narocnost_loc = "def"}
@@ -42,7 +42,7 @@ function AllPage() {
 
 
     var [all, setAll]:any = useState([]);
-
+    // Filter values
     var [category, setCategory]:any = useState(category_loc);
     var [favourite, setFavourite]:any = useState(favorite_loc);
     var [difficulty, setDifficulty]:any = useState(narocnost_loc);
@@ -50,7 +50,6 @@ function AllPage() {
     var [pay, setPay]:any = useState(platba_loc);
     var [plantType, setPlantType]:any = useState(plant_type_loc);
     var [psc, setPsc]:any = useState(psc_loc);
-    
     var [height, setHeight]:any = useState(height_loc);
     var [minPrice, setMinPrice]:any = useState(min_price_loc);
     var [maxPrice, setMaxPrice]:any = useState(max_price_loc);
@@ -58,50 +57,62 @@ function AllPage() {
     
     var fetch_link = 'http://localhost:8000/listings/?';
 
+    // if category is not default, make query
     if (category !== "def") {
         fetch_link += 'cat=' + category + '&';
     }
 
+    // if favourite is yes default, make query
     if (favourite === "ano") {
         fetch_link += 'favorite=true&';
     }
 
+    // if difficulty is not default, make query
     if (difficulty !== "def") {
        fetch_link += 'diff=' + difficulty + '&';
     }
 
+    // if place is not default, make query
     if (place !== "def") {
         fetch_link += 'environment=' + place + '&';
     }
-
+    
+    // if play is not default, make query
     if (pay !== "def") {
         fetch_link += 'ttype=' + pay + '&';
     }
 
+    // if plantType is not default, make query
     if (plantType !== "def") {
         fetch_link += 'ptype=' + plantType + '&';
     }
 
+    // if psc is not empty, make query
     if ((psc !== "") && (psc !== undefined) && (psc !== null)) {
         fetch_link += 'zip=' + psc + '&';
     }
 
+    // if height is not empty, make query
     if ((height !== "") && (height !== undefined) && (height !== null)) {
         fetch_link += 'height=' + height + '&';
     }
 
+    // if min price is not empty, make query
     if ((minPrice !== "") && (minPrice !== undefined) && (minPrice !== null)) {
         fetch_link += 'minprice=' + minPrice + '&';
     }
 
+    // if max price is not empty, make query
     if ((maxPrice !== "") && (maxPrice !== undefined) && (maxPrice !== null)) {
         fetch_link += 'maxprice=' + maxPrice + '&';
     }
 
+    // if search is not empty, make query
     if ((search !== "") && (search !== undefined) && (search !== null)) {
         fetch_link += 'search=' + search + '&';
     }
 
+    // Async fetch with proper fetch link
     const fetchAll = async () => {
         const response = await fetch(fetch_link);
         const data = await response.json();
@@ -109,62 +120,75 @@ function AllPage() {
         setAll(data);
     }
 
+    // change value of togger, for page reload
     function toggle() {
         trigger = !trigger;
     }
 
+    // call async fetch, call on trigger value change + on page reload
     useEffect(() => {
         fetchAll();
         window.scrollTo(0, 0)
         console.log("Fetch: " + fetch_link);
     },[trigger]);
 
+    // set category value
     const handleCategory = (event:any) => {
         setCategory(event.target.value);
     }
 
+    // set favourite value
     const handleFavourite = (event:any) => {
         setFavourite(event.target.value);
     }
 
+    // set difficulty value
     const handleDifficulty = (event:any) => {
         setDifficulty(event.target.value);
     }
 
+    // set place value
     const handlePlace = (event:any) => {
         setPlace(event.target.value);
     }
 
+    // set pay value
     const handlePay = (event:any) => {
         setPay(event.target.value);
     }
 
+    // set psc value
     const handlePsc = (event:any) => {
         setPsc(event.target.value);
     }
 
+    // set height value
     const handleHeight = (event:any) => {
         setHeight(event.target.value);
     }
 
+    // set plant type value
     const handlePlantType= (event:any) => {
         setPlantType(event.target.value);
     }
 
+    // set min price value
     const handleMinPrice= (event:any) => {
         setMinPrice(event.target.value);
     }
 
+    // set max price value
     const handleMaxPrice= (event:any) => {
         setMaxPrice(event.target.value);
     }
 
+    // set search value
     const handleSearch= (event:any) => {
         setSearch(event.target.value);
     }
 
 
-
+    // reset all values to default
     const reset = () => {
         setCategory("def");
         setFavourite("ne");
@@ -184,12 +208,12 @@ function AllPage() {
             <div className="f_a_b_filter">
                 <div className="filter_title_reset">
                     <h4>Filtry</h4>
-                    <div></div>
-                    <div></div>
-                    <div></div>
+                    <div className="placeholder_div"></div>
+                    <div className="placeholder_div"></div>
+                    <div className="placeholder_div"></div>
                     <Link to="/all" className="filter_reset_link"><button className="filter_reset_btn" onClick={()=>{toggle();reset()}}>Reset filtry</button></Link>
                 </div>
-                
+
                 <div className="filter_r_1">
                     <div className="filter_item filter_drpdwn">
                         <p>Kategorie</p>

@@ -1,3 +1,9 @@
+/**
+ * File: App.tsx
+ * Autor: Josef Susík <xsusik00>
+ */
+
+
 import React from 'react';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import Navbar from './components/Navbar';
