@@ -1,3 +1,11 @@
+/**
+ * @file ProfileTabs.tsx
+ * @author Rudolf Hyksa (xhyksa00@stud.fit.vutbr.cz)
+ * @brief Component dealing with Listing and Rating Tabs in a user's profile page
+ * @version 0.1
+ * @date 2022-12-14
+ */
+
 import * as React from "react";
 import "../../index.css";
 import Globals from "../Globals";
@@ -43,16 +51,12 @@ function a11yProps(index: any) {
 }
 
 
-
-
 function ProfileTabs({ userListings, userRatings, userId, fetchData }: any) {
   const [value, setValue] = React.useState(0);
 
   const handleChange = (event: any, newValue: any) => {
     setValue(newValue);
   };
-
-  // console.log(userListings)
 
   return (
     <Box sx={{ width: "100%" }}>
