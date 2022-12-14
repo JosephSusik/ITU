@@ -6,13 +6,13 @@ const useStyles = makeStyles({
         padding: "0.2vw",
         borderRadius: "6px",
         border: "2px black solid",
-        height: "2vw"
+        height: "25px"
     },
     inputFieldError: {
         padding: "0.2vw",
         borderRadius: "6px",
         border: "3px red solid",
-        height: "2vw"
+        height: "25px"
     },
     errorMsg: {
       color: "white",

@@ -194,7 +194,7 @@ export default function CreateListingPage() {
                     </Grid2>
                     <Grid2 style={{ marginLeft: "5vw", width: "45%" }}>
                         <h3>Dodatečné informace</h3>
-                        <Grid2 container style={{ width: "100%" }} columns={2}>
+                        <Grid2 container style={{ width: "90%" }} columns={2}>
                             <Grid2 xs={1}>
                                 <div style={{ margin: "0.5vw" }} >
                                     Náročnost starostlivosti:
@@ -220,13 +220,13 @@ export default function CreateListingPage() {
                                 </div>
                             </Grid2>
                             <Grid2 xs={1}>
-                                <div style={{ margin: "0.5vw" }}>
+                                <div style={{ margin: "0.5vw", width: "90%"}}>
                                     Druh česky:
                                     <ThemedTextInput type="text" style={{ width: "100%" }} reference={czechNameRef} />
                                 </div>
                             </Grid2>
                             <Grid2 xs={1}>
-                                <div style={{ margin: "0.5vw", marginLeft: "4vw", width: "100%" }}>
+                                <div style={{ margin: "0.5vw", marginLeft: "4vw", width: "95%" }}>
                                     Druh latinsky:
                                     <ThemedTextInput type="text" style={{ width: "100%" }} reference={latinNameRef} />
                                 </div>
