@@ -40,7 +40,7 @@ const useStyles = makeStyles({
   },
 });
 
-function UserRatings({ userRatings }: any) {
+function UserRatings({ userId, userRatings, fetchData }: any) {
   // console.log(userRatings);
 
   var [ratingValue, setRatingValue]: any = useState(3);
@@ -54,6 +54,23 @@ function UserRatings({ userRatings }: any) {
     console.log("handlePostRating")
     console.log("val: " + valueRef.current.value)
     console.log("text: " + textRef.current.value)
+
+    var valueInput = valueRef.current.value
+    var textInput = textRef.current.value
+
+    var payload = {
+      text: textInput,
+      rating: valueInput
+    }
+
+    const requestOptions = {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(payload)
+    }
+
+    fetch(Globals.BACKEND_URL + "users/" + userId + "/", requestOptions)
+    .then(() => fetchData())
   };
 
   return (

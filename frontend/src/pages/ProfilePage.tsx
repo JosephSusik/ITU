@@ -33,7 +33,7 @@ function ProfilePage() {
         <ProfileView userId={userId} userData={userData} />
       </div>
       <div className="profilepage_tabs">
-        <ProfileTabs userListings={userListings} userRatings={userRatings}/>
+        <ProfileTabs userListings={userListings} userRatings={userRatings} userId={userId} fetchData={fetchUserData}/>
       </div>
     </div>
   );

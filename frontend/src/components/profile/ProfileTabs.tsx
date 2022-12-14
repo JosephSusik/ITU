@@ -45,7 +45,7 @@ function a11yProps(index: any) {
 
 
 
-function ProfileTabs({ userListings, userRatings }: any) {
+function ProfileTabs({ userListings, userRatings, userId, fetchData }: any) {
   const [value, setValue] = React.useState(0);
 
   const handleChange = (event: any, newValue: any) => {
@@ -105,7 +105,7 @@ function ProfileTabs({ userListings, userRatings }: any) {
       </TabPanel>
       {/* RATINGS */}
       <TabPanel value={value} index={1}>
-        <UserRatings userRatings={userRatings}/>
+        <UserRatings userRatings={userRatings} userId={userId} fetchData={fetchData}/>
       </TabPanel>
     </Box>
   );
