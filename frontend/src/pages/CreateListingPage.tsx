@@ -159,7 +159,7 @@ export default function CreateListingPage() {
             <div className={classes.container}>
                 <Grid2 container columns={2} >
                     <Grid2 style={{ width: "45%" }}>
-                        <h3>Zakladní informace</h3>
+                        <h3>Základní informace</h3>
                         <div>
                             <div style={{ margin: "0.5vw" }}>
                                 Nadpis:
@@ -250,7 +250,7 @@ export default function CreateListingPage() {
                         </div>
                     </Grid2>
                 </Grid2>
-                <button className='button' onClick={handleClick}>Pridat</button>
+                <button className='button' onClick={handleClick}>Přidat</button>
             </div>
         </div>
     )

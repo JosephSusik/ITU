@@ -1,9 +1,7 @@
-
 /**
  * File: AllPage.tsx
  * Autor: Josef Susík <xsusik00>
  */
-
 
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useEffect, useState } from "react";
@@ -26,6 +24,7 @@ function AllPage() {
     var {height_loc} = location?.state || "def";
     var {min_price_loc} = location?.state || "def";
     var {max_price_loc} = location?.state || "def";
+    var {search_loc} = location?.state || "def";
 
 
     //Check if value of default
@@ -38,6 +37,7 @@ function AllPage() {
     if (height_loc === (null||undefined||"")) {  height_loc = "" }
     if (min_price_loc === (null||undefined||"")) {  min_price_loc = "" }
     if (max_price_loc === (null||undefined||"")) {  max_price_loc = "" }
+    if (search_loc === (null||undefined||"")) {  search_loc = "" }
     if (plant_type_loc !== ("Řízek"||"Semínka"||"Živá rostlina"||"Ostatní"||"Nezadáno")) { plant_type_loc = "def"}
 
 
@@ -54,6 +54,7 @@ function AllPage() {
     var [height, setHeight]:any = useState(height_loc);
     var [minPrice, setMinPrice]:any = useState(min_price_loc);
     var [maxPrice, setMaxPrice]:any = useState(max_price_loc);
+    var [search, setSearch]:any = useState(search_loc);
     
     var fetch_link = 'http://localhost:8000/listings/?';
 
@@ -95,6 +96,10 @@ function AllPage() {
 
     if ((maxPrice !== "") && (maxPrice !== undefined) && (maxPrice !== null)) {
         fetch_link += 'maxprice=' + maxPrice + '&';
+    }
+
+    if ((search !== "") && (search !== undefined) && (search !== null)) {
+        fetch_link += 'search=' + search + '&';
     }
 
     const fetchAll = async () => {
@@ -154,6 +159,10 @@ function AllPage() {
         setMaxPrice(event.target.value);
     }
 
+    const handleSearch= (event:any) => {
+        setSearch(event.target.value);
+    }
+
 
 
     const reset = () => {
@@ -166,6 +175,7 @@ function AllPage() {
         setHeight("");
         setMinPrice("");
         setMaxPrice("");
+        setSearch("");
         setPlantType("def");
     }
 
@@ -201,7 +211,7 @@ function AllPage() {
 
                     <div className="filter_item filter_input">
                         <p>Název</p>
-                        <input placeholder="Hledat..."></input>
+                        <input placeholder="Hledat..." value={search} onChange={handleSearch}></input>
                     </div>
 
                     <div></div>
