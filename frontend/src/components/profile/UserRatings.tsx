@@ -26,7 +26,7 @@ const useStyles = makeStyles({
   topRight: {
     position: "absolute",
     top: 0,
-    right: 0,
+    right: 10,
   },
   topRightIconless: {
     position: "absolute",
@@ -41,7 +41,7 @@ const useStyles = makeStyles({
 });
 
 function UserRatings({ userId, userRatings, fetchData }: any) {
-  // console.log(userRatings);
+  console.log(userRatings);
 
   var [ratingValue, setRatingValue]: any = useState(3);
 
@@ -51,27 +51,31 @@ function UserRatings({ userId, userRatings, fetchData }: any) {
   const classes = useStyles();
 
   const handlePostRating = () => {
-    console.log("handlePostRating")
-    console.log("val: " + valueRef.current.value)
-    console.log("text: " + textRef.current.value)
+    console.log("handlePostRating");
+    console.log("val: " + valueRef.current.value);
+    console.log("text: " + textRef.current.value);
 
-    var valueInput = valueRef.current.value
-    var textInput = textRef.current.value
+    var valueInput = valueRef.current.value;
+    var textInput = textRef.current.value;
 
     var payload = {
       text: textInput,
-      rating: valueInput
-    }
+      rating: valueInput,
+    };
 
     const requestOptions = {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(payload)
-    }
+      body: JSON.stringify(payload),
+    };
 
-    fetch(Globals.BACKEND_URL + "users/" + userId + "/", requestOptions)
-    .then(() => fetchData())
+    fetch(Globals.BACKEND_URL + "users/" + userId + "/", requestOptions).then(
+      () => fetchData()
+    );
   };
+
+  // const d = new Date(userData.joinedOn)
+  // const joinedDate = d.toLocaleString('cs-CZ')
 
   return (
     <>
@@ -111,10 +115,23 @@ function UserRatings({ userId, userRatings, fetchData }: any) {
           </button>
         </div>
         {userRatings &&
-          userRatings.map((rating: any) =>
-            <div className={classes.container}>rating placeholder</div>
-          )
-        }
+          userRatings.map((rating: any) => (
+            <div className={classes.container}>
+              <div>
+                {rating.author.name + " " + rating.author.surname} {rating.author.id == Globals.CURRENT_USER_ID && "(vy)"}
+              </div>
+              <div className={classes.topRight}>
+                {(new Date(rating.createdOn)).toLocaleString("cs-CZ")}
+              </div>
+              <p>{rating.text}</p>
+              <Rating
+                name="rating-read-only"
+                value={rating.rating}
+                readOnly
+                precision={1}
+              />
+            </div>
+          ))}
       </div>
     </>
   );

@@ -34,7 +34,7 @@ function UserPreview({ userId, userData, showLink=false, scale=1 }: any) {
                 }}
               >
                 <Rating name="user-star-rating" value={userData.averageRating?userData.averageRating:0} readOnly precision={0.1} size="large"/>
-                <Box sx={{ ml: 2 }}>{userData.averageRating && userData.averageRating}/5 ({userData.rating_ratee && userData.rating_ratee.length})</Box>
+                <Box sx={{ ml: 2 }}>{userData.averageRating && Number((userData.averageRating).toFixed(2))}/5 ({userData.rating_ratee && userData.rating_ratee.length})</Box>
               </Box>
               {showLink ? <a href={"//localhost:3000/profile/" + userData.id + "/"}>Zobrazit profil</a> : <></>}
             </Box>
