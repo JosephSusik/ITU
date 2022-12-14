@@ -1,3 +1,8 @@
+/**
+ * File: HomePage.tsx
+ * Autor: Josef Susík <xsusik00>
+ */
+
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
@@ -8,7 +13,6 @@ function HomePage() {
     var [all, setAll]:any = useState([]);
     var [favourites, setFavourites]:any = useState([]);
     var [beginners, setBeginners]:any = useState([]);
-    var [loading, setLoading]:any = useState(1);
 
     const fetchAll = async () => {
         const response = await fetch('http://localhost:8000/listings/');
@@ -35,15 +39,13 @@ function HomePage() {
         fetchAll();
         fetchFavourites();
         fetchBeginner();
-        setLoading(0);
+        window.scrollTo(0, 0)
     },[]);
 
 
     var display_all = all.slice(0,4);
     var display_favourites = favourites.slice(0,4);
     var display_beginners = beginners.slice(0,4);
-
-    //TO-DO: if favourite is NULL?
 
     return (
         <div className="format homepage">
@@ -55,7 +57,7 @@ function HomePage() {
                 <div className="hp_row_2">
                 {
                     display_all.map((item:any) =>
-                        <Link to={"listing/" + item.id} className="inzerat_link" >
+                        <Link to={"listing/" + item.id} className="inzerat_link" key={item.id} >
                         <div key={item.id} className="hp_inzerat">
                             <div className="hp_img_div">
                                 <img src={item.mainImage.path} alt="" className="hp_img"/>
@@ -93,7 +95,7 @@ function HomePage() {
                 <div className="hp_row_2">
                 {
                     display_favourites.map((item:any) =>
-                    <Link to={"listing/" + item.id} className="inzerat_link" >
+                    <Link to={"listing/" + item.id} className="inzerat_link" key={item.id} >
                         <div key={item.id} className="hp_inzerat">
                             <div className="hp_img_div">
                                 <img src={item.mainImage.path} alt="" className="hp_img"/>
@@ -126,7 +128,7 @@ function HomePage() {
                 <div className="hp_row_2">
                 {
                     display_beginners.map((item:any) =>
-                    <Link to={"listing/" + item.id} className="inzerat_link" >
+                    <Link to={"listing/" + item.id} className="inzerat_link" key={item.id} >
                         <div key={item.id} className="hp_inzerat">
                             <div className="hp_img_div">
                                 <img src={item.mainImage.path} alt="" className="hp_img"/>
