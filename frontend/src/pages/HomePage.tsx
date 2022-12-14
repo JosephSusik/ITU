@@ -1,6 +1,7 @@
 /**
  * File: HomePage.tsx
  * Autor: Josef Susík <xsusik00>
+ * Brief: Main page of the app
  */
 
 import React, { useEffect, useState } from "react";

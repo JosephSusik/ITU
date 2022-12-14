@@ -1,8 +1,8 @@
 /**
  * File: App.tsx
  * Autor: Josef Susík <xsusik00>
+ * Brief: Main logic of the app, routes etc..
  */
-
 
 import React from 'react';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';

@@ -1,6 +1,7 @@
 /**
  * File: AllPage.tsx
  * Autor: Josef Susík <xsusik00>
+ * Brief: Show all advertisements or advertisement based on filter
  */
 
 /* eslint-disable react-hooks/exhaustive-deps */
