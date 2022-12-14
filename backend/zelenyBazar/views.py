@@ -70,30 +70,65 @@ def viewListings(request):
 
     if request.method == 'POST':
         payload = json.loads(request.body)
-        if not ( payload.keys() >= {'title', 'description' , 'category' , 'difficulty', 'plantType', 'size', 'tradeType'}):
-            return HttpResponse(json.dumps({'Error' : 'Listing has missing fields'}), content_type = 'text/json')
+        # if not ( payload.keys() >= {'title', 'description' , 'category' , 'tradeType', 'locationN', 'locationZ'}):
+        #     return HttpResponse(json.dumps({'Error' : 'Listing has missing fields'}), content_type = 'text/json')
         listing = Listing()
         listing.title = payload['title']
         listing.description = payload['description']
-        listing.category_id = payload['category']
+        if 'instructions' in payload:
+            listing.instructions = payload['instructions']
+
+        cat = Category.objects.filter(name=payload['category']).all().first()
+        listing.category = cat
+        
         if 'author' in payload:
             listing.author_id = payload['author']
         else:
             listing.author_id = 1
-        listing.difficulty = payload['difficulty']
-        if 'price' in payload:
+
+        if 'difficulty' in payload and payload['difficulty'] != '':
+            listing.difficulty = payload['difficulty']
+
+        if 'price' in payload and payload['price'] != '':
             listing.price = payload['price']
-        if 'environment' in payload:
+
+        if 'environment' in payload and payload['environment'] != '':
             listing.environment = payload['environment']
-        listing.plantType = payload['plantType']
-        listing.size = payload['size']
+
+        if 'plantType' in payload and payload['plantType'] != '':
+            listing.plantType = payload['plantType']
+
+        if 'size' in payload and payload['size'] != '':
+            listing.size = payload['size']
+
+        if 'speciesCZ' in payload and payload['speciesCZ'] != '':
+            listing.speciesCZ = payload['speciesCZ']
+
+        if 'speciesLat' in payload and payload['speciesLat'] != '':
+            listing.speciesLat = payload['speciesLat']
+
         listing.tradeType = payload['tradeType']
+
+        listing.locationName = payload['locationN']
+
+        listing.locationZip = payload['locationZ']
+        listing.mainImage_id = 1
+
         listing.save()
+        if not 'images' in payload:
+            payload['images'] = [
+                '/img/1/1.jpg',
+                '/img/1/2.jpg',
+                '/img/1/3.jpg',
+                '/img/1/4.jpg',
+                '/img/1/5.jpg',
+            ]
         for imagePath in payload['images']:
             image = Image()
             image.path = imagePath
             image.listing = listing
             image.save()
+        
         return HttpResponse(json.dumps({'Success' : listing.id}), content_type = 'text/json')
     
     if request.method == 'PUT':
