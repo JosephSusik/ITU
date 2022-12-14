@@ -1,6 +1,7 @@
 /**
  * File: HomePage.tsx
  * Autor: Josef Susík <xsusik00>
+ * Brief: Main page of the app
  */
 
 import React, { useEffect, useState } from "react";
@@ -10,10 +11,12 @@ import "../index.css";
 
 function HomePage() {
 
+    // Variables for displaying items
     var [all, setAll]:any = useState([]);
     var [favourites, setFavourites]:any = useState([]);
     var [beginners, setBeginners]:any = useState([]);
 
+    // Async fetch all items
     const fetchAll = async () => {
         const response = await fetch('http://localhost:8000/listings/');
         const data = await response.json();
@@ -21,6 +24,7 @@ function HomePage() {
         setAll(data);
     }
 
+    // Async fetch only favourite items
     const fetchFavourites = async () => {
         const response = await fetch('http://localhost:8000/listings/?favorite=true');
         const data = await response.json();
@@ -28,6 +32,7 @@ function HomePage() {
         setFavourites(data);
     }
 
+    // Async fetch only items for beginners
     const fetchBeginner = async () => {
         const response = await fetch('http://localhost:8000/listings/?diff=Lehká');
         const data = await response.json();
@@ -35,14 +40,17 @@ function HomePage() {
         setBeginners(data);
     }
     
+    // Call async fetches on page reload
     useEffect(() => {
         fetchAll();
         fetchFavourites();
         fetchBeginner();
+        // if redirected to homepage, show from the top
         window.scrollTo(0, 0)
     },[]);
 
 
+    // Show just first 4 items
     var display_all = all.slice(0,4);
     var display_favourites = favourites.slice(0,4);
     var display_beginners = beginners.slice(0,4);
