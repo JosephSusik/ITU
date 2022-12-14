@@ -41,7 +41,6 @@ const useStyles = makeStyles({
 });
 
 function UserRatings({ userId, userRatings, fetchData }: any) {
-  console.log(userRatings);
 
   var [ratingValue, setRatingValue]: any = useState(3);
 
@@ -51,10 +50,6 @@ function UserRatings({ userId, userRatings, fetchData }: any) {
   const classes = useStyles();
 
   const handlePostRating = () => {
-    console.log("handlePostRating");
-    console.log("val: " + valueRef.current.value);
-    console.log("text: " + textRef.current.value);
-
     var valueInput = valueRef.current.value;
     var textInput = textRef.current.value;
 

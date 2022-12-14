@@ -52,8 +52,6 @@ function ProfileTabs({ userListings, userRatings, userId, fetchData }: any) {
     setValue(newValue);
   };
 
-  // console.log(userListings)
-
   return (
     <Box sx={{ width: "100%" }}>
       <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
