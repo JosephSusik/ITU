@@ -353,7 +353,7 @@ def seedData(request):
     listing3.difficulty = DifficultyChoices.HARD
     listing3.tradeType = TradeTypeChoices.FREE
     listing3.size = HeightChoices.ONE_TWENTY
-    listing3.price = 600
+    listing3.price = 0
     listing3.plantType = PlantTypeChoices.ALIVE_PLANT
     listing3.author = user1_MS
     listing3.category_id = 1
