@@ -6,7 +6,7 @@ const useStyles = makeStyles({
         padding: "0.2vw",
         borderRadius: "6px",
         border: "2px black solid",
-        height: "25px"
+        height: "30px"
     },
     inputFieldError: {
         padding: "0.2vw",
