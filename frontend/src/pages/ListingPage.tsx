@@ -9,6 +9,7 @@ import ClassIcon from '@mui/icons-material/Class';
 import WarningIcon from '@mui/icons-material/Warning'
 import Globals from "../components/Globals";
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
+import UserPreview from "../components/profile/UserPreview";
 
 import ImagePreview from "../components/ProductPage/ImagePreview";
 import PropertiesDisplay from "../components/ProductPage/PropertiesDisplay";
@@ -83,6 +84,12 @@ function ListingPage() {
                     <Grid2 xs={5}>
                         {item && item.image_listing &&
                             <PropertiesDisplay item={item} />
+                        }
+                    </Grid2>
+                    <Grid2 md={5}>
+                        {
+                            item && item.author &&
+                            <UserPreview userData={item.author} showLink={true} scale={0.7}/>
                         }
                     </Grid2>
                     <Grid2 xs={10}>

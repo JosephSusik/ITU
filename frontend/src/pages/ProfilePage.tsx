@@ -22,7 +22,9 @@ function ProfilePage() {
   }, []);
 
   var userListings = userData.listing_author;
+  var userRatings = userData.rating_ratee;
 
+  console.log("=== Profile Page ===")
   console.log(userId);
   console.log(userData);
   return (
@@ -31,7 +33,7 @@ function ProfilePage() {
         <ProfileView userId={userId} userData={userData} />
       </div>
       <div className="profilepage_tabs">
-        <ProfileTabs userListings={userListings} />
+        <ProfileTabs userListings={userListings} userRatings={userRatings}/>
       </div>
     </div>
   );

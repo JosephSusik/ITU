@@ -7,6 +7,7 @@ import Tab from "@mui/material/Tab";
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
 import { Link } from "react-router-dom";
+import UserRatings from "./UserRatings";
 
 function TabPanel(props: any) {
   const { children, value, index, ...other } = props;
@@ -71,9 +72,10 @@ function ProfileTabs({ userListings, userRatings }: any) {
           <Tab label="RECENZE" {...a11yProps(1)} />
         </Tabs>
       </Box>
+      {/* LISTINGS */}
       <TabPanel value={value} index={0}>
         <div className="f_a_b_display">
-          {userListings?
+          {userListings &&
             userListings.map((item: any) => (
               <Link to={"../listing/" + item.id} className="inzerat_link">
                 <div key={item.id} className="hp_inzerat">
@@ -98,13 +100,12 @@ function ProfileTabs({ userListings, userRatings }: any) {
                 </div>
               </Link>
             ))
-            :
-            <></>
           }
         </div>
       </TabPanel>
+      {/* RATINGS */}
       <TabPanel value={value} index={1}>
-        Item Two
+        <UserRatings userRatings={userRatings}/>
       </TabPanel>
     </Box>
   );
