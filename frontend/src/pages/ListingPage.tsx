@@ -35,7 +35,7 @@ function ListingPage() {
     }
 
     const handleFavoriteClick = () => {
-        const payload = {favoriteId:item.id}
+        const payload = { favoriteId: item.id }
         const requestOptions = {
             method: 'PUT',
             headers: { 'Content-Type': 'application/json' },
@@ -91,19 +91,28 @@ function ListingPage() {
                     <Grid2 md={5}>
                         {
                             item && item.author &&
-                            <UserPreview userData={item.author} showLink={true} scale={0.7}/>
+                            <UserPreview userData={item.author} showLink={true} scale={0.7} />
                         }
                     </Grid2>
                     <Grid2 xs={10}>
                         <h2>Akce</h2>
                         {!item.isFavorite ?
-                            <p onClick={handleFavoriteClick} style={{cursor: "pointer", marginBottom:"0.2vw"}}><FavoriteBorderIcon/>Přidat do oblíbených</p> :
-                            <p onClick={handleFavoriteClick} style={{cursor: "pointer", marginBottom:"0.2vw"}}><FavoriteIcon/>Odebrat z oblíbených</p>
+                            <p onClick={handleFavoriteClick} style={{ cursor: "pointer", marginBottom: "0.2vw" }}><FavoriteBorderIcon />Přidat do oblíbených</p> :
+                            <p onClick={handleFavoriteClick} style={{ cursor: "pointer", marginBottom: "0.2vw" }}><FavoriteIcon />Odebrat z oblíbených</p>
                         }
-                        <p style={{cursor: "pointer", marginBottom:"0.2vw"}}><MessageIcon color='error' />Kontaktovat prodejce</p>
-                        <p style={{cursor: "pointer", marginBottom:"0.2vw"}}><ClassIcon color='warning' />Nahlásit nesprávnou kategorii</p>
-                        <p style={{cursor: "pointer", marginBottom:"0.2vw"}}><WarningIcon color='error' />Nahlásit inzerát</p>
-                        <p style={{cursor: "pointer", marginBottom:"0.2vw"}}><DeleteForeverIcon color='error' />Smazat inzerát</p>
+                        {item && item.author && Globals.CURRENT_USER_ID != item.author.id &&
+                            <p style={{ cursor: "pointer", marginBottom: "0.2vw" }}><MessageIcon color='error' />Kontaktovat prodejce</p>
+                        }
+                        {item && item.author && Globals.CURRENT_USER_ID != item.author.id &&
+                            <p style={{ cursor: "pointer", marginBottom: "0.2vw" }}><ClassIcon color='warning' />Nahlásit nesprávnou kategorii</p>
+                        }
+                        {
+                            item && item.author && Globals.CURRENT_USER_ID != item.author.id &&
+                            <p style={{ cursor: "pointer", marginBottom: "0.2vw" }}><WarningIcon color='error' />Nahlásit inzerát</p>
+                        }
+                        {item && item.author && Globals.CURRENT_USER_ID == item.author.id &&
+                            <p style={{ cursor: "pointer", marginBottom: "0.2vw" }}><DeleteForeverIcon color='error' />Smazat inzerát</p>
+                        }
                     </Grid2>
                 </Grid2>
                 <div style={{ padding: "2vw" }} />
