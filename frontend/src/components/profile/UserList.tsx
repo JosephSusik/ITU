@@ -30,7 +30,7 @@ function UserList() {
   return (
     <>
       <div style={{marginLeft: "6vw"}}>
-        <h1>Users</h1>
+        <h1>Uživatelé</h1>
         <br />
         <Grid container spacing={1}>
           {users &&
